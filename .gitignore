@@ -1,0 +1,14 @@
+node_modules
+
+.cache
+.env
+.vercel
+.output
+.idea
+
+/build/
+/public/build
+/api
+
+.DS_Store
+app/generated.css

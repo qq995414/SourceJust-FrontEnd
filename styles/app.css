@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#nprogress .bar {
+    background: #B62122 !important;
+    height: 4px !important;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px #B62122, 0 0 5px #B62122 !important;
+}
+
+#nprogress .spinner-icon {
+    border-top-color: #B62122 !important;
+    border-left-color: #B62122 !important;
+}
+
+#nprogress .spinner {
+    position: fixed !important;
+    top: unset !important;
+    bottom: 15px !important;
+    right: 15px !important;
+}
+
+.rc-calendar-selected-day .rc-calendar-date {
+    background: #ffe5e5 !important;
+}
+
+.rc-calendar {
+    border: none !important;
+    box-shadow: none !important;
+    width: 100% !important;
+}
+
+.rc-calendar-selected-date .rc-calendar-date {
+    background: #B62122 !important;
+    color: #fff !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+.rc-calendar-selected-date .rc-calendar-date:hover {
+    background: #f32b2d !important;
+    color: #fff !important;
+}
+
+.rc-calendar-today .rc-calendar-date {
+    border: #B62122 solid 1px !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+.rc-calendar-date:hover {
+    background: #ffe5e5 !important;
+}
