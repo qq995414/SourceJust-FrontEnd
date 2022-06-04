@@ -2,6 +2,8 @@
 
 索爾斯科技系統管理後台。使用 [Remix](https://remix.run/) 框架搭建。
 
+前端API串接文件 [Swagger API Docs](https://serp.source-test.com/swagger-ui/#/)
+
 ## 設計稿
 
 請下載 [Figma](https://www.figma.com/) 然後開啟以下連結：
