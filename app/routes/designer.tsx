@@ -1,11 +1,24 @@
+import { ActionFunction, Form, LoaderFunction, useLoaderData } from "remix";
+import authenticator from "~/services/auth.server";
+import { sessionStorage } from "~/services/session.server";
 import SideNav from '~/components/SideNav';
 import { MetaFunction, Outlet } from 'remix';
+
+export let loader: LoaderFunction = async ({ request }) => {
+  return await authenticator.isAuthenticated(request, {
+    failureRedirect: "/designer/login",
+  });
+};
+export const action: ActionFunction = async ({ request }) => {
+  await authenticator.logout(request, { redirectTo: "/designer/login" });
+};
 
 export const meta: MetaFunction = () => {
   return { title: '設計師後台 ｜ 索爾斯科技', };
 };
 
 export default function Index() {
+  const data = useLoaderData();
   return (
     <>
       <SideNav

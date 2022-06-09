@@ -22,7 +22,7 @@ export default function Index() {
         </div>
       </div>
       <div className="flex flex-col">
-        <Link to={'/designer/login'}>
+        <Link to={'/designer/'}>
           <div
             className="p-8 rounded shadow w-64 transition-all
             text-center mb-4 hover:shadow-xl">
