@@ -14,7 +14,42 @@ export let sessionStorage = createCookieSessionStorage({
 export let { getSession, commitSession, destroySession } = sessionStorage;
 
 // 定義使用者資訊
+
+export type Profile = {
+  account: string;
+  salt: string;
+  name: string;
+  email: string;
+  phone?: any;
+  address: string;
+  identityId?: any;
+  roleId: string;
+  lineToken?: any;
+  isInternal: boolean;
+  id: number;
+  createTime: string;
+  createBy: number;
+  modifyTime: string;
+  modifyBy: number;
+  roleName: string;
+  roleCode: string;
+}
+
+export type Data = {
+  permissions: any[];
+  profile: Profile;
+  token: string;
+}
+
 export type User = {
-  name: string; // 姓名
-  token: string; // 權杖
-};
+  success: boolean;
+  code: number;
+  message: string;
+  data: Data;
+}
+
+// 模擬登入
+// export type User = {
+//   name: string; // 姓名
+//   token: string; // 權杖
+// };
