@@ -5,6 +5,7 @@ interface Props {
   placeholder?: string;
   value?: string;
   className?: string;
+  itemName?: string;
   onChange?: (s: string) => void;
 }
 
@@ -21,11 +22,13 @@ export default function (props: Props) {
           min={0}
           max={9}
           onChange={e => props.onChange && props.onChange(e.target.value)}
+          name = {props.itemName}
           className={classNames(
             'text-black font-bold text-center rounded-md',
             style, props.className)}
         />
-      </div> :
+      </div> 
+      :
       <input
         className={classNames(props.type === 'sign' ? `rounded-3xl 
     text-center p-3.5 text-sm tracking-widest`
@@ -33,6 +36,7 @@ export default function (props: Props) {
         style, props.className)}
         placeholder={props.placeholder}
         value={props.value}
+        name = {props.itemName}
         onChange={e => props.onChange && props.onChange(e.target.value)}
       />
   );
