@@ -7,6 +7,9 @@ import authenticator from "~/services/repwd.server";
 import { OpenAPI } from 'app/ApiClient';
 
 export const action: ActionFunction = async ({ request}) => {
+  const user = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/designer/login",
+  });
 
   // const formData = await request.formData();
   // call my authenticator
@@ -14,6 +17,7 @@ export const action: ActionFunction = async ({ request}) => {
   console.log('request:' + request);
   const resp = await authenticator.authenticate("updataPwd", request, {
     throwOnError: true,
+    context: user
   });
   return resp;
 };

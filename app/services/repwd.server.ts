@@ -18,7 +18,7 @@ const authenticator = new Authenticator<User | Error | null>(sessionStorage, {
 authenticator.use(
 
 
-  new FormStrategy(async ({ form }) => {
+  new FormStrategy(async ({ form, context }) => {
     // 從表單獲取登入資訊
 
 
@@ -53,11 +53,11 @@ authenticator.use(
     //   // if problem with user throw error AuthorizationError
     //   throw new AuthorizationError("輸入錯誤")
     // }
+    OpenAPI.TOKEN = context.data.token;
     let apiClient = new ApiClient(OpenAPI);
 
     let user = await apiClient.accountController.updatePwdUsingPost(oldpwd, newpwd, repwd)
       .then(res => {
-
         return res;
       });
 
