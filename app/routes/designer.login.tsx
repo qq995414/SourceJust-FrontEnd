@@ -9,6 +9,7 @@ import {
   useLoaderData } from 'remix';
 import authenticator from "~/services/auth.server";
 import { sessionStorage } from "~/services/session.server";
+import { OpenAPI } from 'app/ApiClient';
 
 /**
  * 登入事件
@@ -44,11 +45,15 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const error = session.get("sessionErrorKey");
   return json<any>({ error });
+  
 };
 
 export default function Index() {
   const navigate = useNavigate();
   const loaderData = useLoaderData();
+  OpenAPI.TOKEN=loaderData?.data?.token;
+
+  
   // const [Account, setAccount] = useState('');
   // const [Password, setPassword] = useState('');
   return (

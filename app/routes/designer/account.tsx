@@ -1,6 +1,28 @@
 import TextInput from '~/components/common/TextInput';
+import Button from '~/components/common/Button';
+
 import { PropsWithChildren, useState } from 'react';
-import { useNavigate } from 'remix';
+import { Form, useNavigate,ActionFunction,LoaderFunction,useLoaderData } from 'remix';
+import authenticator from "~/services/repwd.server";
+import { OpenAPI } from 'app/ApiClient';
+
+export const action: ActionFunction = async ({ request}) => {
+
+  // const formData = await request.formData();
+  // call my authenticator
+  console.log('測試');
+  console.log('request:' + request);
+  const resp = await authenticator.authenticate("updataPwd", request, {
+    throwOnError: true,
+  });
+  return resp;
+};
+
+export let loader: LoaderFunction = async ({ request }) => {
+  return await authenticator.isAuthenticated(request, {
+    failureRedirect: "/designer/login",
+  });
+};
 
 export default function Index() {
   const [lanuagelist, setlanuagelist] = useState([
@@ -16,6 +38,11 @@ export default function Index() {
     id: '',
     select: ''
   };
+  const data = useLoaderData();
+  //console.log(data);
+  OpenAPI.TOKEN=data?.data?.token
+  console.log(OpenAPI);
+  
   const [changePass, setchangePass] = useState(false);
   const [Lanuage, setLanuage] = useState(false);
   const [firstTimeAccess, setFirstTimeAccess] = useState(0);
@@ -26,34 +53,34 @@ export default function Index() {
     <div className="h-auto w-full ">
       <div className=" h-full w-full container mx-auto"> {/* container */}
         {!firstTimeAccess &&
-        <div className="fixed top-0 bottom-0 left-0 right-0">
-          <div className="w-screen h-screen bg-gray-500 opacity-40 z-10"></div>
-          <div
-            className="w-1/3 h-96 bg-white z-20
+          <div className="fixed top-0 bottom-0 left-0 right-0">
+            <div className="w-screen h-screen bg-gray-500 opacity-40 z-10"></div>
+            <div
+              className="w-1/3 h-96 bg-white z-20
           fixed top-0 left-0 bottom-0 right-0 m-auto
           rounded-xl shadow-xl flex flex-col items-center" >
-            <p className="font-semibold text-xl mt-16">
-              首次登入建議綁定 Line 機器人
-            </p>
-            <p className="font-base text-usual-gray mt-12 w-4/5 tracking-[0.12em]">
-              綁定LINE通知可隨時掌握動態，案件有任何更動將會動態推播，讓您不漏任何一則訊息！
-              請點擊按鈕進行訂閱</p>
-            <div className="mt-16 flex justify-between w-4/5 tracking-[0.12em]">
-              <button
-                className="border-2 border-[#BBBBBB] w-32
+              <p className="font-semibold text-xl mt-16">
+                首次登入建議綁定 Line 機器人
+              </p>
+              <p className="font-base text-usual-gray mt-12 w-4/5 tracking-[0.12em]">
+                綁定LINE通知可隨時掌握動態，案件有任何更動將會動態推播，讓您不漏任何一則訊息！
+                請點擊按鈕進行訂閱</p>
+              <div className="mt-16 flex justify-between w-4/5 tracking-[0.12em]">
+                <button
+                  className="border-2 border-[#BBBBBB] w-32
               h-12 rounded-full ml-3 text-usual-gray font-semibold"
-                onClick={()=>setFirstTimeAccess(firstTimeAccess+1)}>
-                下次再說</button>
-              <button
-                className="bg-primary-red w-32 h-12 rounded-full mr-3
+                  onClick={() => setFirstTimeAccess(firstTimeAccess + 1)}>
+                  下次再說</button>
+                <button
+                  className="bg-primary-red w-32 h-12 rounded-full mr-3
               text-white font-semibold"
-                onClick={()=>navigate('../notifications')}>
-                前往綁定
-              </button>
-            </div>
+                  onClick={() => navigate('../notifications')}>
+                  前往綁定
+                </button>
+              </div>
 
-          </div>
-        </div>}
+            </div>
+          </div>}
         <div className="flex flex-col w-full h-full">
           <div className="h-1/5 w-full flex justify-center">
             <img
@@ -90,8 +117,8 @@ export default function Index() {
                 style={{ width: '150px' }}
                 className="p-3.5 text-left ">密碼設定：
               </div>
-              <div className="flex flex-col w-full h-full">
-                <div className="w-full flex flex-row mt-4">
+              <Form className="flex flex-col w-full h-full" method="post" name='form'>
+                <div className="w-full flex flex-row mt-4" >
                   <p
                     style={{
                       width: '120px',
@@ -101,13 +128,13 @@ export default function Index() {
                   <TextInput
                     className="p-3.5 w-2/6"
                     type="normal"
+                    itemName='oldpwd'
 
                   />
                   <div className="ml-auto">
-                    <AccButton
+                    <Button
                       onClick={() => {
-                        setchangePass(false);
-                      }}>完成</AccButton>
+                      }}>完成</Button>
                   </div>
                 </div>
                 <div className="w-4/6 flex flex-row mt-4">
@@ -120,7 +147,7 @@ export default function Index() {
                   <TextInput
                     className="p-3.5 w-3/6"
                     type="normal"
-
+                    itemName='newpwd'
                   />
                 </div>
                 <div className="w-4/6 flex flex-row mt-4 mb-4">
@@ -133,10 +160,10 @@ export default function Index() {
                   <TextInput
                     className="p-3.5 w-3/6"
                     type="normal"
-
+                    itemName='repwd'
                   />
                 </div>
-              </div>
+              </Form>
             </div>}
 
             {/* 語言 */}

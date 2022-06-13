@@ -1,9 +1,11 @@
 import TextInput from '~/components/common/TextInput';
 import { PropsWithChildren, useState } from 'react';
-import { useNavigate } from 'remix';
+import { useNavigate,useLoaderData } from 'remix';
 
 export default function Index() {
   const navigate = useNavigate();
+  const data = useLoaderData();
+  console.log(data?.success);
   const [changePass, setchangePass] = useState(false);
   const [firstTimeAccess, setFirstTimeAccess] = useState(0);
   return (
