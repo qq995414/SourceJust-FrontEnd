@@ -1,5 +1,5 @@
 import Button from '~/components/common/Button';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'remix';
 
 export default function Index() {
   const navigate = useNavigate();
