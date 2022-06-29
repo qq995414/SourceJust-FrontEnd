@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import BraftEditor from 'braft-editor'
 import 'braft-editor/dist/index.css'
 
+// disable ssr => ref: https://github.com/remix-run/remix/discussions/1023
 export default class Main extends Component {
 
         state = {
