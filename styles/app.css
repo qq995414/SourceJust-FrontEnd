@@ -23,6 +23,15 @@
     right: 15px !important;
 }
 
+.hover-button .hover-button--on,
+.hover-button:hover .hover-button--off {
+    display: none;
+}
+
+.hover-button:hover .hover-button--on {
+    display: inline;
+}
+
 .rc-calendar-selected-day .rc-calendar-date {
     background: #ffe5e5 !important;
 }
@@ -51,4 +60,34 @@
 
 .rc-calendar-date:hover {
     background: #ffe5e5 !important;
+}
+
+.web-add-text {
+    width: 89px;
+    height: 59;
+    left: 199px;
+    top: 205px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    letter-spacing: 0.085em;
+
+    color: #B62122;
+}
+
+.web-add-box {
+    width: 174px;
+    height: 62px;
+    left: 152px;
+    top: 195px;
+
+    background: #FFFFFF;
+    box-shadow: 2px 2px 11px rgba(0, 0, 0, 0.07);
+    border-radius: 31px;
 }

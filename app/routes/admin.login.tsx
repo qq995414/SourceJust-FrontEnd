@@ -18,7 +18,7 @@ export const action: ActionFunction = async ({ request, context }) => {
   // call my authenticator
   console.log('request:' + request);
   const resp = await authenticator.authenticate("user-login", request, {
-    successRedirect: "/admin",
+    successRedirect: "/admin/portal",
     failureRedirect: "/admin/login",
     throwOnError: true,
     context,
@@ -34,7 +34,7 @@ export const action: ActionFunction = async ({ request, context }) => {
 export const loader: LoaderFunction = async ({ request }) => {
 
   await authenticator.isAuthenticated(request, {
-    successRedirect: "/admin"
+    successRedirect: "/admin/portal"
   });
 
   const session = await sessionStorage.getSession(
@@ -53,11 +53,10 @@ interface Props {
 export default function Index() {
   const navigate = useNavigate();
   const loaderData = useLoaderData();
-  const [isSuccess, setIsSuccess] = useState(false);
   return (
     <div
       className=" flex justify-center h-screen items-center overflow-hidden">
-      {!isSuccess && <div className="flex flex-row w-full h-full">
+      <div className="flex flex-row w-full h-full">
         <div className="flex flex-row w-full h-full">
           <div
             className="w-1/2 p-4 flex flex-col
@@ -87,7 +86,6 @@ export default function Index() {
                 <Button
                   type="circle"
                   onClick={() => {
-                    setIsSuccess(true);
                   }}>
                   登入
                 </Button>
@@ -104,37 +102,7 @@ export default function Index() {
               alt="" />
           </div>
         </div>
-      </div>}
-
-      {
-        isSuccess && <div
-          style={{ backgroundImage: 'url(\'/images/admin-login-bg.svg\'', }}
-          className="h-full relative overflow-hidden
-         bg-cover bg-no-repeat w-full">
-          <div className="mt-12 ml-24">
-            <img
-              className="w-12"
-              src={'/images/logo.svg'}
-              alt="" />
-          </div>
-          <div className="flex flex-col justify-center items-center mt-20 z-30">
-            <ButtonAdmin
-              onClick={() => {
-              }}>網頁系統</ButtonAdmin>
-            <ButtonAdmin
-              onClick={() => {
-                navigate('/admin/dashboard');
-              }}>
-              專案系統</ButtonAdmin>
-            <ButtonAdmin
-              onClick={() => {
-              }}>公司系統</ButtonAdmin>
-          </div>
-          <div
-            className="bg-black w-full h-full absolute
-      top-0 bg-opacity-30 z-10" />
-        </div>
-      }
+      </div>
     </div >
   );
 }
