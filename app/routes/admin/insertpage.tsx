@@ -1,14 +1,17 @@
 import Select from '~/components/webSelect';
 import { MetaFunction, useNavigate } from 'remix';
 import { useState } from 'react';
-
-
+import { Editor } from './components/react-draft-wysiwyg.client';
+import { ClientOnly } from "remix-utils";
+import styles from "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 export const meta: MetaFunction = () => {
   return { title: '總後台 ｜ 索爾斯科技', };
 };
 
-
+export function links() {
+  return [{ rel: "stylesheet", href: styles }];
+}
 
 export default function Index() {
 
@@ -87,10 +90,12 @@ export default function Index() {
         <input className='mt-5' placeholder={'關鍵字'} style={{ borderBottom: '1px solid #717274', width: '669px' }}></input>
       </div>
       <div className="flex flex-col mt-8">
-
+        
         <div className="flex flex-col items-center">
-
-
+        
+          <ClientOnly>
+            {() => <Editor/>}
+          </ClientOnly>
         </div>
       </div>
     </div>
