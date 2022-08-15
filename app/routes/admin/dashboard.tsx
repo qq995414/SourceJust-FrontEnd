@@ -6,13 +6,13 @@ import { PieChart, Pie, Sector, Cell } from 'recharts';
 import { BarChart, Bar, Legend } from 'recharts';
 import { Link } from '@remix-run/react';
 
-interface Props{
-  value:string;
-  number:string;
+interface Props {
+  value: string;
+  number: string;
 }
 
 interface SProps {
-  isState:boolean,
+  isState: boolean,
   client: string,
   type: string,
   state: string,
@@ -98,72 +98,83 @@ const COLORS = ['#EB6870', '#FACB8E', '#B47873', '#DCAB99', '#F9CDAF'];
 export default function Index() {
   const [CardList, setCardList] = useState([
     {
-      isState:false,
-      client:'檸檬科技股份有限公司',
-      type:'APP開發',
-      state:'提案中',
-      detail:'詳細'
+      isState: false,
+      client: '檸檬科技股份有限公司',
+      type: 'APP開發',
+      state: '提案中',
+      detail: '詳細'
     }, {
-      isState:false,
-      client:'檸檬科技股份有限公司',
-      type:'APP開發',
-      state:'提案中',
-      detail:'詳細'
+      isState: false,
+      client: '檸檬科技股份有限公司',
+      type: 'APP開發',
+      state: '提案中',
+      detail: '詳細'
     }, {
-      isState:false,
-      client:'檸檬科技股份有限公司',
-      type:'APP開發',
-      state:'提案中',
-      detail:'詳細'
+      isState: false,
+      client: '檸檬科技股份有限公司',
+      type: 'APP開發',
+      state: '提案中',
+      detail: '詳細'
     }, {
-      isState:true,
-      client:'檸檬科技股份有限公司',
-      type:'APP開發',
-      state:'開發中',
-      detail:'詳細'
+      isState: true,
+      client: '檸檬科技股份有限公司',
+      type: 'APP開發',
+      state: '開發中',
+      detail: '詳細'
     }, {
-      isState:true,
-      client:'檸檬科技股份有限公司',
-      type:'APP開發',
-      state:'開發中',
-      detail:'詳細'
+      isState: true,
+      client: '檸檬科技股份有限公司',
+      type: 'APP開發',
+      state: '開發中',
+      detail: '詳細'
     }, {
-      isState:true,
-      client:'檸檬科技股份有限公司',
-      type:'APP開發',
-      state:'開發中',
-      detail:'詳細'
+      isState: true,
+      client: '檸檬科技股份有限公司',
+      type: 'APP開發',
+      state: '開發中',
+      detail: '詳細'
     }
   ]);
-  return <div className="h-screen w-full">
-    <div className="h-full w-full mx-auto container px-16">
+  return <div className="h-screen w-full login-background ">
+    <div className="h-full w-full mx-12 container ">
+      <div className="bg-white flex flex-row w-full h-16 px-8 fixed top-0   pt-5"
+        style={{ boxShadow: 'inset 0px -1px 0px #F0F0F0;' }}>
+        <div className='w-full flex ' style={{ float: 'right' }}>
+          <div className='pl-heard'><img className="pt-1 " src={'/icons/notifications-gray.svg'} alt="" /><div className='heard-notifi-red'>1</div>
+          </div>
+          <div className='pl- flex' ><div className='rounded-full heard-name-circle'  >宋</div><div className='heard-name'>承鴻</div> <div className='heard-svg pt-1 pl-2'><img className="pt-1 " src={'/icons/heard-bottom-arrow.svg'} alt="" /></div></div>
+
+        </div>
+
+      </div>
       <div className="h-full w-full flex flex-col">
+
         {/* Card */}
         <div className="w-full my-12 flex ml-8">
           <AdminCard value="客戶數" number="50">
             <div className="justify-center mx-auto w-full flex">
               <p>比上週</p>
-              <img className="mx-2 h-4" src="/images/admin-Arrow.svg" alt=""/>
+              <img className="mx-2 h-4" src="/images/admin-Arrow.svg" alt="" />
               <p>10%</p>
             </div>
           </AdminCard>
           <AdminCard value="訂單數" number="50">
             <div className="justify-center mx-auto w-full flex">
               <p>比上週</p>
-              <img className="mx-2 h-4" src="/images/admin-Arrow.svg" alt=""/>
+              <img className="mx-2 h-4" src="/images/admin-Arrow.svg" alt="" />
               <p>10%</p>
             </div></AdminCard>
           <AdminCard value="總銷售金額" number="＄100,000,0">
             <div className="justify-center mx-auto w-full flex">
               <p>比上週</p>
-              <img className="mx-2 h-4" src="/images/admin-Arrow.svg" alt=""/>
+              <img className="mx-2 h-4" src="/images/admin-Arrow.svg" alt="" />
               <p>10%</p>
             </div>
           </AdminCard>
           <AdminCard value="利潤" number="＄50,000,0">
             <div className="justify-center mx-auto w-full flex">
               <p>比上週</p>
-              <img className="mx-2 h-4" src="/images/admin-Arrow.svg" alt=""/>
+              <img className="mx-2 h-4" src="/images/admin-Arrow.svg" alt="" />
               <p>10%</p>
             </div></AdminCard>
         </div>
@@ -175,7 +186,7 @@ export default function Index() {
               className="w-40 rounded-r-full
               text-center rounded-l-full p-2 "
               value="今年"
-              onChange={()=>{}}></TextInput>
+              onChange={() => { }}></TextInput>
           </div>
           <div className=" w-full flex justify-center">
             <AChart></AChart>
@@ -217,7 +228,7 @@ export default function Index() {
             <p className="w-1/4"></p>
           </div>
           <div className=" w-full h-auto mb-28">
-            {CardList.map((i)=><StateCard
+            {CardList.map((i) => <StateCard
               key={i.client}
               isState={i.isState}
               client={i.client}
@@ -233,13 +244,13 @@ export default function Index() {
   </div>;
 }
 
-function AdminCard(props:PropsWithChildren<Props>){
+function AdminCard(props: PropsWithChildren<Props>) {
   return (<div className="w-full h-32 shadow-md mx-5 rounded-md">
     <div className="h-full w-full">
       <p className="w-1/4 mt-2 mx-1 text-center text-sm h-1/4">{props.value}</p>
       <p className="w-full text-center text-2xl h-1/3 my-1">{props.number}</p>
       <p
-        style={{ color:'#11C00E' }}
+        style={{ color: '#11C00E' }}
         className="w-full text-center font-bold
       text-sm tracking-widest h-1/4">{props.children}</p>
     </div>
@@ -248,7 +259,7 @@ function AdminCard(props:PropsWithChildren<Props>){
 
 const toPercent = (fixed = 0) => `$${(fixed)}`;
 
-function AChart(){
+function AChart() {
   return (<AreaChart
     width={1000}
     height={400}
@@ -256,8 +267,8 @@ function AChart(){
     margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
     <defs>
       <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="5%" stopColor="#B6212254" stopOpacity={0.8}/>
-        <stop offset="95%" stopColor="#B6212254" stopOpacity={0}/>
+        <stop offset="5%" stopColor="#B6212254" stopOpacity={0.8} />
+        <stop offset="95%" stopColor="#B6212254" stopOpacity={0} />
       </linearGradient>
     </defs>
     <XAxis dataKey="name" />
@@ -268,7 +279,7 @@ function AChart(){
   </AreaChart>);
 }
 
-function PChart(){
+function PChart() {
   const [activeIndex, setActiveIndex] = useState(0);
   const onPieEnter = useCallback(
     (_, index) => {
@@ -296,7 +307,7 @@ function PChart(){
   </PieChart>);
 }
 
-function BChart(){
+function BChart() {
   return (<BarChart
     width={1100}
     height={600}
@@ -314,29 +325,29 @@ function BChart(){
     <Tooltip />
     <Legend />
     <Bar className="rounded-lg" dataKey="pv" stackId="a" fill="#EB6870" />
-    <Bar className="rounded-lg"dataKey="uv" stackId="a" fill="#EBEBEB" />
+    <Bar className="rounded-lg" dataKey="uv" stackId="a" fill="#EBEBEB" />
   </BarChart>);
 }
 
-function StateCard(props:SProps){
+function StateCard(props: SProps) {
   return (
     <div className="w-full h-20 bg-primary-white flex items-center hover:bg-primary-gray mx-auto">
 
-      <div style={{ color:'#717274' }} className="font-bold text-center w-1/4">
+      <div style={{ color: '#717274' }} className="font-bold text-center w-1/4">
         {props.client}
       </div>
-      <div style={{ color:'#717274' }} className="font-bold text-center w-1/4">
+      <div style={{ color: '#717274' }} className="font-bold text-center w-1/4">
         {props.type}
       </div>
 
       {!props.isState &&
-      <div style={{ color:'#036EEB' }} className="font-bold text-center w-1/4">
-        {props.state}
-      </div>}
+        <div style={{ color: '#036EEB' }} className="font-bold text-center w-1/4">
+          {props.state}
+        </div>}
       {props.isState &&
-      <div style={{ color:'#717274' }} className="font-bold text-center w-1/4">
-        <p>{props.state}</p>
-      </div>}
+        <div style={{ color: '#717274' }} className="font-bold text-center w-1/4">
+          <p>{props.state}</p>
+        </div>}
 
       <div className="text-primary-red text-right w-1/5">
         <Link className="cursor-pointer" to={'/admin'} >{props.detail}</Link>
