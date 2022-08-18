@@ -11,6 +11,7 @@ import {
 import authenticator from "~/services/auth.server";
 import { sessionStorage } from "~/services/session.server";
 import { PropsWithChildren, useState } from 'react';
+import { OpenAPI } from 'app/ApiClient';
 
 export const action: ActionFunction = async ({ request, context }) => {
 
@@ -53,40 +54,80 @@ interface Props {
 export default function Index() {
   const navigate = useNavigate();
   const loaderData = useLoaderData();
+  
+  OpenAPI.TOKEN = loaderData?.data?.token;
+  const [passwordShown, setPasswordShown] = useState(true);
+
+  // const [Account, setAccount] = useState('');
+  // const [Password, setPassword] = useState('');
   return (
     <div
-      className=" flex justify-center h-screen items-center overflow-hidden">
-      <div className="flex flex-row w-full h-full">
-        <div className="flex flex-row w-full h-full">
+      className=" justify-center h-screen items-center overflow-hidden">
+      <div className="flex flex-row w-full h-16 px-8   pt-5"
+        style={{ boxShadow: 'inset 0px -1px 0px #F0F0F0;' }}>
+        <img className="mb-5" src={'/icons/logo.svg'} alt="" />
+
+      </div>
+      <div className="pt-24 flex-row w-full h-full login-background">
+        <div className="w-screen p-4 flex flex-col justify-center items-center">
+          <img className="mb-2 w-48" src={'/icons/logo.svg'} alt="" />
+          <p style={{ color: 'rgba(0, 0, 0, 0.45)' }} className="text-center tracking-widest text-sm m-2">索爾斯專案後台管理系統</p>
           <div
-            className="w-1/2 p-4 flex flex-col
-          justify-center items-center">
-            <img className="mb-5" src={'/images/logo.svg'} alt="" />
-            <p className="text-center tracking-widest text-lg m-2">索爾斯科技</p>
-            <p
-              className="text-center text-sm m-2
-              text-primary-red tracking-widest">Source Solution</p>
-            <p
-              style={{ color: '#717274' }}
-              className="text-center tracking-widest text-lg mt-3">後台管理系統</p>
+            className=' pt-5 w-96'
+          >
+            <hr
+              style={{
+                color: 'red',
+                width: '100%',
+                border: '1px solid #E9E9E9  ',
+                borderRadius: 'radius: 2px'
+              }}></hr>
+          </div>
+
+          <p
+            style={{ fontWeight: 800 }}
+            className="text-center tracking-widest text-2xl mt-10">登入</p>
+          <div
+            className=' pt-5 w-96'
+          >
             <Form className="w-1/2" method="post" name='form'>
+              <p className='pt-1 Neutral-Colors-DarkGrey text-sm' style={{ fontWeight: 800 }}>帳號</p>
+              <p className='text-xs' style={{ color: '#7c7c7c' }}>請出入 ID 或 Email</p>
               <TextInput
-                className="mt-10 mx-auto w-full"
+                className="mt-2 mx-auto w-full"
                 type="sign"
-                placeholder="帳號"
+                placeholder="例如：Source9121"
                 itemName='account'
               />
-              <TextInput
-                className="mt-16 mx-auto w-full"
-                type="sign"
-                placeholder="密碼"
-                itemName='password'
-              />
-              <div className="mt-16 text-center">
+              <div
+                className='pt-5 w-screen'>
+                <a className=' Neutral-Colors-DarkGrey text-sm' style={{ fontWeight: 800 }}>密碼</a>
+                <Link
+                  style={{ fontWeight: 800 }}
+                  className="text-sm ml-96 Primary-Primary"
+                  to="/designer/forgot">忘記密碼？</Link>
+              </div>
+              <div className="pass-wrapper w-screen">
+                <TextInput
+
+                  className="mt-3 mx-auto w-screen"
+                  type="sign"
+                  placeholder="請輸入密碼"
+                  itemName='password'
+                  show={passwordShown}
+                />
+                 {passwordShown === true && <i className='mr-10' onClick={() => setPasswordShown(false)}><img className="mb-5" src={'/icons/eye-icon.svg'} alt=""  /></i>}
+                {passwordShown === false && <i className='mr-10' onClick={() => setPasswordShown(true)}><img className="mb-5" src={'/icons/eye-icon.svg'} alt=""  /></i>}
+              </div>
+              <div className="text-right mt-4 mr-1">
+
+
+              </div>
+              <div className="mt-5 text-center">
                 <Button
-                  type="circle"
-                  onClick={() => {
-                  }}>
+                  type="login"
+                  onClick={() => console.log("點擊登入")}
+                >
                   登入
                 </Button>
               </div>
@@ -95,29 +136,9 @@ export default function Index() {
               </div>
             </Form>
           </div>
-          <div className="h-screen w-1/2">
-            <img
-              className="w-full h-screen object-cover"
-              src={'/images/login-bg.svg'}
-              alt="" />
-          </div>
         </div>
-      </div>
+
+      </div >
     </div >
   );
-}
-
-function ButtonAdmin(props: PropsWithChildren<Props>) {
-  return (<button
-    style={{
-      color: '#B62122',
-      backgroundColor: '#FFFFFFD1'
-    }}
-    className="rounded-lg w-4/12
-     p-4 text-center m-10 z-30"
-    onClick={() => props.onClick()}
-  >
-    {props.children}
-  </button>);
-
 }
