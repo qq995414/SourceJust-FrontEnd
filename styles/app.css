@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    display: table;
+}
+
+.sidebar,
+.page-content {
+    display: table-cell;
+}
+
 #nprogress .bar {
     background: #B62122 !important;
     height: 4px !important;
@@ -135,13 +144,13 @@
 
 .isActive-off {
     background-color: #FFF1F3;
-    border-right-width: 3px;
     font-weight: 600;
-    border-right-color: #E7142D
+    border-radius: 10px;
 }
 
 .pl-heard {
-    padding-left: 85%;
+    left: 0px;
+    padding-left: 73%;
 }
 
 .heard-notifi-red {
@@ -157,24 +166,282 @@
     text-align: center;
     -webkit-border-radius: 2.75em;
     border-radius: 2.75em;
-    padding-left:0.3rem ;
-    padding-right:0.3rem ;
-    margin-left:0.8rem;
-    margin-top:-1.5rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    margin-left: 0.8rem;
+    margin-top: -1.5rem;
 }
-.heard-name-circle{
+
+.heard-name-circle {
     background-color: #FFF3F5;
     width: 1.7em;
     height: 1.7em;
     padding-top: 0.05em;
-    margin-top:-0.2em;
+    margin-top: -0.2em;
     margin-left: 0.3em;
     text-align: center;
-    color:#E7142D;
+    color: #E7142D;
     font-weight: 600;
 }
-.heard-name{
+
+.heard-name {
     margin-left: 0.2em;
-    margin-top:-0.1em;
+    margin-top: -0.1em;
     font-weight: 600;
+}
+
+.sideBar-shadow {
+    box-shadow: inset -1px 0px 0px #F0F0F0;
+}
+
+.navName {
+    right: 11rem;
+    top: 1.3rem;
+    z-index: 100;
+    font-size: 14px;
+}
+
+.nav-title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.welcomeText {
+    font-weight: 800;
+    font-size: 28px;
+    letter-spacing: 0.02em;
+    color: #252525;
+
+}
+
+.subWelcomeText {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #7C7C7C;
+
+}
+
+.dashboardCard {
+    background: #FFFFFF;
+    backdrop-filter: blur(40px);
+    border-radius: 12px;
+}
+
+.webpage-title {
+    background: #FFFFFF;
+    font-weight: 500;
+    font-size: 14px;
+    align-items: center;
+    color: #505050;
+    box-sizing: content-box;
+}
+
+.DataTable-title {
+    background: #FFFFFF;
+    border-radius: 8px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #A7A7A7;
+}
+
+.DataTable-body {
+    border: 1px solid #E9E9E9;
+    border-radius: 8px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #505050;
+}
+
+.table-header {
+    background: #F7F8FA;
+    border-radius: 8px 8px 0px 0px;
+}
+
+.table-state-green {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 22px;
+    /* identical to box height, or 157% */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.4px;
+
+    /* Functional/Success/1 active */
+
+    color: #0FAA70;
+    background: #EBFAF5;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.table-state-green-bell {
+    width: 6px;
+    height: 6px;
+    background: #20CB8B;
+    border-radius: 999px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.table-checkbox {
+    background: #FFFFFF;
+    /* Neutral Colors/5 LightGrey */
+
+    border: 1px solid #D3D3D3;
+    border-radius: 2px;
+}
+
+.table-state-red {
+    background: #FDEBEE;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 22px;
+    /* identical to box height, or 157% */
+
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.4px;
+
+    /* Functional/Error/2 hover */
+
+    color: #D53A53;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.table-state-red-bell {
+    width: 6px;
+    height: 6px;
+    background: #EE415D;
+    border-radius: 999px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.table-sreach {
+    padding: 5px 12px;
+    gap: 8px;
+
+
+
+    /* neutral/white */
+
+    background: #FFFFFF;
+    /* neutral/tone 6 whitegrey */
+
+    border: 1px solid #E9E9E9;
+    border-radius: 4px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.table-insert-btn {
+    justify-content: center;
+    align-items: center;
+    padding: 5px 12px;
+    gap: 6px;
+
+    /* Primary/3 Primary */
+
+    background: #E7142D;
+    border-radius: 4px;
+
+    /* Inside auto layout */
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 22px;
+    /* identical to box height, or 157% */
+
+    text-align: center;
+    letter-spacing: 0.4px;
+
+    /* Neutral Colors / 9 White */
+
+    color: #FFFFFF;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.table-list-checked {
+    background: #FFF3F5;
+    box-shadow: 0px -1px 0px #F0F0F0;
+}
+
+.table-list {
+    box-shadow: 0px -1px 0px #F0F0F0;
+}
+
+.table-footer {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    text-align: right;
+    letter-spacing: 0.4px;
+    color: #7C7C7C;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    box-shadow: 0px -1px 0px #F0F0F0;
+
+}
+
+.table-footer>select {
+    align-items: center;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    gap: 6px;
+    width: 60px;
+    height: 25px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    font-weight: 600;
+    font-size: 14px;
+    margin-left: 10px;
+    letter-spacing: 0.4px;
+    color: #505050;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.table-page {
+    align-items: right;
+    text-align: center  ;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    gap: 6px;
+    width: 25px;
+    height: 25px;
+    order: 1;
+    font-size: 14px;
+    margin-left: 10px;
+    color: #505050;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    border: 1px solid #D3D3D3;
+
 }
