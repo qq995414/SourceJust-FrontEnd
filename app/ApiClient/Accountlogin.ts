@@ -2,7 +2,7 @@ import { ApiClient } from "./ApiClient";
 import { OpenAPI } from "./core/OpenAPI";
 import { LoginRequest } from "./models/LoginRequest";
 
-OpenAPI.BASE="https://serp.source-test.com:443/"
+OpenAPI.BASE="https://bo.sourcejust.com:443/"
 
 const apiClient=new ApiClient();
 
