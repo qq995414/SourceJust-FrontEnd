@@ -59,7 +59,7 @@ export default function Index() {
       歡迎登入索爾斯後台，請選擇您要登入的管理系統
     </div>
     <div className="pt-12 flex flex-row w-full  justify-center align-center px-64">
-      <a className='w-3/12 mx-10 ' href='/admin/dashboard'>
+      <a className='w-3/12 mx-10 '>
         <div className="w-full flex flex-col justify-center h-64 items-center portal-link px-10">
           <img className="mb-5" src={'/icons/portal-company.svg'} alt="" />
           <p
