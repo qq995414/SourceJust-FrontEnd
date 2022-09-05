@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function (props: Props) {
-  const [sidenavshow, setsidenavshow] = useState(false);
+  const [sidenavshow, setsidenavshow] = useState(true);
   const location = useLocation();
   return (
     <div style={{height:"100vh"}}>
@@ -30,11 +30,11 @@ export default function (props: Props) {
           <img className="mb-5 pt-4  mx-5" src={'/icons/sidenav-logo.svg'} alt="" />
         }
         {sidenavshow === false &&
-          <img className="mb-5 w-48 pt-7 px-5 mx-5 " src={'/icons/logo.svg'} alt="" />
+          <img className="mb-5 w-48 pt-6 px-5 mx-5 " src={'/icons/logo.svg'} alt="" />
         }
 
         {sidenavshow === true &&
-          <div className="flex flex-col align-center w-full pt-1 max-w-7xl">
+          <div className="flex flex-col align-center w-full pt-1 max-w-7xl  min-h-80vh">
 
             {props.links.map((link, i) => {
               const isActive = location.pathname.match(link.match);
@@ -56,7 +56,7 @@ export default function (props: Props) {
           </div>
         }
         {sidenavshow === false &&
-          <div className="flex flex-col align-center w-full pt-1 ">
+          <div className="flex flex-col align-center w-full pt-1 min-h-80vh">
             {props.links.map((link, i) => {
               const isActive = location.pathname.match(link.match);
               const color = isActive ? link.activeIconColor : link.inactiveIconColor;
@@ -74,7 +74,7 @@ export default function (props: Props) {
                       <img
                         src={isActive ? link.activeIconUrl : link.inactiveIconUrl}
                         className=' w-4'
-                        style={{ display: "inline-block" }} /> <span className='pl-2 ' style={{ color: color }}>{link.targettext}</span>
+                        style={{ display: "inline-block" }} /> <span className='pl-2 pt-2' style={{ color: color }}>{link.targettext}</span>
                     </div>
 
                   </Link>
@@ -85,16 +85,16 @@ export default function (props: Props) {
           </div>
         }
         {sidenavshow === true &&
-          <div className="w-full h60 flex mt-96 flex-col justify-center align-center">
-            <div className='w-12' style={{ boxShadow: 'inset 0px 1px 0px #F0F0F0' }}>
-              <a onClick={() => setsidenavshow(false)} >YES</a>
+          <div className="w-full  flex  flex-col justify-center align-center">
+            <div style={{ boxShadow: 'inset 0px 1px 0px #F0F0F0' }}>
+              <a onClick={() => setsidenavshow(false)} ><img className="mb-5 pt-3 w-8 pl-3" src={'/icons/sideNav-open.svg'} alt="" /></a>
             </div>
           </div>
         }
         {sidenavshow === false &&
-          <div className="w-full h60 flex mt-96 flex-col justify-center align-center">
-            <div className='w-36' style={{ boxShadow: 'inset 0px 1px 0px #F0F0F0' }}>
-              <a onClick={() => setsidenavshow(true)} >NO</a>
+          <div className="w-full flex flex-col justify-center align-center">
+            <div style={{ boxShadow: 'inset 0px 1px 0px #F0F0F0' }}>
+              <a onClick={() => setsidenavshow(true)} ><img className="mb-5 pt-3 w-8 pl-3" src={'/icons/sideNav-close.svg'} alt="" /></a>
             </div>
           </div>
         }
