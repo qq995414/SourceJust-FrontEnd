@@ -24,9 +24,9 @@ export default function Index() {
 
   return (
     <div className="container mx-auto min-h-screen">
-      <div className="flex items-center mt-12 mx-32" >
+      <div className="flex items-center mt-12 ml-32" >
         <div style={{ fontSize: '20px' }}
-          className="flex w-11/12 place-content-center justify-around">
+          className="flex w-full place-content-center justify-around ">
           <Select<number>
             className="bg-gray-100 text-black h-12 relative mr-8"
             value={target2}
@@ -49,7 +49,7 @@ export default function Index() {
                 label: '網站工具說明'
               },
             ]} />
-          <div className="flex w-11/12 place-content-center justify-around ">
+          <div className="flex w-full place-content-center justify-around pl-5">
             <p className=' border-b-4' style={{ fontWeight: '500', fontSize: '32px' }}>
               為什麼 SEO如此重要？三個秘密告訴你！
             </p>
@@ -57,15 +57,7 @@ export default function Index() {
         </div>
 
         <div className="flex-grow"></div>
-        <img
-          src="/icons/webpan.svg"
-          alt=""
-          onClick={() => {
-            setIsShowLink(true);
-          }}
-          className="cursor-pointer"
-        />
-
+      
       </div>
       <div className="flex items-center mt-12 mx-32" >
         <input className='mt-5' placeholder={'描述文字'} style={{ borderBottom: '1px solid #717274', width: '669px', fontSize: '20', letterSpacing: '0.02em' }}></input>
