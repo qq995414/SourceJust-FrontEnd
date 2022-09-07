@@ -42,6 +42,33 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 */
+
+export const action: ActionFunction = async ({ request }) => {
+
+  const user = await authenticator.isAuthenticated(request, {
+
+    failureRedirect: "/admin/login",
+  });
+
+  const resp = await authenticator.authenticate("updataUser", request, {
+    successRedirect: "/admin/protal",
+    failureRedirect: "/admin/protal",
+    throwOnError: true,
+    context: user,
+
+  });
+  console.log('resp:' + resp);
+  return resp;
+};
+
+export let loader: LoaderFunction = async ({ request }) => {
+
+  return await authenticator.isAuthenticated(request, {
+    failureRedirect: "/admin/login",
+  });
+
+
+};
 interface Props {
   onClick(): void;
 }

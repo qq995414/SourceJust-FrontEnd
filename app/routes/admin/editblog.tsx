@@ -4,6 +4,35 @@ import Nav from '~/components/Nav';
 import { Editor } from './components/react-draft-wysiwyg.client';
 import { ClientOnly } from "remix-utils";
 import styles from "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { ActionFunction, LoaderFunction } from 'remix';
+import authenticator from "~/services/repwd.server";
+
+export const action: ActionFunction = async ({ request }) => {
+
+  const user = await authenticator.isAuthenticated(request, {
+
+    failureRedirect: "/admin/login",
+  });
+
+  const resp = await authenticator.authenticate("updataUser", request, {
+    successRedirect: "/admin/editblog",
+    failureRedirect: "/admin/editblog",
+    throwOnError: true,
+    context: user,
+
+  });
+  console.log('resp:' + resp);
+  return resp;
+};
+
+export let loader: LoaderFunction = async ({ request }) => {
+
+  return await authenticator.isAuthenticated(request, {
+    failureRedirect: "/admin/login",
+  });
+
+
+};
 
 export const meta: MetaFunction = () => {
   return { title: '總後台 ｜ 索爾斯科技', };
