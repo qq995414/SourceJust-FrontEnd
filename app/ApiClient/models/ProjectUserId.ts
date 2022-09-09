@@ -2,9 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Cfg = {
-    name?: string;
-    value?: string;
-    category?: string;
+export type ProjectUserId = {
     projectId?: number;
+    userId?: number;
 };

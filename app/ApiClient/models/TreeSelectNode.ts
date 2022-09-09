@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type ChannelRequest = {
-    name?: string;
-    code: string;
+export type TreeSelectNode = {
+    id?: string;
+    label?: string;
 };

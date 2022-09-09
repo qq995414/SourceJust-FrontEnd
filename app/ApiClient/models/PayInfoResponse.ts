@@ -2,9 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Cfg = {
-    name?: string;
-    value?: string;
-    category?: string;
+export type PayInfoResponse = {
+    payTime?: string;
     projectId?: number;
+    userId?: number;
+    price?: number;
 };

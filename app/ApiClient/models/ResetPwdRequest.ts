@@ -2,9 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type LoginRequest = {
-    username: string;
+export type ResetPwdRequest = {
+    oldPassword: string;
     password: string;
-    roleId: number;
 };
-

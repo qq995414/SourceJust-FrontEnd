@@ -4,13 +4,16 @@
 
 export type UserRequest = {
     account: string;
-    address?: string;
-    email?: string;
-    identityId: string;
-    isInternal?: boolean;
-    lineToken?: string;
-    name: string;
     password: string;
+    name: string;
+    email?: string;
     phone?: string;
+    address?: string;
+    identityId: string;
     roleId?: string;
+    lineToken?: string;
+    company?: string;
+    jobCategory?: string;
+    language?: string;
+    internal?: boolean;
 };

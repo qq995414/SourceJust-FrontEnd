@@ -2,7 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Cfg = {
+export type CfgResponse = {
+    id?: number;
+    createTime?: string;
+    modifyTime?: string;
     name?: string;
     value?: string;
     category?: string;

@@ -4,6 +4,12 @@
 
 export type ArticleRequest = {
     channelId: number;
+    title: string;
     content: string;
-    title?: string;
+    category: string;
+    subTitle?: string;
+    metaDes?: string;
+    metaKeyword?: string;
+    onlineDate?: string;
+    offlineDate?: string;
 };
