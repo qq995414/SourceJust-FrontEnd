@@ -1,15 +1,27 @@
-import Cancel from './components/Cancel';
-import Maintain from './components/Maintain';
-import Progress from './components/Progress';
-import Datatables from './components/datatables';
-import Warranty from './components/Warranty';
+
 import Button from '~/components/common/Button';
 import Select from '~/components/Select';
-import { MetaFunction, useNavigate, Link, Form } from 'remix';
+import { MetaFunction, useNavigate, Link, Form, json, useLoaderData } from 'remix';
 import { SetStateAction, useState } from 'react';
 import cx from 'classnames';
 import Nav from '~/components/Nav';
+import { ActionFunction, LoaderFunction } from 'remix';
+import { ApiClient } from 'app/ApiClient';
+import Blogdata from "~/services/blogSelect.server";
+import { sessionStorage } from "~/services/session.server";
 
+export const loader: LoaderFunction = async ({ request }) => {
+  
+  console.log(json({ Blogdata }));
+  console.log("Blogdata");
+  
+  const session = await sessionStorage.getSession(
+    request.headers.get("Cookie")
+
+  );
+  const error = session.get("sessionErrorKey");
+  return json<any>({ error });
+};
 
 export const meta: MetaFunction = () => {
   return { title: '總後台 ｜ 索爾斯科技', };
@@ -21,7 +33,7 @@ export default function Index() {
       id: 0,
       state: '上架',
       date: '2021-05-01',
-      name: '《愛之船 Vessel of love》 Release Tour',
+      name: '《愛123之船 42434Vessel of love》 Release Tour',
       content: '我們都曾經在生活中遇到悲傷難過的事， 是什麼讓我們在經歷這些之後再站起來， 選擇原諒自己或者他人、選擇釋然、選擇重新新',
       imgurl: '/images/clientexam_demo_1.png',
       select: false
@@ -178,6 +190,10 @@ export default function Index() {
 
     }
   ];
+  const data = useLoaderData();
+  console.log("say");
+  console.log(data?.data?.token);
+
   const [tab, setTab] = useState(0);
   const navigate = useNavigate();
   const [target, setTarget] = useState(1);
