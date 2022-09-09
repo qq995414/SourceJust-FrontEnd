@@ -6,21 +6,22 @@ import { SetStateAction, useState } from 'react';
 import cx from 'classnames';
 import Nav from '~/components/Nav';
 import { ActionFunction, LoaderFunction } from 'remix';
-import { ApiClient } from 'app/ApiClient';
-import Blogdata from "~/services/blogSelect.server";
-import { sessionStorage } from "~/services/session.server";
+import { ApiClient, OpenAPI } from 'app/ApiClient';
+import { sessionStorage , getSession, commitSession} from "~/services/session.server";
+import authenticator from "~/services/auth.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
+  let user = await authenticator.isAuthenticated(request, {
+    failureRedirect: "/login",
+  });
   
-  console.log(json({ Blogdata }));
-  console.log("Blogdata");
-  
-  const session = await sessionStorage.getSession(
-    request.headers.get("Cookie")
+  OpenAPI.HEADERS = {"Authorization": user.data.token};
+  const api = new ApiClient(OpenAPI);
+  const pages = await api.api.listArticle();
 
-  );
-  const error = session.get("sessionErrorKey");
-  return json<any>({ error });
+  console.log('pages:' + JSON.stringify(pages));
+
+  return json(pages);
 };
 
 export const meta: MetaFunction = () => {
