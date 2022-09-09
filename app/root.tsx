@@ -12,7 +12,7 @@ import nProgressStyles from 'nprogress/nprogress.css';
 import draftjsStyles from 'react-quill/dist/quill.snow.css';
 import rcCalendarStyles from 'rc-calendar/assets/index.css';
 import NProgress from 'nprogress';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 export function links() {
   return [
@@ -42,6 +42,9 @@ export function links() {
 
 export default function App() {
   const transition = useTransition();
+  const [user, setUser] = useState(null);
+
+  const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
   useEffect(() => {
     if (transition.state === 'idle') NProgress.done();
@@ -72,7 +75,7 @@ export default function App() {
         <Links />
         <title>索爾斯科技</title>
       </head>
-      <body>
+      <body style={{backgroundColor:"#F7F8FA"}}>
         {isScreenTooSmall &&
         <div
           className="bg-white w-screen h-screen fixed top-0 z-50 flex flex-col items-center justify-center">
