@@ -29,7 +29,7 @@ authenticator.use(
     if (typeof password !== 'string')
       throw new AuthorizationError('密碼必須為字串型別')
 
-    // 模擬登入
+    // 模擬登入f
     // if (account === 'test' && password === '123456') {
     //   user = {
     //     name: account,
@@ -47,12 +47,13 @@ authenticator.use(
     // }
     let apiClient = new ApiClient();
     let loginRequest: LoginRequest = {
-      password: password,
       username: account,
-      roleId: '4'
+      password: password,
+      roleId: 4
+
     };
 
-    let user = await apiClient.accountController.loginUsingPost(loginRequest)
+    let user = await apiClient.api.userLogin(loginRequest)
       .then(res => {
         return res;
       });
