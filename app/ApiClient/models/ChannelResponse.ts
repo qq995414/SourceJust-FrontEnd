@@ -7,5 +7,16 @@ export type ChannelResponse = {
     createTime?: string;
     modifyTime?: string;
     name?: string;
-    code?: string;
+    type?: ChannelResponse.type;
+    amount?: number;
 };
+
+export namespace ChannelResponse {
+
+    export enum type {
+        ARTICLE = 'ARTICLE',
+        PORTFOLIO = 'PORTFOLIO',
+    }
+
+
+}

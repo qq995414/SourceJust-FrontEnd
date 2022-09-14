@@ -9,13 +9,14 @@ export type ArticleResponse = {
     createTime?: string;
     modifyTime?: string;
     channelId?: number;
+    smallImg?: string;
     title?: string;
-    category?: string;
     subTitle?: string;
     metaDes?: string;
     metaKeyword?: string;
     content?: string;
     onlineDate?: string;
     offlineDate?: string;
+    isDisable?: boolean;
     channel?: ChannelResponse;
 };

@@ -4,7 +4,8 @@
 
 export type TemplateRequest = {
     name: string;
-    image?: string;
+    mainImg?: string;
+    smallImg?: string;
     category?: string;
     url?: string;
     header?: string;

@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 export type PortfolioRequest = {
+    channelId: number;
     titleImg?: string;
     title: string;
     content: string;

@@ -23,6 +23,8 @@ export namespace FileInfoResponse {
         CONTRACT = 'CONTRACT',
         DEV_TEST = 'DEV_TEST',
         PROD_TEST = 'PROD_TEST',
+        BLOG = 'BLOG',
+        PORTFOLIO = 'PORTFOLIO',
     }
 
 

@@ -12,8 +12,8 @@ export type UserRequest = {
     identityId: string;
     roleId?: string;
     lineToken?: string;
+    isInternal?: boolean;
     company?: string;
     jobCategory?: string;
     language?: string;
-    internal?: boolean;
 };

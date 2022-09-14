@@ -7,7 +7,8 @@ export type TemplateResponse = {
     createTime?: string;
     modifyTime?: string;
     name?: string;
-    image?: string;
+    mainImg?: string;
+    smallImg?: string;
     category?: string;
     url?: string;
     header?: string;

@@ -4,5 +4,15 @@
 
 export type ChannelRequest = {
     name?: string;
-    code: string;
+    type: ChannelRequest.type;
 };
+
+export namespace ChannelRequest {
+
+    export enum type {
+        ARTICLE = 'ARTICLE',
+        PORTFOLIO = 'PORTFOLIO',
+    }
+
+
+}

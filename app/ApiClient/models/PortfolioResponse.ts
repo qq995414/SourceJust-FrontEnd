@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { ChannelResponse } from './ChannelResponse';
+
 export type PortfolioResponse = {
     id?: number;
     createTime?: string;
@@ -16,4 +18,6 @@ export type PortfolioResponse = {
     service?: string;
     tech?: string;
     content?: string;
+    channelId?: number;
+    channel?: ChannelResponse;
 };

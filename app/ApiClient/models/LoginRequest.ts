@@ -7,4 +7,3 @@ export type LoginRequest = {
     password: string;
     roleId: number;
 };
-
