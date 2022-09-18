@@ -895,7 +895,7 @@ export class ApiService {
         return this.httpRequest.request({
             method: 'POST',
             url: '/file/uploadChatFile',
-            body: requestBody,
+            formData: requestBody,
             mediaType: 'multipart/form-data',
             errors: {
                 400: `Bad Request`,

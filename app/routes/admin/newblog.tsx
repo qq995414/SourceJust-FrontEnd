@@ -95,13 +95,9 @@ export default function Index() {
     let imgrequest = {
       file: file,
     };
-    const formData = new FormData()
-    formData.append('file', file);
-    console.log(formData);
-
-    OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token,"mimeType":"multipart/form-data"};
+    OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token};
     const apiClient = new ApiClient(OpenAPI);
-    const fileupload = await apiClient.api.uploadChatFile(formData);
+    const fileupload = await apiClient.api.uploadChatFile(imgrequest);
 
     console.log(fileupload);
 
