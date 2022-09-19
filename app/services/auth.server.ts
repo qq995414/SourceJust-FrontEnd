@@ -49,8 +49,6 @@ authenticator.use(
     let loginRequest: LoginRequest = {
       username: account,
       password: password,
-      roleId: 4
-
     };
 
     let user = await apiClient.api.userLogin(loginRequest)
