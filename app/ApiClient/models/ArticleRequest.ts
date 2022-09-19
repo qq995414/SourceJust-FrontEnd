@@ -4,6 +4,8 @@
 
 export type ArticleRequest = {
     channelId: number;
+    coverImg?: string;
+    caseImg?: string;
     smallImg?: string;
     title: string;
     content: string;

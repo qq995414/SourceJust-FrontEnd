@@ -9,6 +9,8 @@ export type ArticleResponse = {
     createTime?: string;
     modifyTime?: string;
     channelId?: number;
+    coverImg?: string;
+    caseImg?: string;
     smallImg?: string;
     title?: string;
     subTitle?: string;

@@ -17,6 +17,7 @@ import type { ResponseArticleResponse } from '../models/ResponseArticleResponse'
 import type { ResponseCfgResponse } from '../models/ResponseCfgResponse';
 import type { ResponseChannelResponse } from '../models/ResponseChannelResponse';
 import type { ResponseContractResponse } from '../models/ResponseContractResponse';
+import type { ResponseDeleteFileResponse } from '../models/ResponseDeleteFileResponse';
 import type { ResponseFileInfoResponse } from '../models/ResponseFileInfoResponse';
 import type { ResponseHashMapStringListNode } from '../models/ResponseHashMapStringListNode';
 import type { ResponseListContractResponse } from '../models/ResponseListContractResponse';
@@ -31,6 +32,7 @@ import type { ResponseObject } from '../models/ResponseObject';
 import type { ResponsePaginationResponseArticleResponse } from '../models/ResponsePaginationResponseArticleResponse';
 import type { ResponsePaginationResponseChannelResponse } from '../models/ResponsePaginationResponseChannelResponse';
 import type { ResponsePaginationResponseContactsResponse } from '../models/ResponsePaginationResponseContactsResponse';
+import type { ResponsePaginationResponseFileInfoResponse } from '../models/ResponsePaginationResponseFileInfoResponse';
 import type { ResponsePaginationResponseMessageLogResponse } from '../models/ResponsePaginationResponseMessageLogResponse';
 import type { ResponsePaginationResponsePortfolioResponse } from '../models/ResponsePaginationResponsePortfolioResponse';
 import type { ResponsePaginationResponseProjectDetailResponse } from '../models/ResponsePaginationResponseProjectDetailResponse';
@@ -47,7 +49,6 @@ import type { ResponseProjectMilestoneResponse } from '../models/ResponseProject
 import type { ResponseProjectResponse } from '../models/ResponseProjectResponse';
 import type { ResponseProjectUserResponse } from '../models/ResponseProjectUserResponse';
 import type { ResponseRoleResponse } from '../models/ResponseRoleResponse';
-import type { ResponseString } from '../models/ResponseString';
 import type { ResponseTagInfoResponse } from '../models/ResponseTagInfoResponse';
 import type { ResponseTemplateResponse } from '../models/ResponseTemplateResponse';
 import type { ResponseUserProfileResponse } from '../models/ResponseUserProfileResponse';
@@ -62,7 +63,7 @@ import type { BaseHttpRequest } from '../core/BaseHttpRequest';
 
 export class ApiService {
 
-    constructor(public readonly httpRequest: BaseHttpRequest) { }
+    constructor(public readonly httpRequest: BaseHttpRequest) {}
 
     /**
      * 更新會員
@@ -72,9 +73,9 @@ export class ApiService {
      * @throws ApiError
      */
     public update(
-        id: number,
-        requestBody: UserRequest,
-    ): CancelablePromise<ResponseUserResponse> {
+id: number,
+requestBody: UserRequest,
+): CancelablePromise<ResponseUserResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/user/{id}',
@@ -98,9 +99,9 @@ export class ApiService {
      * @throws ApiError
      */
     public updateRole(
-        id: number,
-        requestBody: RoleRequest,
-    ): CancelablePromise<ResponseRoleResponse> {
+id: number,
+requestBody: RoleRequest,
+): CancelablePromise<ResponseRoleResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/role/{id}',
@@ -124,9 +125,9 @@ export class ApiService {
      * @throws ApiError
      */
     public updateProjectStatus(
-        projectId: number,
-        status: 'PROPOSAL' | 'UI_FINISH' | 'RUNNING' | 'FINISH' | 'REVIEW' | 'PAYING' | 'DONE' | 'CLOSE',
-    ): CancelablePromise<ResponseProjectResponse> {
+projectId: number,
+status: 'PROPOSAL' | 'UI_FINISH' | 'RUNNING' | 'FINISH' | 'REVIEW' | 'PAYING' | 'DONE' | 'CLOSE',
+): CancelablePromise<ResponseProjectResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/project/{projectId}/status/{status}',
@@ -150,10 +151,10 @@ export class ApiService {
      * @throws ApiError
      */
     public updateProjectRoleStatus(
-        projectId: number,
-        roleCode: string,
-        status: string,
-    ): CancelablePromise<ResponseProjectResponse> {
+projectId: number,
+roleCode: string,
+status: string,
+): CancelablePromise<ResponseProjectResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/project/{projectId}/status/{roleCode}/{status}',
@@ -177,9 +178,9 @@ export class ApiService {
      * @throws ApiError
      */
     public updateMilestone(
-        id: number,
-        requestBody: ProjectMilestoneRequest,
-    ): CancelablePromise<ResponseProjectMilestoneResponse> {
+id: number,
+requestBody: ProjectMilestoneRequest,
+): CancelablePromise<ResponseProjectMilestoneResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/project/milestone/{id}',
@@ -203,9 +204,9 @@ export class ApiService {
      * @throws ApiError
      */
     public findCfgByCategory(
-        projectId: number,
-        category: string,
-    ): CancelablePromise<ResponseCfgResponse> {
+projectId: number,
+category: string,
+): CancelablePromise<ResponseCfgResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/cfg/{projectId}/{category}',
@@ -229,10 +230,10 @@ export class ApiService {
      * @throws ApiError
      */
     public updateCfg(
-        projectId: number,
-        category: string,
-        requestBody: Cfg,
-    ): CancelablePromise<ResponseCfgResponse> {
+projectId: number,
+category: string,
+requestBody: Cfg,
+): CancelablePromise<ResponseCfgResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/cfg/{projectId}/{category}',
@@ -256,8 +257,8 @@ export class ApiService {
      * @throws ApiError
      */
     public findTemplateById(
-        id: number,
-    ): CancelablePromise<ResponseTemplateResponse> {
+id: number,
+): CancelablePromise<ResponseTemplateResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/template/{id}',
@@ -279,9 +280,9 @@ export class ApiService {
      * @throws ApiError
      */
     public updateTemplate(
-        id: number,
-        requestBody: TemplateRequest,
-    ): CancelablePromise<ResponseTemplateResponse> {
+id: number,
+requestBody: TemplateRequest,
+): CancelablePromise<ResponseTemplateResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/admin/template/{id}',
@@ -304,8 +305,8 @@ export class ApiService {
      * @throws ApiError
      */
     public findTagInfoById(
-        id: number,
-    ): CancelablePromise<ResponseTagInfoResponse> {
+id: number,
+): CancelablePromise<ResponseTagInfoResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/tagInfo/{id}',
@@ -327,9 +328,9 @@ export class ApiService {
      * @throws ApiError
      */
     public updateTagInfo(
-        id: number,
-        tagName: string,
-    ): CancelablePromise<ResponseTagInfoResponse> {
+id: number,
+tagName: string,
+): CancelablePromise<ResponseTagInfoResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/admin/tagInfo/{id}',
@@ -353,8 +354,8 @@ export class ApiService {
      * @throws ApiError
      */
     public findProjectById(
-        id: number,
-    ): CancelablePromise<ResponseProjectResponse> {
+id: number,
+): CancelablePromise<ResponseProjectResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/project/{id}',
@@ -376,9 +377,9 @@ export class ApiService {
      * @throws ApiError
      */
     public updateProject(
-        id: number,
-        requestBody: ProjectRequest,
-    ): CancelablePromise<ResponseProjectResponse> {
+id: number,
+requestBody: ProjectRequest,
+): CancelablePromise<ResponseProjectResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/admin/project/{id}',
@@ -401,8 +402,8 @@ export class ApiService {
      * @throws ApiError
      */
     public findProjectDetailById(
-        id: number,
-    ): CancelablePromise<ResponseProjectDetailResponse> {
+id: number,
+): CancelablePromise<ResponseProjectDetailResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/project/detail/{id}',
@@ -424,9 +425,9 @@ export class ApiService {
      * @throws ApiError
      */
     public updateProjectDetail(
-        id: number,
-        requestBody: ProjectDetailRequest,
-    ): CancelablePromise<ResponseProjectDetailResponse> {
+id: number,
+requestBody: ProjectDetailRequest,
+): CancelablePromise<ResponseProjectDetailResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/admin/project/detail/{id}',
@@ -449,8 +450,8 @@ export class ApiService {
      * @throws ApiError
      */
     public findPortfolioById(
-        id: number,
-    ): CancelablePromise<ResponsePortfolioResponse> {
+id: number,
+): CancelablePromise<ResponsePortfolioResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/portfolio/{id}',
@@ -472,9 +473,9 @@ export class ApiService {
      * @throws ApiError
      */
     public updatePortfolio(
-        id: number,
-        requestBody: PortfolioRequest,
-    ): CancelablePromise<ResponsePortfolioResponse> {
+id: number,
+requestBody: PortfolioRequest,
+): CancelablePromise<ResponsePortfolioResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/admin/portfolio/{id}',
@@ -498,9 +499,9 @@ export class ApiService {
      * @throws ApiError
      */
     public updatePayInfo(
-        id: number,
-        requestBody: PayInfoRequest,
-    ): CancelablePromise<ResponsePayInfoResponse> {
+id: number,
+requestBody: PayInfoRequest,
+): CancelablePromise<ResponsePayInfoResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/admin/payInfo/{id}',
@@ -523,8 +524,8 @@ export class ApiService {
      * @throws ApiError
      */
     public deletePayInfo(
-        id: number,
-    ): CancelablePromise<ResponseVoid> {
+id: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/admin/payInfo/{id}',
@@ -546,9 +547,9 @@ export class ApiService {
      * @throws ApiError
      */
     public updateChannel(
-        id: number,
-        requestBody: ChannelRequest,
-    ): CancelablePromise<ResponseChannelResponse> {
+id: number,
+requestBody: ChannelRequest,
+): CancelablePromise<ResponseChannelResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/admin/channel/{id}',
@@ -571,8 +572,8 @@ export class ApiService {
      * @throws ApiError
      */
     public findById(
-        id: number,
-    ): CancelablePromise<ResponseArticleResponse> {
+id: number,
+): CancelablePromise<ResponseArticleResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/article/{id}',
@@ -594,9 +595,9 @@ export class ApiService {
      * @throws ApiError
      */
     public updateArticle(
-        id: number,
-        requestBody: ArticleRequest,
-    ): CancelablePromise<ResponseArticleResponse> {
+id: number,
+requestBody: ArticleRequest,
+): CancelablePromise<ResponseArticleResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/admin/article/{id}',
@@ -620,9 +621,9 @@ export class ApiService {
      * @throws ApiError
      */
     public updateUser(
-        id: number,
-        requestBody: UserRequest,
-    ): CancelablePromise<ResponseUserResponse> {
+id: number,
+requestBody: UserRequest,
+): CancelablePromise<ResponseUserResponse> {
         return this.httpRequest.request({
             method: 'PUT',
             url: '/account/update/{id}',
@@ -645,8 +646,8 @@ export class ApiService {
      * @throws ApiError
      */
     public save(
-        requestBody: UserRequest,
-    ): CancelablePromise<ResponseUserResponse> {
+requestBody: UserRequest,
+): CancelablePromise<ResponseUserResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/user',
@@ -666,8 +667,8 @@ export class ApiService {
      * @throws ApiError
      */
     public remove(
-        userId: number,
-    ): CancelablePromise<ResponseVoid> {
+userId: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/user',
@@ -689,9 +690,9 @@ export class ApiService {
      * @throws ApiError
      */
     public setRole(
-        userId: number,
-        roleIds: string,
-    ): CancelablePromise<ResponseUserResponse> {
+userId: number,
+roleIds: string,
+): CancelablePromise<ResponseUserResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/user/setRole',
@@ -713,8 +714,8 @@ export class ApiService {
      * @throws ApiError
      */
     public resetPwd(
-        requestBody: AdminResetPwdRequest,
-    ): CancelablePromise<ResponseVoid> {
+requestBody: AdminResetPwdRequest,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/user/resetPwd',
@@ -734,8 +735,8 @@ export class ApiService {
      * @throws ApiError
      */
     public createRole(
-        requestBody: RoleRequest,
-    ): CancelablePromise<ResponseRoleResponse> {
+requestBody: RoleRequest,
+): CancelablePromise<ResponseRoleResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/role',
@@ -755,8 +756,8 @@ export class ApiService {
      * @throws ApiError
      */
     public deleteRole(
-        roleId: number,
-    ): CancelablePromise<ResponseVoid> {
+roleId: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/role',
@@ -778,9 +779,9 @@ export class ApiService {
      * @throws ApiError
      */
     public settingRolePermission(
-        roleId: number,
-        permissions: string,
-    ): CancelablePromise<ResponseVoid> {
+roleId: number,
+permissions: string,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/role/savePermission',
@@ -802,8 +803,8 @@ export class ApiService {
      * @throws ApiError
      */
     public createMilestone(
-        requestBody: ProjectMilestoneRequest,
-    ): CancelablePromise<ResponseProjectMilestoneResponse> {
+requestBody: ProjectMilestoneRequest,
+): CancelablePromise<ResponseProjectMilestoneResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/project/milestone',
@@ -823,8 +824,8 @@ export class ApiService {
      * @throws ApiError
      */
     public deleteMilestone(
-        id: number,
-    ): CancelablePromise<ResponseVoid> {
+id: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/project/milestone',
@@ -845,8 +846,8 @@ export class ApiService {
      * @throws ApiError
      */
     public createMenu(
-        requestBody: Menu,
-    ): CancelablePromise<ResponseObject> {
+requestBody: Menu,
+): CancelablePromise<ResponseObject> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/menu',
@@ -866,8 +867,8 @@ export class ApiService {
      * @throws ApiError
      */
     public deleteMenu(
-        id: number,
-    ): CancelablePromise<ResponseVoid> {
+id: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/menu',
@@ -882,102 +883,29 @@ export class ApiService {
     }
 
     /**
-     * 上傳聊天室檔案
-     * @param requestBody 
-     * @returns ResponseString OK
+     * 上傳檔案
+     * @param name 
+     * @param fileType 
+     * @param formData 
+     * @returns ResponseFileInfoResponse OK
      * @throws ApiError
      */
-    public uploadChatFile(
-        requestBody?: {
-            file: File;
-        },
-    ): CancelablePromise<ResponseString> {
+    public uploadFile(
+name: string,
+fileType: 'UI' | 'DATA' | 'CONTRACT' | 'DEV_TEST' | 'PROD_TEST' | 'BLOG' | 'PORTFOLIO',
+formData?: {
+file: Blob;
+},
+): CancelablePromise<ResponseFileInfoResponse> {
         return this.httpRequest.request({
             method: 'POST',
-            url: '/file/uploadChatFile',
-            formData: requestBody,
+            url: '/file/upload',
+            query: {
+                'name': name,
+                'fileType': fileType,
+            },
+            formData: formData,
             mediaType: 'multipart/form-data',
-            errors: {
-                400: `Bad Request`,
-                500: `Internal Server Error`,
-            },
-        });
-    }
-
-    /**
-     * 上傳檔案至FTP(用FileType區分)
-     * @param fileType 
-     * @param projectId 
-     * @param title 
-     * @param remark 
-     * @param requestBody 
-     * @returns ResponseFileInfoResponse OK
-     * @throws ApiError
-     */
-    public uploadFileInfo(
-        fileType: 'UI' | 'DATA' | 'CONTRACT' | 'DEV_TEST' | 'PROD_TEST' | 'BLOG' | 'PORTFOLIO',
-        projectId: number,
-        title?: string,
-        remark?: string,
-        requestBody?: {
-            file: Blob;
-        },
-    ): CancelablePromise<ResponseFileInfoResponse> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/file/upload/{fileType}',
-            path: {
-                'fileType': fileType,
-            },
-            query: {
-                'projectId': projectId,
-                'title': title,
-                'remark': remark,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
-            errors: {
-                400: `Bad Request`,
-                500: `Internal Server Error`,
-            },
-        });
-    }
-
-    /**
-     * 上傳新版本檔案至FTP(用FileType區分)
-     * @param fileId 
-     * @param fileType 
-     * @param projectId 
-     * @param title 
-     * @param remark 
-     * @param requestBody 
-     * @returns ResponseFileInfoResponse OK
-     * @throws ApiError
-     */
-    public uploadFileInfoInNewVersion(
-        fileId: number,
-        fileType: 'UI' | 'DATA' | 'CONTRACT' | 'DEV_TEST' | 'PROD_TEST' | 'BLOG' | 'PORTFOLIO',
-        projectId: number,
-        title?: string,
-        remark?: string,
-        requestBody?: {
-            file: Blob;
-        },
-    ): CancelablePromise<ResponseFileInfoResponse> {
-        return this.httpRequest.request({
-            method: 'POST',
-            url: '/file/upload/{fileId}/{fileType}',
-            path: {
-                'fileId': fileId,
-                'fileType': fileType,
-            },
-            query: {
-                'projectId': projectId,
-                'title': title,
-                'remark': remark,
-            },
-            body: requestBody,
-            mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
                 500: `Internal Server Error`,
@@ -992,8 +920,8 @@ export class ApiService {
      * @throws ApiError
      */
     public crateCfg(
-        requestBody: Cfg,
-    ): CancelablePromise<ResponseCfgResponse> {
+requestBody: Cfg,
+): CancelablePromise<ResponseCfgResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/cfg',
@@ -1013,8 +941,8 @@ export class ApiService {
      * @throws ApiError
      */
     public crateTemplate(
-        requestBody: TemplateRequest,
-    ): CancelablePromise<ResponseTemplateResponse> {
+requestBody: TemplateRequest,
+): CancelablePromise<ResponseTemplateResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/admin/template',
@@ -1034,8 +962,8 @@ export class ApiService {
      * @throws ApiError
      */
     public deleteTemplate(
-        id: number,
-    ): CancelablePromise<ResponseVoid> {
+id: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/admin/template',
@@ -1056,8 +984,8 @@ export class ApiService {
      * @throws ApiError
      */
     public createTagInfo(
-        tagName: string,
-    ): CancelablePromise<ResponseTagInfoResponse> {
+tagName: string,
+): CancelablePromise<ResponseTagInfoResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/admin/tagInfo',
@@ -1078,8 +1006,8 @@ export class ApiService {
      * @throws ApiError
      */
     public deleteTagInfo(
-        id: number,
-    ): CancelablePromise<ResponseVoid> {
+id: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/admin/tagInfo',
@@ -1100,8 +1028,8 @@ export class ApiService {
      * @throws ApiError
      */
     public createProject(
-        requestBody: ProjectRequest,
-    ): CancelablePromise<ResponseProjectResponse> {
+requestBody: ProjectRequest,
+): CancelablePromise<ResponseProjectResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/admin/project',
@@ -1122,9 +1050,9 @@ export class ApiService {
      * @throws ApiError
      */
     public setProjectSUser(
-        projectId: number,
-        userId: number,
-    ): CancelablePromise<ResponseProjectUserResponse> {
+projectId: number,
+userId: number,
+): CancelablePromise<ResponseProjectUserResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/admin/project/setUser',
@@ -1146,8 +1074,8 @@ export class ApiService {
      * @throws ApiError
      */
     public createProjectDetail(
-        requestBody: ProjectDetailRequest,
-    ): CancelablePromise<ResponseProjectDetailResponse> {
+requestBody: ProjectDetailRequest,
+): CancelablePromise<ResponseProjectDetailResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/admin/project/detail',
@@ -1167,8 +1095,8 @@ export class ApiService {
      * @throws ApiError
      */
     public createPortfolio(
-        requestBody: PortfolioRequest,
-    ): CancelablePromise<ResponsePortfolioResponse> {
+requestBody: PortfolioRequest,
+): CancelablePromise<ResponsePortfolioResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/admin/portfolio',
@@ -1188,8 +1116,8 @@ export class ApiService {
      * @throws ApiError
      */
     public deletePortfolio(
-        id: number,
-    ): CancelablePromise<ResponseVoid> {
+id: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/admin/portfolio',
@@ -1210,8 +1138,8 @@ export class ApiService {
      * @throws ApiError
      */
     public createPayInfo(
-        requestBody: PayInfoRequest,
-    ): CancelablePromise<ResponsePayInfoResponse> {
+requestBody: PayInfoRequest,
+): CancelablePromise<ResponsePayInfoResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/admin/payInfo',
@@ -1233,12 +1161,12 @@ export class ApiService {
      * @throws ApiError
      */
     public createContact(
-        userId: number,
-        projectId: number,
-        requestBody?: {
-            file: Blob;
-        },
-    ): CancelablePromise<ResponseContractResponse> {
+userId: number,
+projectId: number,
+requestBody?: {
+file: Blob;
+},
+): CancelablePromise<ResponseContractResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/admin/contract/{userId}/{projectId}',
@@ -1262,8 +1190,8 @@ export class ApiService {
      * @throws ApiError
      */
     public createChannel(
-        requestBody: ChannelRequest,
-    ): CancelablePromise<ResponseChannelResponse> {
+requestBody: ChannelRequest,
+): CancelablePromise<ResponseChannelResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/admin/channel',
@@ -1283,8 +1211,8 @@ export class ApiService {
      * @throws ApiError
      */
     public deleteById(
-        id: number,
-    ): CancelablePromise<ResponseVoid> {
+id: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/admin/channel',
@@ -1305,8 +1233,8 @@ export class ApiService {
      * @throws ApiError
      */
     public createArticle(
-        requestBody: ArticleRequest,
-    ): CancelablePromise<ResponseArticleResponse> {
+requestBody: ArticleRequest,
+): CancelablePromise<ResponseArticleResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/admin/article',
@@ -1326,8 +1254,8 @@ export class ApiService {
      * @throws ApiError
      */
     public deleteArticle(
-        id: number,
-    ): CancelablePromise<ResponseVoid> {
+id: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/admin/article',
@@ -1348,8 +1276,8 @@ export class ApiService {
      * @throws ApiError
      */
     public updatePassword(
-        requestBody: ResetPwdRequest,
-    ): CancelablePromise<ResponseUserResponse> {
+requestBody: ResetPwdRequest,
+): CancelablePromise<ResponseUserResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/account/updatePwd',
@@ -1369,8 +1297,8 @@ export class ApiService {
      * @throws ApiError
      */
     public userLogin(
-        requestBody: LoginRequest,
-    ): CancelablePromise<ResponseUserProfileResponse> {
+requestBody: LoginRequest,
+): CancelablePromise<ResponseUserProfileResponse> {
         return this.httpRequest.request({
             method: 'POST',
             url: '/account/login',
@@ -1394,12 +1322,12 @@ export class ApiService {
      * @throws ApiError
      */
     public list(
-        account?: string,
-        name?: string,
-        page?: number,
-        limit?: number,
-        order?: string,
-    ): CancelablePromise<ResponsePaginationResponseUserResponse> {
+account?: string,
+name?: string,
+page?: number,
+limit?: number,
+order?: string,
+): CancelablePromise<ResponsePaginationResponseUserResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/user/list',
@@ -1424,8 +1352,8 @@ export class ApiService {
      * @throws ApiError
      */
     public getRoleTreeByUserId(
-        userId: number,
-    ): CancelablePromise<ResponseHashMapStringListNode> {
+userId: number,
+): CancelablePromise<ResponseHashMapStringListNode> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/role/roleTreeListByIdUser',
@@ -1450,12 +1378,12 @@ export class ApiService {
      * @throws ApiError
      */
     public listRole(
-        name?: string,
-        tips?: string,
-        page?: number,
-        limit?: number,
-        order?: string,
-    ): CancelablePromise<ResponsePaginationResponseRoleResponse> {
+name?: string,
+tips?: string,
+page?: number,
+limit?: number,
+order?: string,
+): CancelablePromise<ResponsePaginationResponseRoleResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/role/list',
@@ -1480,8 +1408,8 @@ export class ApiService {
      * @throws ApiError
      */
     public findProjectByProjectId(
-        projectId: number,
-    ): CancelablePromise<ResponseProjectResponse> {
+projectId: number,
+): CancelablePromise<ResponseProjectResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/project/{projectId}',
@@ -1518,8 +1446,8 @@ export class ApiService {
      * @throws ApiError
      */
     public listMilestoneByProjectId(
-        projectId: number,
-    ): CancelablePromise<ResponseListProjectMilestoneResponse> {
+projectId: number,
+): CancelablePromise<ResponseListProjectMilestoneResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/project/milestone/{projectId}',
@@ -1543,11 +1471,11 @@ export class ApiService {
      * @throws ApiError
      */
     public listProject(
-        projectName?: string,
-        page?: number,
-        limit?: number,
-        order?: string,
-    ): CancelablePromise<ResponsePaginationResponseProjectUserResponse> {
+projectName?: string,
+page?: number,
+limit?: number,
+order?: string,
+): CancelablePromise<ResponsePaginationResponseProjectUserResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/project/list',
@@ -1571,8 +1499,8 @@ export class ApiService {
      * @throws ApiError
      */
     public listProjectDetailByProjectId(
-        projectId: number,
-    ): CancelablePromise<ResponseListProjectDetailResponse> {
+projectId: number,
+): CancelablePromise<ResponseListProjectDetailResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/project/detail/{projectId}',
@@ -1593,8 +1521,8 @@ export class ApiService {
      * @throws ApiError
      */
     public listPayInfo(
-        projectId: number,
-    ): CancelablePromise<ResponseListPayInfoResponse> {
+projectId: number,
+): CancelablePromise<ResponseListPayInfoResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/payInfo/{projectId}',
@@ -1621,14 +1549,14 @@ export class ApiService {
      * @throws ApiError
      */
     public listMessage(
-        projectId?: number,
-        uiId?: number,
-        page?: number,
-        limit?: number,
-        offset?: number,
-        order?: string,
-        sort?: string,
-    ): CancelablePromise<ResponsePaginationResponseMessageLogResponse> {
+projectId?: number,
+uiId?: number,
+page?: number,
+limit?: number,
+offset?: number,
+order?: string,
+sort?: string,
+): CancelablePromise<ResponsePaginationResponseMessageLogResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/messageLog/list',
@@ -1671,8 +1599,8 @@ export class ApiService {
      * @throws ApiError
      */
     public listMenuTreeByRoleId(
-        roleId: number,
-    ): CancelablePromise<ResponseHashMapStringListNode> {
+roleId: number,
+): CancelablePromise<ResponseHashMapStringListNode> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/menu/menuTreeListByRoleId',
@@ -1720,25 +1648,17 @@ export class ApiService {
 
     /**
      * 取得檔案列表
-     * @param projectId 
-     * @param title 
      * @param fileType 
-     * @returns any OK
+     * @returns ResponsePaginationResponseFileInfoResponse OK
      * @throws ApiError
      */
     public listFileInfo(
-        projectId: number,
-        title?: string,
-        fileType?: 'UI' | 'DATA' | 'CONTRACT' | 'DEV_TEST' | 'PROD_TEST' | 'BLOG' | 'PORTFOLIO',
-    ): CancelablePromise<any> {
+fileType?: 'UI' | 'DATA' | 'CONTRACT' | 'DEV_TEST' | 'PROD_TEST' | 'BLOG' | 'PORTFOLIO',
+): CancelablePromise<ResponsePaginationResponseFileInfoResponse> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/file/list/{projectId}',
-            path: {
-                'projectId': projectId,
-            },
+            url: '/file/list',
             query: {
-                'title': title,
                 'fileType': fileType,
             },
             errors: {
@@ -1749,25 +1669,20 @@ export class ApiService {
     }
 
     /**
-     * 從FTP取得上傳PDF
+     * 取得上傳檔案圖
      * @param fileId 
-     * @param version 
      * @returns any OK
      * @throws ApiError
      */
-    public getPdfFromFtp(
-        fileId: number,
-        version: number = 1,
-    ): CancelablePromise<any> {
+    public getFileImg(
+fileId: number,
+): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'GET',
-            url: '/file/getPDFStream/{fileId}',
+            url: '/file/imgStream/{fileId}',
             path: {
                 'fileId': fileId,
             },
-            query: {
-                'version': version,
-            },
             errors: {
                 400: `Bad Request`,
                 500: `Internal Server Error`,
@@ -1776,95 +1691,19 @@ export class ApiService {
     }
 
     /**
-     * 從FTP取得上傳檔案圖
+     * 下載檔案
      * @param fileId 
-     * @param version 
-     * @returns any OK
+     * @returns binary OK
      * @throws ApiError
      */
-    public getFileFromFtp(
-        fileId: number,
-        version: number = 1,
-    ): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/file/getImgStream/{fileId}',
-            path: {
-                'fileId': fileId,
-            },
-            query: {
-                'version': version,
-            },
-            errors: {
-                400: `Bad Request`,
-                500: `Internal Server Error`,
-            },
-        });
-    }
-
-    /**
-     * 取得聊天室圖片
-     * @param fileName 
-     * @returns any OK
-     * @throws ApiError
-     */
-    public getChatFile(
-        fileName: string,
-    ): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/file/getChatImage',
-            query: {
-                'fileName': fileName,
-            },
-            errors: {
-                400: `Bad Request`,
-                500: `Internal Server Error`,
-            },
-        });
-    }
-
-    /**
-     * 從FTP下載多個上傳檔案,代入fileId(逗點隔開)
-     * @param fileIds 
-     * @returns any OK
-     * @throws ApiError
-     */
-    public downloadMultipleFile(
-        fileIds: Array<number>,
-    ): CancelablePromise<any> {
-        return this.httpRequest.request({
-            method: 'GET',
-            url: '/file/downloadMultipleFile',
-            query: {
-                'fileIds': fileIds,
-            },
-            errors: {
-                400: `Bad Request`,
-                500: `Internal Server Error`,
-            },
-        });
-    }
-
-    /**
-     * 從FTP下載單一檔案
-     * @param fileId 
-     * @param version 
-     * @returns any OK
-     * @throws ApiError
-     */
-    public downloadOneFileFromFtp(
-        fileId: number,
-        version: number = 1,
-    ): CancelablePromise<any> {
+    public downloadFile(
+fileId: number,
+): CancelablePromise<Blob> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/file/download/{fileId}',
             path: {
                 'fileId': fileId,
-            },
-            query: {
-                'version': version,
             },
             errors: {
                 400: `Bad Request`,
@@ -1880,8 +1719,8 @@ export class ApiService {
      * @throws ApiError
      */
     public findContactByProjectId(
-        projectId: number,
-    ): CancelablePromise<any> {
+projectId: number,
+): CancelablePromise<any> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/contract/{projectId}',
@@ -1902,8 +1741,8 @@ export class ApiService {
      * @throws ApiError
      */
     public findOneCfg(
-        id: number,
-    ): CancelablePromise<ResponseCfgResponse> {
+id: number,
+): CancelablePromise<ResponseCfgResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/cfg/{id}',
@@ -1924,8 +1763,8 @@ export class ApiService {
      * @throws ApiError
      */
     public deleteCfg(
-        id: number,
-    ): CancelablePromise<ResponseVoid> {
+id: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/cfg/{id}',
@@ -1967,13 +1806,13 @@ export class ApiService {
      * @throws ApiError
      */
     public listTemplate(
-        title?: string,
-        startDate?: string,
-        endDate?: string,
-        page?: number,
-        limit?: number,
-        order?: string,
-    ): CancelablePromise<ResponsePaginationResponseTemplateResponse> {
+title?: string,
+startDate?: string,
+endDate?: string,
+page?: number,
+limit?: number,
+order?: string,
+): CancelablePromise<ResponsePaginationResponseTemplateResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/template/list',
@@ -2004,13 +1843,13 @@ export class ApiService {
      * @throws ApiError
      */
     public listTagInfo(
-        tagName?: string,
-        page?: number,
-        limit?: number,
-        offset?: number,
-        order?: string,
-        sort?: string,
-    ): CancelablePromise<ResponsePaginationResponseTagInfoResponse> {
+tagName?: string,
+page?: number,
+limit?: number,
+offset?: number,
+order?: string,
+sort?: string,
+): CancelablePromise<ResponsePaginationResponseTagInfoResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/tagInfo/list',
@@ -2038,10 +1877,10 @@ export class ApiService {
      * @throws ApiError
      */
     public listProject1(
-        page?: number,
-        limit?: number,
-        order?: string,
-    ): CancelablePromise<ResponsePaginationResponseProjectResponse> {
+page?: number,
+limit?: number,
+order?: string,
+): CancelablePromise<ResponsePaginationResponseProjectResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/project/list',
@@ -2064,8 +1903,8 @@ export class ApiService {
      * @throws ApiError
      */
     public getProjectSUser(
-        projectId: number,
-    ): CancelablePromise<ResponseListUserResponse> {
+projectId: number,
+): CancelablePromise<ResponseListUserResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/project/getUser',
@@ -2088,10 +1927,10 @@ export class ApiService {
      * @throws ApiError
      */
     public listProjectDetail(
-        page?: number,
-        limit?: number,
-        order?: string,
-    ): CancelablePromise<ResponsePaginationResponseProjectDetailResponse> {
+page?: number,
+limit?: number,
+order?: string,
+): CancelablePromise<ResponsePaginationResponseProjectDetailResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/project/detail/list',
@@ -2120,14 +1959,14 @@ export class ApiService {
      * @throws ApiError
      */
     public listPortfolio(
-        channelId?: number,
-        title?: string,
-        startDate?: string,
-        endDate?: string,
-        page?: number,
-        limit?: number,
-        order?: string,
-    ): CancelablePromise<ResponsePaginationResponsePortfolioResponse> {
+channelId?: number,
+title?: string,
+startDate?: string,
+endDate?: string,
+page?: number,
+limit?: number,
+order?: string,
+): CancelablePromise<ResponsePaginationResponsePortfolioResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/portfolio/list',
@@ -2155,9 +1994,9 @@ export class ApiService {
      * @throws ApiError
      */
     public listUserPayInfo(
-        projectId: number,
-        userId: number,
-    ): CancelablePromise<ResponseListPayInfoResponse> {
+projectId: number,
+userId: number,
+): CancelablePromise<ResponseListPayInfoResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/payInfo/list',
@@ -2179,8 +2018,8 @@ export class ApiService {
      * @throws ApiError
      */
     public findContactById(
-        id: number,
-    ): CancelablePromise<ResponseContractResponse> {
+id: number,
+): CancelablePromise<ResponseContractResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/contract/{id}',
@@ -2201,8 +2040,8 @@ export class ApiService {
      * @throws ApiError
      */
     public deleteContact(
-        id: number,
-    ): CancelablePromise<ResponseVoid> {
+id: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/admin/contract/{id}',
@@ -2223,8 +2062,8 @@ export class ApiService {
      * @throws ApiError
      */
     public listByProjectIdInContact(
-        projectId: number,
-    ): CancelablePromise<ResponseListContractResponse> {
+projectId: number,
+): CancelablePromise<ResponseListContractResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/contract/list/{projectId}',
@@ -2249,12 +2088,12 @@ export class ApiService {
      * @throws ApiError
      */
     public listContact(
-        startDate?: string,
-        endDate?: string,
-        page?: number,
-        limit?: number,
-        order?: string,
-    ): CancelablePromise<ResponsePaginationResponseContactsResponse> {
+startDate?: string,
+endDate?: string,
+page?: number,
+limit?: number,
+order?: string,
+): CancelablePromise<ResponsePaginationResponseContactsResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/contact/list',
@@ -2282,11 +2121,11 @@ export class ApiService {
      * @throws ApiError
      */
     public listChannel(
-        type?: 'ARTICLE' | 'PORTFOLIO',
-        page?: number,
-        limit?: number,
-        order?: string,
-    ): CancelablePromise<ResponsePaginationResponseChannelResponse> {
+type?: 'ARTICLE' | 'PORTFOLIO',
+page?: number,
+limit?: number,
+order?: string,
+): CancelablePromise<ResponsePaginationResponseChannelResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/channel/list',
@@ -2316,14 +2155,14 @@ export class ApiService {
      * @throws ApiError
      */
     public listArticle(
-        channelId?: number,
-        title?: string,
-        startDate?: string,
-        endDate?: string,
-        page?: number,
-        limit?: number,
-        order?: string,
-    ): CancelablePromise<ResponsePaginationResponseArticleResponse> {
+channelId?: number,
+title?: string,
+startDate?: string,
+endDate?: string,
+page?: number,
+limit?: number,
+order?: string,
+): CancelablePromise<ResponsePaginationResponseArticleResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/admin/article/list',
@@ -2361,19 +2200,13 @@ export class ApiService {
 
     /**
      * 會員資訊
-     * @param roleId 
      * @returns ResponseUserProfileResponse OK
      * @throws ApiError
      */
-    public userInfo(
-        roleId: number,
-    ): CancelablePromise<ResponseUserProfileResponse> {
+    public userInfo(): CancelablePromise<ResponseUserProfileResponse> {
         return this.httpRequest.request({
             method: 'GET',
             url: '/account/info',
-            query: {
-                'roleId': roleId,
-            },
             errors: {
                 400: `Bad Request`,
                 500: `Internal Server Error`,
@@ -2382,24 +2215,19 @@ export class ApiService {
     }
 
     /**
-     * 從FTP上刪除檔案並刪除資料
+     * 刪除檔案
      * @param fileId 
-     * @param version 
-     * @returns ResponseVoid OK
+     * @returns ResponseDeleteFileResponse OK
      * @throws ApiError
      */
-    public deleteFileFromFtp(
-        fileId: number,
-        version: number = 1,
-    ): CancelablePromise<ResponseVoid> {
+    public deleteFileImg(
+fileId: number,
+): CancelablePromise<ResponseDeleteFileResponse> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/file/{fileId}',
             path: {
                 'fileId': fileId,
-            },
-            query: {
-                'version': version,
             },
             errors: {
                 400: `Bad Request`,
@@ -2416,9 +2244,9 @@ export class ApiService {
      * @throws ApiError
      */
     public deleteMappingUser(
-        projectId: number,
-        userId: number,
-    ): CancelablePromise<ResponseVoid> {
+projectId: number,
+userId: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/admin/project/deleteUser',
@@ -2440,8 +2268,8 @@ export class ApiService {
      * @throws ApiError
      */
     public deleteContact1(
-        id: number,
-    ): CancelablePromise<ResponseVoid> {
+id: number,
+): CancelablePromise<ResponseVoid> {
         return this.httpRequest.request({
             method: 'DELETE',
             url: '/admin/contact',

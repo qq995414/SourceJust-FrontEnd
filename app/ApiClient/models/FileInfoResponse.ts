@@ -4,15 +4,12 @@
 
 export type FileInfoResponse = {
     id?: number;
-    version?: number;
     createTime?: string;
     createBy?: number;
     originalFileName?: string;
     realFileName?: string;
-    title?: string;
-    remark?: string;
+    url?: string;
     fileType?: FileInfoResponse.fileType;
-    projectId?: number;
 };
 
 export namespace FileInfoResponse {
