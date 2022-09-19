@@ -2,17 +2,15 @@ import { MetaFunction, useNavigate, Link, Form, useLoaderData } from 'remix';
 import { SetStateAction, useState, Component, useRef } from 'react';
 import Nav from '~/components/Nav';
 import { Editor } from './components/react-draft-wysiwyg.client';
+import { EditorState, convertToRaw, ContentState, } from 'draft-js';
 import { ClientOnly } from "remix-utils";
 import styles from "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { ActionFunction, LoaderFunction, json } from 'remix';
 import authenticator from "~/services/auth.server";
-import { FormStrategy } from 'remix-auth-form';
-import { Authenticator, AuthorizationError } from 'remix-auth';
-import { sessionStorage, User } from '~/services/session.server';
-
-import { ApiClient, OpenAPI } from 'app/ApiClient';
-import { ArticleRequest } from 'app/ApiClient/models/ArticleRequest';
+import { ApiClient, ArticleRequest, OpenAPI } from 'app/ApiClient';
 import { FileUploader } from "react-drag-drop-files";
+import draftToHtml from "draftjs-to-html";
+
 
 export const loader: LoaderFunction = async ({ request }) => {
   let user = await authenticator.isAuthenticated(request, {
@@ -48,9 +46,9 @@ export default function Index() {
     setDes(event.target.value);
 
   };
-  const [state, setState] = useState(true);
+  const [isDisable, setIsDisable] = useState(true);
   const statechange = event => {
-    setState(event.target.value);
+    setIsDisable(event.target.value);
 
   };
   const [classId, setClassId] = useState(0);
@@ -58,73 +56,112 @@ export default function Index() {
     setClassId(event.target.value);
   };
 
-  const [context, setContext] = useState('ertert');
 
   const blogapi = useLoaderData();
   const blogClassSelect = blogapi?.Class?.data?.records;
-
+  const [coverImg, setCoverImg] = useState('');
+  const [smallImg, setSmallImg] = useState('');
+  const [coverImgState, setCoverImgState] = useState(false);
+  const [smallImgState, setSmallImgState] = useState(false);
+  const [coverImgName, setCoverImgName] = useState('');
+  const [smallImgName, setSmallImgName] = useState('');
   const insrnt = async ({ request }) => {
     //alert(classId+','+title+','+des+','+key+','+state)
     OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
     let articleRequest: ArticleRequest = {
       channelId: classId,//
-      smallImg: 'test',//跟YAP確認
+      coverImg: coverImg,
+      caseImg: '',
+      smallImg: smallImg,
       title: title,
       content: context,
-      subTitle: '1',//跟YAP確認
+      subTitle: '1',
       metaDes: des,
       metaKeyword: key,
       onlineDate: '', //上架日期(前台無)
       offlineDate: '',//下架日期(前台無)
-      isDisable: state,
+      isDisable: isDisable,
 
     };
-    const pages = await apiClient.api.createArticle(articleRequest);
-    return json(pages);
+    console.log();
 
+    const pages = await apiClient.api.createArticle(articleRequest);
+    window.location.href = "/admin/webpage";
+    return json(pages);
   }
   const fileTypes = ["JPG", "PNG", "GIF"];
   const handleChange = async (file) => {
+    let imgrequest = {
+      file: file,
+    };
+    setSmallImgName(file.name)
     OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
-    const test = await apiClient.api.uploadFileInfo('BLOG', 0, '', '', file);
-    //  document coje note multipartformdata
+    const fileupload = await apiClient.api.uploadFile('test', 'BLOG', imgrequest);
+    setSmallImg(fileupload.data?.url)
+    setSmallImgState(true)
+
   };
+  const handleChange2 = async (file) => {
+    let imgrequest = {
+      file: file,
+    };
+    setCoverImgName(file.name)
+    OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
+    const apiClient = new ApiClient(OpenAPI);
+    const fileupload = await apiClient.api.uploadFile('test', 'BLOG', imgrequest);
+    setCoverImg(fileupload.data?.url)
+    console.log(fileupload);
+
+    setCoverImgState(true)
+
+  };
+  const [state, setState] = useState(0);
+
   async function uploadImageCallBack(file: File) {
     let imgrequest = {
       file: file,
     };
-    OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token};
+    OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
-    const fileupload = await apiClient.api.uploadChatFile(imgrequest);
+    const fileupload = await apiClient.api.uploadFile('test', 'BLOG', imgrequest);
+    //setState({fileupload.data?.url});
+    alert(fileupload.data?.url)
+  }
 
+  const [description, setDescription] = useState({
+    htmlValue: "<p>fdsfdf</p>\n",
+    editorState: EditorState.createEmpty()
+  });
+  const [context, setContext] = useState('');
+  const onEditorStateChange = (editorValue) => {
+    const editorStateInHtml = draftToHtml(
+      convertToRaw(editorValue.getCurrentContent())
+    );
+
+    setDescription({
+      htmlValue: editorStateInHtml,
+      editorState: editorValue,
+    });
+    setContext(editorStateInHtml)
+
+  };
+  const uploadCallback = async (file) => {
+    let imgrequest = {
+      file: file,
+    };
+    OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
+    const apiClient = new ApiClient(OpenAPI);
+    const fileupload = await apiClient.api.uploadFile('tesrt', 'BLOG', imgrequest);
     console.log(fileupload);
 
-    /* alert('123')
-     authenticator.use(
-       new FormStrategy(async ({ form }) => {
-         OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token, "content-type": 'multipart/form-data' };
-         let imgrequest = {
-           file: file,//
-         };
-         const apiClient = new ApiClient(OpenAPI);
-         const fileupload = await apiClient.api.uploadChatFile(imgrequest);
-         console.log(fileupload);
-         
-       }),
-       "user-login"
-     );*/
-
-    /*   let imgrequest = {
-         file: file,//
-       };
-       OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
-       const apiClient = new ApiClient(OpenAPI);
-       const fileupload = await apiClient.api.uploadChatFile(imgrequest);
-       console.log('123');
-     })*/
-
+    //setState({fileupload.data?.url});
+    return new Promise(
+      (resolve, reject) => {
+        resolve({ data: { link: fileupload.data?.url } });
+      }
+    );
   }
   return (
     <div className="grid w-full" >
@@ -140,7 +177,8 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-clear-btn">
               取消</button>
             <button
               className="border-2  w-20 text-white
-h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-view-btn">
+h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-view-btn"
+            >
               預覽</button>
             <button
               className="border-2  w-20 text-white
@@ -150,7 +188,7 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
           </div>
 
         </div>
-        <form className="flex flex-col mt-8">
+        <div className="flex flex-col mt-8">
           <div className="flex flex-col   pl-5 w-full px-10 ">
             <a className="blog-class-text">類別 <a className='functional-Error-3-text'>*</a></a>
             <select value={classId} onChange={classIdchange} className='neutral-colors-4-grey-text mt-1 blog-class-input' name='classId'  >
@@ -186,25 +224,48 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
               <option className='text-black' value="false">草稿</option>
             </select>
           </div>
-          <div className="flex flex-col   pl-5 w-full px-10 mt-5 ">
-            <a className="blog-class-text">案例縮圖 <a className='functional-Error-3-text'>*</a></a>
-            <FileUploader handleChange={handleChange} name="file" types={fileTypes} />
+          <div className="flex flex-row   pl-5 w-full px-10 mt-5 ">
+            <div className='w-1/2 imgUpload'>
+              <a className="blog-class-text">案例縮圖 <a className='functional-Error-3-text'>*</a></a>
+              <FileUploader handleChange={handleChange} name="file" types={fileTypes} />
+              {smallImgState == false && <p className='file-upload-drop-text pt-3'>已成功上傳檔案 ( 0 / 1 )</p>}
+              {smallImgState == true &&
+                <div className='w-full'><p className='file-upload-drop-text-red pt-3'>已成功上傳檔案 ( 1 / 1 )</p>
+                  <div className='file-upload-drop-state w-10/12 flex items-center'>
+                    <img className='h-full w-auto' src={smallImg}></img> <a>{smallImgName}</a>
+                  </div>
+                </div>}
+            </div>
+            <div className='w-1/2 imgUpload'>
+              <a className="blog-class-text">案例縮圖 <a className='functional-Error-3-text'>*</a></a>
+              <FileUploader handleChange={handleChange2} name="file" types={fileTypes} />
+              {coverImgState == false && <p className='file-upload-drop-text pt-3'>已成功上傳檔案 ( 0 / 1 )</p>}
+              {coverImgState == true &&
+                <div className='w-full'><p className='file-upload-drop-text-red pt-3'>已成功上傳檔案 ( 1 / 1 )</p>
+                  <div className='file-upload-drop-state w-10/12 flex items-center'>
+                    <img className='h-full w-auto' src={coverImg}></img> <a>{coverImgName}</a>
+                  </div>
+                </div>}
+            </div>
+
           </div>
           <div className="flex flex-col   pl-5 w-full px-10 mt-5 ">
+
             <ClientOnly>
-              {() => <Editor name='context'
-                value={context}
+              {() => <Editor
+                editorState={description.editorState}
+                onEditorStateChange={onEditorStateChange}
                 toolbar={{
                   inline: { inDropdown: true },
                   list: { inDropdown: true },
                   textAlign: { inDropdown: true },
                   link: { inDropdown: true },
                   history: { inDropdown: true },
-                  image: { uploadCallback: uploadImageCallBack, alt: { present: true, mandatory: true } },
+                  image: { uploadCallback: uploadCallback },
                 }} />}
             </ClientOnly>
           </div>
-        </form>
+        </div>
       </div >
     </div >
   );
