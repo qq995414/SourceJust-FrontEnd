@@ -194,7 +194,7 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
         <div className="flex flex-col mt-8">
           <div className="flex flex-col   pl-5 w-full px-10 ">
             <a className="blog-class-text">類別 <a className='functional-Error-3-text'>*</a></a>
-            <select value={classId} onChange={classIdchange} className='neutral-colors-4-grey-text mt-1 blog-class-input' name='classId'  >
+            <select value={classId} onChange={classIdchange} className={classId == 0 ? 'neutral-colors-4-grey-text mt-1 blog-class-input' :' mt-1 blog-class-input-black'} name='classId'  >
               <option style={{ display: "none" }} >請選擇類別</option>
               {blogClassSelect.map((blogClassSelect: { name: any; id: any; }) => {
                 const {
@@ -225,7 +225,7 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
           </div>
           <div className="flex flex-col   pl-5 w-full px-10 mt-5 ">
             <a className="blog-class-text">狀態 <a className='functional-Error-3-text'>*</a></a>
-            <select value={isDisable} onChange={isDisablechange} className='neutral-colors-4-grey-text mt-1 blog-class-input' name="state">
+            <select value={isDisable} onChange={isDisablechange} className={isDisable == '' ? 'neutral-colors-4-grey-text mt-1 blog-class-input' :' mt-1 blog-class-input-black'} name="state">
               <option style={{ display: "none" }} >請選擇狀態(已發布、草稿)</option>
               <option className='text-black' value="true">已發布</option>
               <option className='text-black' value="false">草稿</option>
