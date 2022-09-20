@@ -17,7 +17,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   const apiClient = new ApiClient(OpenAPI);
 
   const pages = await apiClient.api.listArticle('', '', '', '', 1, 99, 'asc');
-  const lodervalue = { pages: pages, key: user }
+  //for (var i = 0; i <= pages.length; i++)
+    const lodervalue = { pages: pages, key: user }
   return lodervalue;
 };
 
@@ -36,28 +37,36 @@ export default function Index() {
   const [number, setNumber] = useState(10);
   const [page, setPage] = useState(1);
   const [removePage, setRemovePage] = useState(false);
-  const [checked, setChecked] = useState(false);
+  const [allChecked, setChecked] = useState(false);
   let length = blog.length
   const shownumber = number * page
 
-  const lengthpage = Math.floor((length / number)) + 1
+  const lengthpage = Math.floor(((length-1) / number)) + 1
 
-  const [keywords, setKeywords] = useState('');
   const [names, setNames] = useState(['n']);
+  const [imgUrl, setImgUrl] = useState([]);
 
   const PreviousPage = () => {
-    if (page >= 2)
+
+    if (page >= 2) {
+      setNames(['n']);
+      setChecked(false)
       setPage(page - 1)
+    }
   };
 
   const NextPage = () => {
-    if (page <= lengthpage - 1)
+    if (page <= lengthpage - 1) {
+      setNames(['n']);
+      setChecked(false)
       setPage(page + 1)
+    }
   };
 
   const nameslength = names.length
 
   const handleChange = async (e: any) => {
+    setChecked(false)
     const name = e.target.getAttribute("name")
     if (e.target.checked) {
       names.push(name)
@@ -103,14 +112,15 @@ export default function Index() {
     }
   }
   const allcheckbox = async (e: any) => {
-    /*names.push(name)*/
     const first = ((page - 1) * number)
     if (e.target.checked) {
       for (var i = first; i < first + number; i++) {
         names.push(blog[i].id)
+
         if (i >= length) {
           break;
         }
+
       }
     }
     else {
@@ -129,6 +139,8 @@ export default function Index() {
       setBlog(newblog)
     }
   }
+
+  const [keywords, setKeywords] = useState('');
   let keywordApi = async event => {
     if (tab == 0) {
       OpenAPI.HEADERS = { "Authorization": blogRequest?.key?.data?.token };
@@ -155,6 +167,7 @@ export default function Index() {
     setPage(1)
   };
   const removeapi = async () => {
+    
     OpenAPI.HEADERS = { "Authorization": blogRequest?.key?.data?.token };
     const apiClient = new ApiClient(OpenAPI);
     for (var i = 1; i < names.length; i++) {
@@ -181,7 +194,7 @@ export default function Index() {
     <div className="grid w-full">
       {removePage == true &&
         <div>
-          <div className="w-screen h-screen bg-gray-500 opacity-40 z-100 fixed" style={{ marginLeft: "-15.5rem" }}></div>
+          <div className="w-screen h-screen bg-gray-500 opacity-40 z-100 fixed" ></div>
           <div
             className="w-2/12 h-80 bg-white z-20
 fixed top-0 left-0 bottom-0 right-0 m-auto
@@ -228,7 +241,7 @@ h-12 rounded-lg ml-3  font-semibold "
             <div className='w-10/12 pl-1 pt-2 pr-1 flex '>
               <p
 
-                onClick={function (event) { changeTab(0, ''); setTab(0) }}
+                onClick={function (event) { changeTab(0, ''); setTab(0); setPage(1); setKeywords('') }}
                 className={cx(
                   tab === 0
                     ? 'text-primary-red border-b-primary-red'
@@ -239,7 +252,7 @@ h-12 rounded-lg ml-3  font-semibold "
                 所有日誌
               </p>
               <p
-                onClick={function (event) { changeTab(1, ''); setTab(1) }}
+                onClick={function (event) { changeTab(1, ''); setTab(1); setPage(1); setKeywords('') }}
                 className={cx(
                   tab === 1
                     ? 'text-primary-red border-b-primary-red'
@@ -250,7 +263,7 @@ h-12 rounded-lg ml-3  font-semibold "
                 SEO優化
               </p>
               <p
-                onClick={function (event) { changeTab(2, ''); setTab(2) }}
+                onClick={function (event) { changeTab(2, ''); setTab(2); setPage(1); setKeywords('') }}
                 className={cx(
                   tab === 2
                     ? 'text-primary-red border-b-primary-red'
@@ -261,7 +274,7 @@ h-12 rounded-lg ml-3  font-semibold "
                 網頁設計常見問題
               </p>
               <p
-                onClick={function (event) { changeTab(3, ''); setTab(3) }}
+                onClick={function (event) { changeTab(3, ''); setTab(3); setPage(1); setKeywords('') }}
                 className={cx(
                   tab === 3
                     ? 'text-primary-red border-b-primary-red'
@@ -272,7 +285,7 @@ h-12 rounded-lg ml-3  font-semibold "
                 網頁須知
               </p>
               <p
-                onClick={function (event) { changeTab(4, ''); setTab(4) }}
+                onClick={function (event) { changeTab(4, ''); setTab(4); setPage(1); setKeywords('') }}
                 className={cx(
                   tab === 4
                     ? 'text-primary-red border-b-primary-red'
@@ -283,7 +296,7 @@ h-12 rounded-lg ml-3  font-semibold "
                 網頁工具說明
               </p>
               <p
-                onClick={function (event) { changeTab(5, ''); setTab(5) }}
+                onClick={function (event) { changeTab(5, ''); setTab(5); setPage(1); setKeywords('') }}
                 className={cx(
                   tab === 5
                     ? 'text-primary-red border-b-primary-red'
@@ -380,8 +393,8 @@ h-12 rounded-lg ml-3  font-semibold "
             <div className='DataTable-body  w-full mt-5 '>
               <div className='table-header flex pt-2 pb-2 pl-1 pr-1'>
                 <div className='w-1/12 text-center pl-2 pr-2'>
-                {checked==true && <input type="checkbox" className='table-checkbox'  onChange={allcheckbox} checked="checked" />}
-                {checked==false && <input type="checkbox" className='table-checkbox' onChange={allcheckbox} />}
+                  {allChecked == true && <input type="checkbox" className='table-checkbox' onChange={allcheckbox} checked="checked" />}
+                  {allChecked == false && <input type="checkbox" className='table-checkbox' onChange={allcheckbox} />}
                 </div>
                 <div className='w-2/12 '>
                   日期
@@ -402,142 +415,140 @@ h-12 rounded-lg ml-3  font-semibold "
                 </div>
               </div>
               <div className='table-body pl-1'>
-                {blog.slice(((page - 1) * number), shownumber).map((blog: { id: any; state: any; title: any; createTime: any; content: any; imgurl: any; select: any; }) => {
+                {blog.slice(((page - 1) * number), shownumber).map((blog: { id: any; isDisable: any; title: any; createTime: any; smallImg: any; subTitle: any; select: any; }) => {
                   const {
-                    id, isDisable, title, createTime, content,
-                    imgurl, select } = blog;
-                  let i = 0
-                  return <div>
-                    {
-                      names.map(names => {
-                        const checkid = names;
-                        if (checkid == id) {
-                          return <div className='flex  table-list-checked table-list w-full'>
-                            <div className={select === true ? 'flex  table-list-checked table-list w-full' : 'table-list flex w-full'}>
-                              <div className='w-1/12 pl-2 pr-2 pt-3 text-center pl-2 pr-2'>
-                                <input name={id} type="checkbox" className={select === true ? 'table-checkbox Primary-Primary' : 'table-checkbox '} value={id} onChange={handleChange} checked="checked" />
-                              </div>
-                              <div className='w-2/12 pl-2 pr-2 pt-3'>
-                                {createTime}
-                              </div>
-                              {isDisable === true &&
-                                <div className='w-1/12 pl-1 pt-2 pr-1 '>
-                                  <div className='table-state-green flex w-8/12 pl-2'>
-                                    <div className='table-state-green-bell mr-2'></div>
-                                    已發布
-                                  </div>
-
-                                </div>
-                              }
-                              {isDisable === false &&
-                                <div className='w-1/12 pl-1 pt-3 pr-2 '>
-                                  <div className=' table-state-red flex w-8/12  pl-2'>
-                                    <div className='table-state-red-bell mr-2'></div>
-                                    草稿
-                                  </div>
-
-                                </div>
-                              }
-
-                              <div className='w-2/12 pl-2 pr-2 pt-3 '>
-                                {title}
-                              </div>
-                              <div className='w-3/12 pl-2 pr-2 pt-3'>
-                                {content}
-                              </div>
-                              <div className='w-2/12 pl-2 pr-2 pt-3'>
-                                <img
-                                  src={imgurl}
-                                  className="cursor-pointer mx-auto"
-                                />
-                              </div>
-                              <div className='w-1/12 pl-2 pr-2 pt-3 flex'>
-                                <img
-                                  className='w-4/12 mx-1'
-                                  src="/icons/webpage-table-pan.svg"
-                                  alt=""
-                                  onClick={NextPage}
-                                />
-                                <img
-                                  className='w-4/12 mx-1'
-                                  src="/icons/webpage-table-remove.svg"
-                                  alt=""
-                                  onClick={() => setRemovePage(true)}
-                                />
-                              </div>
+                    id, isDisable, title, createTime, smallImg, subTitle,
+                    select } = blog;
+                  let i = false
+                  const editUrl="/admin/editblog?blog="+id
+                  names.map(names => {
+                    const checkid = names;
+                    if (checkid == id) {
+                      i = true
+                    }
+                  });
+                  if (i == true) {
+                    return <div className='flex  table-list-checked table-list w-full'>
+                      <div className={select === true ? 'flex  table-list-checked table-list w-full pt-2' : 'table-list flex w-full pt-2'}>
+                        <div className='w-1/12 pl-2 pr-2 pt-3 text-center pl-2 pr-2'>
+                          <input name={id} type="checkbox" className={select === true ? 'table-checkbox Primary-Primary' : 'table-checkbox '} value={id} onChange={handleChange} checked="checked" />
+                        </div>
+                        <div className='w-2/12 pl-2 pr-2 pt-3'>
+                          {createTime}
+                        </div>
+                        {isDisable === true &&
+                          <div className='w-1/12 pl-1 pt-2 pr-1 '>
+                            <div className='table-state-green flex w-8/12 pl-2'>
+                              <div className='table-state-green-bell mr-2'></div>
+                              已發布
                             </div>
+
                           </div>
                         }
-                        else {
-                          i = i + 1;
-                          if (i == nameslength) {
-                            return <div className='table-list flex w-full'>
-                              <div className={select === true ? 'flex  table-list-checked table-list w-full' : 'table-list flex w-full'}>
-                                <div className='w-1/12 pl-2 pr-2 pt-3 text-center pl-2 pr-2'> <input name={id} type="checkbox" className={select === true ? 'table-checkbox Primary-Primary' : 'table-checkbox '} value={id} onChange={handleChange} />
-                                </div>
-                                <div className='w-2/12 pl-2 pr-2 pt-3'>
-                                  {createTime}
-                                </div>
-                                {isDisable === true &&
-                                  <div className='w-1/12 pl-1 pt-2 pr-1 '>
-                                    <div className='table-state-green flex w-8/12 pl-2'>
-                                      <div className='table-state-green-bell mr-2'></div>
-                                      已發布
-                                    </div>
-
-                                  </div>
-                                }
-                                {isDisable === false &&
-                                  <div className='w-1/12 pl-1 pt-3 pr-2 '>
-                                    <div className=' table-state-red flex w-8/12  pl-2'>
-                                      <div className='table-state-red-bell mr-2'></div>
-                                      草稿
-                                    </div>
-
-                                  </div>
-                                }
-
-                                <div className='w-2/12 pl-2 pr-2 pt-3 '>
-                                  {title}
-                                </div>
-                                <div className='w-3/12 pl-2 pr-2 pt-3'>
-                                  {content}
-                                </div>
-                                <div className='w-2/12 pl-2 pr-2 pt-3'>
-                                  <img
-                                    src={imgurl}
-                                    className="cursor-pointer mx-auto"
-                                  />
-                                </div>
-                                <div className='w-1/12 pl-2 pr-2 pt-3  flex'>
-                                  <Link
-                                    className='w-4/12 mx-1 mt-20'
-                                    to="/admin/editblog"
-                                    prefetch="intent"
-                                  >
-                                    <img
-                                      className='w-full'
-                                      src="/icons/webpage-table-pan.svg"
-                                      alt=""
-                                      onClick={NextPage}
-                                    /></Link>
-                                  <a className='w-4/12 mx-1 mt-20'>  <img
-                                    className='w-full'
-                                    src="/icons/webpage-table-remove.svg"
-                                    alt=""
-                                    onClick={() => setRemovePage(true)}
-                                  /></a>
-
-                                </div>
-                              </div>
+                        {isDisable === false &&
+                          <div className='w-1/12 pl-1 pt-3 pr-2 '>
+                            <div className=' table-state-red flex w-8/12  pl-2'>
+                              <div className='table-state-red-bell mr-2'></div>
+                              草稿
                             </div>
-                          }
+
+                          </div>
                         }
 
-                      })}
+                        <div className='w-2/12 pl-2 pr-2 pt-3 '>
+                          {title},
+                        </div>
+                        <div className='w-3/12 pl-2 pr-2 pt-3'>
+                          {subTitle}
+                        </div>
+                        <div className='w-2/12 pl-2 pr-2  '>
+                          <img
+                            src={smallImg}
+                            className="cursor-pointer  table-img py-2"
+                          />
+                        </div>
+                        <div className='w-1/12 pl-2 pr-2 pt-3 flex'>
+                          <Link
+                            className='w-4/12 mx-1 mt-4'
+                            to={editUrl}
+                            prefetch="intent"
+                          >
+                            <img
+                              className='w-full'
+                              src="/icons/webpage-table-pan.svg"
+                              alt=""
+                            /></Link>
+                          <a className='w-4/12 mx-1 mt-4'>  <img
+                            className='w-full'
+                            src="/icons/webpage-table-remove.svg"
+                            alt=""
+                            onClick={() => setRemovePage(true)}
+                          /></a>
+                        </div>
+                      </div>
+                    </div>
+                  } else {
+                    return <div className='table-list flex w-full'>
+                      <div className={select === true ? 'flex  table-list-checked table-list w-full pt-2' : 'table-list flex w-full pt-2'}>
+                        <div className='w-1/12 pl-2 pr-2 pt-3 text-center pl-2 pr-2'> <input name={id} type="checkbox" className={select === true ? 'table-checkbox Primary-Primary' : 'table-checkbox '} value={id} onChange={handleChange} />
+                        </div>
+                        <div className='w-2/12 pl-2 pr-2 pt-3'>
+                          {createTime}
+                        </div>
+                        {isDisable === true &&
+                          <div className='w-1/12 pl-1 pt-2 pr-1 '>
+                            <div className='table-state-green flex w-8/12 pl-2'>
+                              <div className='table-state-green-bell mr-2'></div>
+                              已發布
+                            </div>
 
-                  </div>
-                    ;
+                          </div>
+                        }
+                        {isDisable === false &&
+                          <div className='w-1/12 pl-1 pt-3 pr-2 '>
+                            <div className=' table-state-red flex w-8/12  pl-2'>
+                              <div className='table-state-red-bell mr-2'></div>
+                              草稿
+                            </div>
+
+                          </div>
+                        }
+
+                        <div className='w-2/12 pl-2 pr-2 pt-3 '>
+                          {title}
+                        </div>
+                        <div className='w-3/12 pl-2 pr-2 pt-3'>
+                          {subTitle}
+                        </div>
+                        <div className='w-2/12 pl-2 pr-2  '>
+                          <img
+                            src={smallImg}
+                            className="cursor-pointer  table-img py-2"
+                          />
+                        </div>
+                        <div className='w-1/12 pl-2 pr-2 pt-3  flex'>
+                          <Link
+                            className='w-4/12 mx-1 mt-4'
+                            to={editUrl}
+                            prefetch="intent"
+                          >
+                            <img
+                              className='w-full '
+                              src="/icons/webpage-table-pan.svg"
+                              alt=""
+                            /></Link>
+                          <a className='w-4/12 mx-1 mt-4'>  <img
+                            className='w-full'
+                            src="/icons/webpage-table-remove.svg"
+                            alt=""
+                            onClick={() => setRemovePage(true)}
+                          /></a>
+
+                        </div>
+                      </div>
+                    </div>
+                  }
+
                 })}
                 {/**tab === 1 && progressCards.map(progressCard => {
                 const {
