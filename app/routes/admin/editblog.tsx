@@ -1,8 +1,8 @@
 import { MetaFunction, useNavigate, Link, Form, useLoaderData, useSearchParams } from 'remix';
-import { SetStateAction, useState, Component, useRef } from 'react';
+import { SetStateAction, useState, Component, useRef , useEffect} from 'react';
 import Nav from '~/components/Nav';
 import { Editor } from './components/react-draft-wysiwyg.client';
-import { EditorState, convertToRaw, ContentState, } from 'draft-js';
+import { EditorState, convertToRaw, ContentState, convertFromHTML } from 'draft-js';
 import { ClientOnly } from "remix-utils";
 import styles from "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { ActionFunction, LoaderFunction, json } from 'remix';
@@ -145,7 +145,22 @@ export default function Index() {
     htmlValue: "<p>fdsfdf</p>\n",
     editorState: EditorState.createEmpty()
   });
-  const [context, setContext] = useState('');
+  const [context, setContext] = useState('');  
+  useEffect(() => {
+    console.log('load data:', blogData.content);
+    const contentBlocksFromHTML = convertFromHTML(blogData.content);
+    console.log('load stateFromHTML:', contentBlocksFromHTML);
+
+    const editorState = ContentState.createFromBlockArray(
+      contentBlocksFromHTML.contentBlocks,
+      contentBlocksFromHTML.entityMap,
+    );
+    // 設定編輯器的初始狀態
+    setDescription({
+      htmlValue: blogData.content,
+      editorState: EditorState.createWithContent(editorState),
+    });
+  }, []);
   const onEditorStateChange = (editorValue) => {
     const editorStateInHtml = draftToHtml(
       convertToRaw(editorValue.getCurrentContent())
@@ -156,7 +171,6 @@ export default function Index() {
       editorState: editorValue,
     });
     setContext(editorStateInHtml)
-
   };
   const uploadCallback = async (file) => {
     let imgrequest = {
