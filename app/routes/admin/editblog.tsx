@@ -82,7 +82,7 @@ export default function Index() {
   const [smallImgState, setSmallImgState] = useState(false);
   const [coverImgName, setCoverImgName] = useState(blogData.coverImg);
   const [smallImgName, setSmallImgName] = useState(blogData.smallImgName);
-  const insrnt = async ({ request }) => {
+  const insert = async ({ request }) => {
     //alert(classId+','+title+','+des+','+key+','+state)
     OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
@@ -140,37 +140,31 @@ export default function Index() {
 
   };
   const [state, setState] = useState(0);
+  // 編輯器狀態
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  // 編輯器內容
+  const [editorContent, setEditorContent] = useState('');  
 
-  const [description, setDescription] = useState({
-    htmlValue: "<p>fdsfdf</p>\n",
-    editorState: EditorState.createEmpty()
-  });
-  const [context, setContext] = useState('');  
   useEffect(() => {
     console.log('load data:', blogData.content);
-    const contentBlocksFromHTML = convertFromHTML(blogData.content);
+    let contentBlocksFromHTML = convertFromHTML(blogData.content);
     console.log('load stateFromHTML:', contentBlocksFromHTML);
 
-    const editorState = ContentState.createFromBlockArray(
+    let editorStateFromContent = ContentState.createFromBlockArray(
       contentBlocksFromHTML.contentBlocks,
       contentBlocksFromHTML.entityMap,
     );
     // 設定編輯器的初始狀態
-    setDescription({
-      htmlValue: blogData.content,
-      editorState: EditorState.createWithContent(editorState),
-    });
+    setEditorContent(blogData.content);
+    setEditorState(EditorState.createWithContent(editorStateFromContent));
+    // setEditorState(EditorState.moveFocusToEnd(editorState));
   }, []);
   const onEditorStateChange = (editorValue) => {
     const editorStateInHtml = draftToHtml(
       convertToRaw(editorValue.getCurrentContent())
     );
-
-    setDescription({
-      htmlValue: editorStateInHtml,
-      editorState: editorValue,
-    });
-    setContext(editorStateInHtml)
+    setEditorState(editorValue);
+    setEditorContent(editorStateInHtml);
   };
   const uploadCallback = async (file) => {
     let imgrequest = {
@@ -214,7 +208,7 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-view-btn"
                 <button
                   className="border-2  w-20 text-white
 h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
-                  onClick={insrnt} >
+                  onClick={insert} >
                   新增</button>
               </div>
 
@@ -287,7 +281,7 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
 
                 <ClientOnly>
                   {() => <Editor
-                    editorState={description.editorState}
+                    editorState={editorState}
                     onEditorStateChange={onEditorStateChange}
                     toolbar={{
                       inline: { inDropdown: true },
