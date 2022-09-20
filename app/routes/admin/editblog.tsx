@@ -2,7 +2,7 @@ import { MetaFunction, useNavigate, Link, Form, useLoaderData, useSearchParams }
 import { SetStateAction, useState, Component, useRef , useEffect} from 'react';
 import Nav from '~/components/Nav';
 import { Editor } from './components/react-draft-wysiwyg.client';
-import { EditorState, convertToRaw, ContentState, convertFromHTML } from 'draft-js';
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { ClientOnly } from "remix-utils";
 import styles from "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { ActionFunction, LoaderFunction, json } from 'remix';
@@ -10,7 +10,7 @@ import authenticator from "~/services/auth.server";
 import { ApiClient, ArticleRequest, OpenAPI } from 'app/ApiClient';
 import { FileUploader } from "react-drag-drop-files";
 import draftToHtml from "draftjs-to-html";
-
+import htmlToDraft from 'html-to-draftjs';
 
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -92,7 +92,7 @@ export default function Index() {
       caseImg: '',
       smallImg: smallImgName,
       title: title,
-      content: blogData.content,
+      content: editorContent,
       subTitle: subTitle,
       metaDes: des,
       metaKeyword: key,
@@ -147,7 +147,7 @@ export default function Index() {
 
   useEffect(() => {
     console.log('load data:', blogData.content);
-    let contentBlocksFromHTML = convertFromHTML(blogData.content);
+    let contentBlocksFromHTML = htmlToDraft(blogData.content);
     console.log('load stateFromHTML:', contentBlocksFromHTML);
 
     let editorStateFromContent = ContentState.createFromBlockArray(
