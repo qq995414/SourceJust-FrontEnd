@@ -36,6 +36,11 @@ export default function Index() {
     setTitle(event.target.value);
 
   };
+  const [subTitle, setSubTitle] = useState('');
+  const subTitlechange = event => {
+    setSubTitle(event.target.value);
+
+  };
   const [key, setKey] = useState('');
   const keychange = event => {
     setKey(event.target.value);
@@ -46,8 +51,8 @@ export default function Index() {
     setDes(event.target.value);
 
   };
-  const [isDisable, setIsDisable] = useState(true);
-  const statechange = event => {
+  const [isDisable, setIsDisable] = useState('');
+  const isDisablechange = event => {
     setIsDisable(event.target.value);
 
   };
@@ -61,6 +66,8 @@ export default function Index() {
   const blogClassSelect = blogapi?.Class?.data?.records;
   const [coverImg, setCoverImg] = useState('');
   const [smallImg, setSmallImg] = useState('');
+  const [coverImgId, setCoverImgId] = useState('');
+  const [smallImgId, setSmallImgId] = useState('');
   const [coverImgState, setCoverImgState] = useState(false);
   const [smallImgState, setSmallImgState] = useState(false);
   const [coverImgName, setCoverImgName] = useState('');
@@ -76,16 +83,15 @@ export default function Index() {
       smallImg: smallImg,
       title: title,
       content: context,
-      subTitle: '1',
+      subTitle: subTitle,
       metaDes: des,
       metaKeyword: key,
       onlineDate: '', //上架日期(前台無)
       offlineDate: '',//下架日期(前台無)
       isDisable: isDisable,
-
     };
-    console.log();
-
+    console.log(articleRequest);
+    
     const pages = await apiClient.api.createArticle(articleRequest);
     window.location.href = "/admin/webpage";
     return json(pages);
@@ -98,8 +104,11 @@ export default function Index() {
     setSmallImgName(file.name)
     OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
-    const fileupload = await apiClient.api.uploadFile('test', 'BLOG', imgrequest);
+    const fileupload = await apiClient.api.uploadFile('BLOG', imgrequest);
+    console.log(fileupload);
+    
     setSmallImg(fileupload.data?.url)
+    setSmallImgId(fileupload.data?.id)
     setSmallImgState(true)
 
   };
@@ -110,25 +119,16 @@ export default function Index() {
     setCoverImgName(file.name)
     OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
-    const fileupload = await apiClient.api.uploadFile('test', 'BLOG', imgrequest);
+    const fileupload = await apiClient.api.uploadFile('BLOG', imgrequest);
     setCoverImg(fileupload.data?.url)
+    setCoverImgId(fileupload.data?.id)
+
     console.log(fileupload);
 
     setCoverImgState(true)
 
   };
   const [state, setState] = useState(0);
-
-  async function uploadImageCallBack(file: File) {
-    let imgrequest = {
-      file: file,
-    };
-    OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
-    const apiClient = new ApiClient(OpenAPI);
-    const fileupload = await apiClient.api.uploadFile('test', 'BLOG', imgrequest);
-    //setState({fileupload.data?.url});
-    alert(fileupload.data?.url)
-  }
 
   const [description, setDescription] = useState({
     htmlValue: "<p>fdsfdf</p>\n",
@@ -153,7 +153,7 @@ export default function Index() {
     };
     OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
-    const fileupload = await apiClient.api.uploadFile('tesrt', 'BLOG', imgrequest);
+    const fileupload = await apiClient.api.uploadFile('BLOG', imgrequest);
     console.log(fileupload);
 
     //setState({fileupload.data?.url});
@@ -173,7 +173,10 @@ export default function Index() {
             className="flex w-full place-content-center justify-end  mx-10" style={{ float: "right" }}>
             <button
               className="border-2   w-20 text-white
-h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-clear-btn">
+h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-clear-btn"
+              onClick={() => {
+                window.location.href = "/admin/webpage";
+              }}>
               取消</button>
             <button
               className="border-2  w-20 text-white
@@ -207,6 +210,10 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
             <input value={title} onChange={titlechange} name='title' className="blog-class-input mt-1  pl-3" placeholder="請輸入標題"></input>
           </div>
           <div className="flex flex-col   pl-5 w-full px-10 mt-5 ">
+            <a className="blog-class-text">副標題 <a className='functional-Error-3-text'>*</a></a>
+            <input value={subTitle} onChange={subTitlechange} name='subTitle' className="blog-class-input mt-1  pl-3" placeholder="請輸入副標題"></input>
+          </div>
+          <div className="flex flex-col   pl-5 w-full px-10 mt-5 ">
             <a className="blog-class-text pb-2">SEO</a>
             <a className="blog-class-text">網頁敘述 <a className='functional-Error-3-text'> * </a></a>
 
@@ -218,9 +225,9 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
           </div>
           <div className="flex flex-col   pl-5 w-full px-10 mt-5 ">
             <a className="blog-class-text">狀態 <a className='functional-Error-3-text'>*</a></a>
-            <select value={state} onChange={statechange} className='neutral-colors-4-grey-text mt-1 blog-class-input' name="state">
+            <select value={isDisable} onChange={isDisablechange} className='neutral-colors-4-grey-text mt-1 blog-class-input' name="state">
               <option style={{ display: "none" }} >請選擇狀態(已發布、草稿)</option>
-              <option className='text-black' value="ture">已發布</option>
+              <option className='text-black' value="true">已發布</option>
               <option className='text-black' value="false">草稿</option>
             </select>
           </div>
