@@ -55,6 +55,7 @@ export type { ProjectUserId } from './models/ProjectUserId';
 export type { ProjectUserResponse } from './models/ProjectUserResponse';
 export type { ResetPwdRequest } from './models/ResetPwdRequest';
 export type { ResponseArticleResponse } from './models/ResponseArticleResponse';
+export type { ResponseBoolean } from './models/ResponseBoolean';
 export type { ResponseCfgResponse } from './models/ResponseCfgResponse';
 export type { ResponseChannelResponse } from './models/ResponseChannelResponse';
 export type { ResponseContractResponse } from './models/ResponseContractResponse';

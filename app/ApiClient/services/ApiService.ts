@@ -14,6 +14,7 @@ import type { ProjectMilestoneRequest } from '../models/ProjectMilestoneRequest'
 import type { ProjectRequest } from '../models/ProjectRequest';
 import type { ResetPwdRequest } from '../models/ResetPwdRequest';
 import type { ResponseArticleResponse } from '../models/ResponseArticleResponse';
+import type { ResponseBoolean } from '../models/ResponseBoolean';
 import type { ResponseCfgResponse } from '../models/ResponseCfgResponse';
 import type { ResponseChannelResponse } from '../models/ResponseChannelResponse';
 import type { ResponseContractResponse } from '../models/ResponseContractResponse';
@@ -884,14 +885,12 @@ id: number,
 
     /**
      * 上傳檔案
-     * @param name 
      * @param fileType 
      * @param formData 
      * @returns ResponseFileInfoResponse OK
      * @throws ApiError
      */
     public uploadFile(
-name: string,
 fileType: 'UI' | 'DATA' | 'CONTRACT' | 'DEV_TEST' | 'PROD_TEST' | 'BLOG' | 'PORTFOLIO',
 formData?: {
 file: Blob;
@@ -901,7 +900,6 @@ file: Blob;
             method: 'POST',
             url: '/file/upload',
             query: {
-                'name': name,
                 'fileType': fileType,
             },
             formData: formData,
@@ -1680,6 +1678,28 @@ fileId: number,
         return this.httpRequest.request({
             method: 'GET',
             url: '/file/imgStream/{fileId}',
+            path: {
+                'fileId': fileId,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+
+    /**
+     * 確認上傳檔案是否存在
+     * @param fileId 
+     * @returns ResponseBoolean OK
+     * @throws ApiError
+     */
+    public isFileExist(
+fileId: number,
+): CancelablePromise<ResponseBoolean> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/file/exist/{fileId}',
             path: {
                 'fileId': fileId,
             },
