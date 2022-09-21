@@ -888,6 +888,15 @@ body {
     color: #E7142D;
 }
 
+.table-tag-class {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 28px;
+    letter-spacing: 1.2px;
+    border: 1px solid #D3D3D3;
+    border-radius: 50px;
+}
+
 .table-tag-title {
     font-weight: 400;
     font-size: 20px;
