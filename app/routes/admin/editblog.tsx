@@ -1,11 +1,11 @@
-import { MetaFunction, useNavigate, Link, Form, useLoaderData, useSearchParams } from 'remix';
-import { SetStateAction, useState, Component, useRef , useEffect} from 'react';
+import { MetaFunction,  useLoaderData } from 'remix';
+import { useState,  useEffect } from 'react';
 import Nav from '~/components/Nav';
 import { Editor } from './components/react-draft-wysiwyg.client';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { ClientOnly } from "remix-utils";
 import styles from "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { ActionFunction, LoaderFunction, json } from 'remix';
+import { LoaderFunction, json } from 'remix';
 import authenticator from "~/services/auth.server";
 import { ApiClient, ArticleRequest, OpenAPI } from 'app/ApiClient';
 import { FileUploader } from "react-drag-drop-files";
@@ -24,7 +24,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const blogId = url.search.replace("?blog=", "")
   const blogData = await apiClient.api.findById(blogId);
   console.log(blogData);
-  
+
   const lodervalue = { Class: Class, key: user, blogId: blogId, blogData: blogData };
 
   return lodervalue;
@@ -74,23 +74,23 @@ export default function Index() {
 
 
 
-  const [coverImg, setCoverImg] = useState('');
-  const [smallImg, setSmallImg] = useState('');
+  const [coverImg, setCoverImg] = useState(blogData.coverImg);
+  const [smallImg, setSmallImg] = useState(blogData.smallImg);
   const [coverImgId, setCoverImgId] = useState('');
   const [smallImgId, setSmallImgId] = useState('');
   const [coverImgState, setCoverImgState] = useState(false);
   const [smallImgState, setSmallImgState] = useState(false);
-  const [coverImgName, setCoverImgName] = useState(blogData.coverImg);
-  const [smallImgName, setSmallImgName] = useState(blogData.smallImgName);
+  const [coverImgName, setCoverImgName] = useState('');
+  const [smallImgName, setSmallImgName] = useState('');
   const insert = async ({ request }) => {
     //alert(classId+','+title+','+des+','+key+','+state)
     OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
     let articleRequest: ArticleRequest = {
       channelId: classId,//
-      coverImg: coverImgName,
+      coverImg: coverImg,
       caseImg: '',
-      smallImg: smallImgName,
+      smallImg: smallImg,
       title: title,
       content: editorContent,
       subTitle: subTitle,
@@ -100,15 +100,15 @@ export default function Index() {
       offlineDate: '',//下架日期(前台無)
       isDisable: isDisable,
     };
-    
+
     console.log(articleRequest);
 
-    const pages = await apiClient.api.updateArticle(blogData.id,articleRequest);
+    const pages = await apiClient.api.updateArticle(blogData.id, articleRequest);
     window.location.href = "/admin/webpage";
     return json(pages);
   }
   const fileTypes = ["JPG", "PNG", "GIF"];
-  const handleChange = async (file) => {
+  const SmallImgChange = async (file) => {
     let imgrequest = {
       file: file,
     };
@@ -117,33 +117,28 @@ export default function Index() {
     const apiClient = new ApiClient(OpenAPI);
     const fileupload = await apiClient.api.uploadFile('BLOG', imgrequest);
     console.log(fileupload);
-
     setSmallImg(fileupload.data?.url)
     setSmallImgId(fileupload.data?.id)
     setSmallImgState(true)
 
   };
-  const handleChange2 = async (file) => {
+  const CoverImgChange = async (file) => {
     let imgrequest = {
       file: file,
     };
     setCoverImgName(file.name)
     OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
-    const fileupload = await apiClient.api.uploadFile( 'BLOG', imgrequest);
+    const fileupload = await apiClient.api.uploadFile('BLOG', imgrequest);
     setCoverImg(fileupload.data?.url)
     setCoverImgId(fileupload.data?.id)
-
-    console.log(fileupload);
-
     setCoverImgState(true)
 
   };
-  const [state, setState] = useState(0);
   // 編輯器狀態
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   // 編輯器內容
-  const [editorContent, setEditorContent] = useState('');  
+  const [editorContent, setEditorContent] = useState('');
 
   useEffect(() => {
     console.log('load data:', blogData.content);
@@ -174,15 +169,13 @@ export default function Index() {
     const apiClient = new ApiClient(OpenAPI);
     const fileupload = await apiClient.api.uploadFile('BLOG', imgrequest);
     console.log(fileupload);
-
-    //setState({fileupload.data?.url});
     return new Promise(
       (resolve, reject) => {
         resolve({ data: { link: fileupload.data?.url } });
       }
     );
   }
-  const test="<img className='h-full w-auto' src="+coverImg+"></img> <a>"+title+".jpg</a>"
+  const test = "<img className='h-full w-auto' src=" + coverImg + "></img> <a>" + title + ".jpg</a>"
 
   return (
     <div className="grid w-full flex-row">
@@ -209,14 +202,14 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-view-btn"
                   className="border-2  w-20 text-white
 h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
                   onClick={insert} >
-                  新增</button>
+                  儲存</button>
               </div>
 
             </div>
             <div className="flex flex-col mt-8">
               <div className="flex flex-col   pl-5 w-full px-10 ">
                 <a className="blog-class-text">類別 <a className='functional-Error-3-text'>*</a></a>
-                <select value={classId} onChange={classIdchange} className='neutral-colors-4-grey-text mt-1 blog-class-input' name='classId'  >
+                <select value={classId} onChange={classIdchange} className={classId == 0 ? 'neutral-colors-4-grey-text mt-1 blog-class-input' :' mt-1 blog-class-input-black'} name='classId'  >
                   <option style={{ display: "none" }} >請選擇類別</option>
                   {blogClassSelect.map((blogClassSelect: { name: any; id: any; }) => {
                     const {
@@ -247,7 +240,7 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
               </div>
               <div className="flex flex-col   pl-5 w-full px-10 mt-5 ">
                 <a className="blog-class-text">狀態 <a className='functional-Error-3-text'>*</a></a>
-                <select value={isDisable} onChange={isDisablechange} className='neutral-colors-4-grey-text mt-1 blog-class-input' name="state">
+                <select value={isDisable} onChange={isDisablechange} className='mt-1 blog-class-input-black' name="state">
                   <option style={{ display: "none" }} >請選擇狀態(已發布、草稿)</option>
                   <option className='text-black' value="true">已發布</option>
                   <option className='text-black' value="false">草稿</option>
@@ -256,22 +249,23 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
               <div className="flex flex-row   pl-5 w-full px-10 mt-5 ">
                 <div className='w-1/2 imgUpload'>
                   <a className="blog-class-text">案例縮圖 <a className='functional-Error-3-text'>*</a></a>
-                  <FileUploader handleChange={handleChange} name="file" types={fileTypes} />
+                  <FileUploader handleChange={SmallImgChange} name="file" types={fileTypes} />
                   {smallImgState == false && <p className='file-upload-drop-text pt-3'>已成功上傳檔案 ( 1 / 1 )</p>}
                   {smallImgState == true &&
                     <div className='w-full'><p className='file-upload-drop-text-red pt-3'>已成功上傳檔案 ( 1 / 1 )</p>
                       <div className='file-upload-drop-state w-10/12 flex items-center'>
+                        <img className='h-full w-auto' src={smallImg}></img> <a>{smallImgName}.jpg</a>
                       </div>
                     </div>}
                 </div>
                 <div className='w-1/2 imgUpload'>
-                  <a className="blog-class-text">案例縮圖 <a className='functional-Error-3-text'>*</a></a>
-                  <FileUploader handleChange={handleChange2} name="file" types={fileTypes} />
+                  <a className="blog-class-text">封面縮圖 <a className='functional-Error-3-text'>*</a></a>
+                  <FileUploader handleChange={CoverImgChange} name="file" types={fileTypes} />
                   {coverImgState == false && <p className='file-upload-drop-text pt-3'>已成功上傳檔案 ( 1 / 1 )</p>}
                   {coverImgState == true &&
                     <div className='w-full'><p className='file-upload-drop-text-red pt-3'>已成功上傳檔案 ( 1 / 1 )</p>
                       <div className='file-upload-drop-state w-10/12 flex items-center'>
-                        <img className='h-full w-auto' src={coverImg}></img> <a>{title}.jpg</a>
+                        <img className='h-full w-auto' src={coverImg}></img> <a>{coverImgName}.jpg</a>
                       </div>
                     </div>}
                 </div>
