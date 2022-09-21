@@ -1,11 +1,11 @@
 
 import Button from '~/components/common/Button';
 import Select from '~/components/Select';
-import { MetaFunction, useNavigate, Link, Form, json, useLoaderData } from 'remix';
-import { SetStateAction, useState } from 'react';
+import { MetaFunction, useNavigate, Link, useLoaderData } from 'remix';
+import {  useState } from 'react';
 import cx from 'classnames';
 import Nav from '~/components/Nav';
-import { ActionFunction, LoaderFunction } from 'remix';
+import { LoaderFunction } from 'remix';
 import { ApiClient, OpenAPI } from 'app/ApiClient';
 import authenticator from "~/services/auth.server";
 
@@ -44,7 +44,6 @@ export default function Index() {
   const lengthpage = Math.floor(((length-1) / number)) + 1
 
   const [names, setNames] = useState(['n']);
-  const [imgUrl, setImgUrl] = useState([]);
 
   const PreviousPage = () => {
 
@@ -62,9 +61,6 @@ export default function Index() {
       setPage(page + 1)
     }
   };
-
-  const nameslength = names.length
-
   const handleChange = async (e: any) => {
     setChecked(false)
     const name = e.target.getAttribute("name")
@@ -308,14 +304,7 @@ h-12 rounded-lg ml-3  font-semibold "
               </p>
             </div>
             <div className="flex-grow"></div>
-            <img
-              src="/icons/webpan.svg"
-              alt=""
-              onClick={() => {
-                setIsShowLink(true);
-              }}
-              className="cursor-pointer"
-            />
+            
           </div>
 
           {isShowLink &&
@@ -363,16 +352,7 @@ h-12 rounded-lg ml-3  font-semibold "
               </div>
             </div>}
         </div>
-        <div className="flex flex-col mt-10">
-          {/**<div
-            className="web-add-box flex mb-4 w-2/6  text-left
-           bg-white rounded-2xl shadow-md  mx-32" >
-            <Link className="flex" to='/admin/insertpage'>
-              <img src="/images/add.svg" alt="" />
-
-              <p className='web-add-text'>建立文章
-              </p></Link>
-                  </div>**/}
+        <div className="flex flex-col mt-10 pb-5">
           <div className="flex flex-col items-center w-full pl-5 px-10">
 
             <div className='DataTable-title w-full pt-5 pb-5 pl-5 flex  '>
@@ -550,71 +530,7 @@ h-12 rounded-lg ml-3  font-semibold "
                   }
 
                 })}
-                {/**tab === 1 && progressCards.map(progressCard => {
-                const {
-                  id, state, date, name, type,
-                  amount, outsourceAmount, people
-                } = progressCard;
-                return <Progress
-                  key={id}
-                  state={state}
-                  date={date}
-                  name={name}
-                  type={type}
-                  amount={amount}
-                  outsourceAmount={outsourceAmount}
-                  people={people}
-                />;
-              })}
-              {tab === 2 && warrantyCards.map(warrantyCard => {
-                const {
-                  id, date, state, hostDate, netDate, name, type, leftWarranty,
-                  businessPerson
-                } = warrantyCard;
-                return <Warranty
-                  key={id}
-                  date={date}
-                  state={state}
-                  name={name}
-                  type={type}
-                  hostDate={hostDate}
-                  netDate={netDate}
-                  leftWarranty={leftWarranty}
-                  businessPerson={businessPerson}
-                />;
-              })}
-              {tab === 3 && maintainCards.map(maintainCard => {
-                const {
-                  id, date, state, hostDate, netDate,
-                  name, type, businessPerson
-                } = maintainCard;
-                return <Maintain
-                  key={id}
-                  date={date}
-                  state={state}
-                  name={name}
-                  type={type}
-                  hostDate={hostDate}
-                  netDate={netDate}
-                  businessPerson={businessPerson}
-                />;
-              })}
-              {tab === 4 && cancelCards.map(cancelCard => {
-                const {
-                  id, date, state, hostDate, netDate,
-                  name, type, businessPerson
-                } = cancelCard;
-                return <Cancel
-                  key={id}
-                  date={date}
-                  state={state}
-                  name={name}
-                  type={type}
-                  hostDate={hostDate}
-                  netDate={netDate}
-                  businessPerson={businessPerson}
-                />;
-              })**/}
+
                 <div className='table-footer flex pt-2 pb-2 pl-10'>
                   顯示筆數
                   <select name="cars" className='DataTable-quantitylimit' id="cars" onChange={quantitylimit}>
