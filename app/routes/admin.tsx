@@ -23,7 +23,6 @@ export const action: ActionFunction = async ({ request }) => {
   console.log('resp:' + resp);
   return resp;
 };
-
 export let loader: LoaderFunction = async ({ request }) => {
 
   return await authenticator.isAuthenticated(request, {
@@ -33,15 +32,18 @@ export let loader: LoaderFunction = async ({ request }) => {
 
 };
 
-export default function Index() {
 
+export default function Index() {
+  const data = useLoaderData();
+  console.log(data.data?.profile?.name);
+  const allName=data.data?.profile?.name
+  const fristName=allName.substring(0,1)
+  const lastName=allName.substring(1,allName.length)
   return (
     <>
       <div className='fixed navName'>
         <div className='flex'  >
-          <div className='pl-heard '><img className="pt-1 " src={'/icons/notifications-gray.svg'} alt="" /><div className='heard-notifi-red'>1</div>
-          </div>
-          <div className='pl-5 flex' style={{ zIndex: "100" }} ><div className='rounded-full heard-name-circle'  >C</div><div className='heard-name pl-1' style={{ width: '5rem;' }}>Serati Ma</div> <div className='heard-svg pt-2 '><img src={'/icons/heard-bottom-arrow.svg'} alt="" /></div></div>
+          <div className='pl-5 flex' style={{ zIndex: "100" }} ><div className='rounded-full heard-name-circle'  >{fristName}</div><div className='heard-name pl-1'>{lastName}</div> <div className='heard-svg pt-1 pl-2'><img src={'/icons/heard-bottom-arrow.svg'} alt="" /></div></div>
         </div>
       </div>
       <div className='flex w-screen'>
@@ -78,9 +80,9 @@ export default function Index() {
               inactiveIconColor: '#BBBBBB',
               activeBgColor: '#FFF1F3',
               inactiveBgColor: '#FFFFFF',
-              link: '/admin/clientexam',
+              link: '/admin/folio',
               targettext: "作品集管理",
-              match: /^\/admin\/clientexam/,
+              match: /^\/admin\/folio/,
             },
             {
               activeIconUrl: '/icons/mail.svg',
@@ -89,9 +91,9 @@ export default function Index() {
               inactiveIconColor: '#BBBBBB',
               activeBgColor: '#FFF1F3',
               inactiveBgColor: '#FFFFFF',
-              link: '/admin/users/chooseUsers',
+              link: '/admin/mail',
               targettext: "信件管理",
-              match: /^\/admin\/users/,
+              match: /^\/admin\/mail/,
             },
             {
               activeIconUrl: '/icons/navi.svg',
@@ -100,7 +102,7 @@ export default function Index() {
               inactiveIconColor: '#BBBBBB',
               activeBgColor: '#FFF1F3',
               inactiveBgColor: '#FFFFFF',
-              link: '/admin/users/templateUsers',
+              link: '/admin/template',
               targettext: "模板管理",
               match: /^\/admin\/template/,
             }
