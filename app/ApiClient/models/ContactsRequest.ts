@@ -2,21 +2,18 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type ContactsResponse = {
-    id?: number;
-    createTime?: string;
-    modifyTime?: string;
+export type ContactsRequest = {
     company?: string;
     name?: string;
-    gender?: ContactsResponse.gender;
-    service?: ContactsResponse.service;
+    gender?: ContactsRequest.gender;
+    service?: ContactsRequest.service;
     mobile?: string;
     email?: string;
     remark?: string;
-    status?: ContactsResponse.status;
+    status?: ContactsRequest.status;
 };
 
-export namespace ContactsResponse {
+export namespace ContactsRequest {
 
     export enum gender {
         MALE = 'MALE',

@@ -5,6 +5,7 @@ import type { AdminResetPwdRequest } from '../models/AdminResetPwdRequest';
 import type { ArticleRequest } from '../models/ArticleRequest';
 import type { Cfg } from '../models/Cfg';
 import type { ChannelRequest } from '../models/ChannelRequest';
+import type { ContactsRequest } from '../models/ContactsRequest';
 import type { LoginRequest } from '../models/LoginRequest';
 import type { Menu } from '../models/Menu';
 import type { PayInfoRequest } from '../models/PayInfoRequest';
@@ -17,6 +18,7 @@ import type { ResponseArticleResponse } from '../models/ResponseArticleResponse'
 import type { ResponseBoolean } from '../models/ResponseBoolean';
 import type { ResponseCfgResponse } from '../models/ResponseCfgResponse';
 import type { ResponseChannelResponse } from '../models/ResponseChannelResponse';
+import type { ResponseContactsResponse } from '../models/ResponseContactsResponse';
 import type { ResponseContractResponse } from '../models/ResponseContractResponse';
 import type { ResponseDeleteFileResponse } from '../models/ResponseDeleteFileResponse';
 import type { ResponseFileInfoResponse } from '../models/ResponseFileInfoResponse';
@@ -533,6 +535,32 @@ id: number,
             path: {
                 'id': id,
             },
+            errors: {
+                400: `Bad Request`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+
+    /**
+     * 更新聯絡我們
+     * @param id 
+     * @param requestBody 
+     * @returns ResponseContactsResponse OK
+     * @throws ApiError
+     */
+    public updateContact(
+id: number,
+requestBody: ContactsRequest,
+): CancelablePromise<ResponseContactsResponse> {
+        return this.httpRequest.request({
+            method: 'PUT',
+            url: '/admin/contact/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 400: `Bad Request`,
                 500: `Internal Server Error`,
@@ -1816,7 +1844,8 @@ id: number,
 
     /**
      * 取得模板列表
-     * @param title 
+     * @param name 
+     * @param category 
      * @param startDate 
      * @param endDate 
      * @param page 
@@ -1826,7 +1855,8 @@ id: number,
      * @throws ApiError
      */
     public listTemplate(
-title?: string,
+name?: string,
+category?: string,
 startDate?: string,
 endDate?: string,
 page?: number,
@@ -1837,7 +1867,8 @@ order?: string,
             method: 'GET',
             url: '/admin/template/list',
             query: {
-                'title': title,
+                'name': name,
+                'category': category,
                 'startDate': startDate,
                 'endDate': endDate,
                 'page': page,
