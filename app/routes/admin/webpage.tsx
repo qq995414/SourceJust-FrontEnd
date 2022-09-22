@@ -110,9 +110,8 @@ export default function Index() {
   const allcheckbox = async (e: any) => {
     const first = ((page - 1) * number)
     if (e.target.checked) {
-      for (var i = first; i < first + number; i++) {
+      for (var i = first; i < blog.length; i++) {
         names.push(blog[i].id)
-
         if (i >= length) {
           break;
         }
