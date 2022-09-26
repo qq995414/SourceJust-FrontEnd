@@ -75,30 +75,20 @@ export const data = [
 
 export const data01 = [
   {
-    name: 'Group A',
-    value: 900,
-    job:'餐飲'
+    name: '平板',
+    value: 30,
+    job:'平板'
   },
   {
-    name: 'Group B',
-    value: 300,
-    job:'資訊科技'
+    name: 'Desktop',
+    value: 52,
+    job:'Desktop'
   },
   {
-    name: 'Group C',
-    value: 300,
-    job:'金融業'
-  },
-  {
-    name: 'Group D',
-    value: 250,
-    job:'其他'
-  },
-  {
-    name: 'Group E',
-    value: 228,
-    job:'服務業'
-  },
+    name: 'Mobile',
+    value: 18,
+    job:'Mobile'
+  }
 ];
 
 export const bdata = [
