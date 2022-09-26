@@ -43,7 +43,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   );
 
   const error = session.get("sessionErrorKey");
-  return json<any>({ error });
+  return json<any>({ error }); 
 };
 
 
@@ -76,7 +76,7 @@ export default function Index() {
           <div
             className=' pt-5 w-96'
           >
-            <Form className="w-1/2" method="post" name='form'>
+            <Form className="w-full" method="post" name='form'>
               <p className='pt-1 Neutral-Colors-DarkGrey text-sm' style={{ fontWeight: 800 }}>帳號</p>
               <p className='text-xs' style={{ color: '#7c7c7c' }}>請出入 ID 或 Email</p>
               <TextInput
