@@ -2130,6 +2130,9 @@ projectId: number,
 
     /**
      * 聯絡我們列表
+     * @param mobile 
+     * @param email 
+     * @param status 
      * @param startDate 
      * @param endDate 
      * @param page 
@@ -2139,6 +2142,9 @@ projectId: number,
      * @throws ApiError
      */
     public listContact(
+mobile?: string,
+email?: string,
+status?: 'INIT' | 'READ' | 'DONE',
 startDate?: string,
 endDate?: string,
 page?: number,
@@ -2149,6 +2155,9 @@ order?: string,
             method: 'GET',
             url: '/admin/contact/list',
             query: {
+                'mobile': mobile,
+                'email': email,
+                'status': status,
                 'startDate': startDate,
                 'endDate': endDate,
                 'page': page,

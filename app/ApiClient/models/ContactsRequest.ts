@@ -32,7 +32,8 @@ export namespace ContactsRequest {
     }
 
     export enum status {
-        DOING = 'DOING',
+        INIT = 'INIT',
+        READ = 'READ',
         DONE = 'DONE',
     }
 

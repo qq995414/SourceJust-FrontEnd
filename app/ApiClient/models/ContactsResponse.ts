@@ -35,7 +35,8 @@ export namespace ContactsResponse {
     }
 
     export enum status {
-        DOING = 'DOING',
+        INIT = 'INIT',
+        READ = 'READ',
         DONE = 'DONE',
     }
 
