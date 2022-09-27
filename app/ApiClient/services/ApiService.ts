@@ -543,6 +543,28 @@ id: number,
     }
 
     /**
+     * 用Id查詢單筆聯絡我們
+     * @param id 
+     * @returns ResponseContactsResponse OK
+     * @throws ApiError
+     */
+    public findOneContact(
+id: number,
+): CancelablePromise<ResponseContactsResponse> {
+        return this.httpRequest.request({
+            method: 'GET',
+            url: '/admin/contact/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                400: `Bad Request`,
+                500: `Internal Server Error`,
+            },
+        });
+    }
+
+    /**
      * 更新聯絡我們
      * @param id 
      * @param requestBody 
@@ -2130,9 +2152,9 @@ projectId: number,
 
     /**
      * 聯絡我們列表
-     * @param mobile 
-     * @param email 
+     * @param searchKeyword 
      * @param status 
+     * @param isReply 
      * @param startDate 
      * @param endDate 
      * @param page 
@@ -2142,9 +2164,9 @@ projectId: number,
      * @throws ApiError
      */
     public listContact(
-mobile?: string,
-email?: string,
+searchKeyword?: string,
 status?: 'INIT' | 'READ' | 'DONE',
+isReply?: boolean,
 startDate?: string,
 endDate?: string,
 page?: number,
@@ -2155,9 +2177,9 @@ order?: string,
             method: 'GET',
             url: '/admin/contact/list',
             query: {
-                'mobile': mobile,
-                'email': email,
+                'searchKeyword': searchKeyword,
                 'status': status,
+                'isReply': isReply,
                 'startDate': startDate,
                 'endDate': endDate,
                 'page': page,

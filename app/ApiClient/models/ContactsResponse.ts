@@ -14,6 +14,7 @@ export type ContactsResponse = {
     email?: string;
     remark?: string;
     status?: ContactsResponse.status;
+    isReply?: boolean;
 };
 
 export namespace ContactsResponse {
