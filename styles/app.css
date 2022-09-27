@@ -490,7 +490,37 @@ body {
     order: 0;
     flex-grow: 0;
 }
+.table-state-yello {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 22px;
+    /* identical to box height, or 157% */
 
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.4px;
+
+    /* Functional/Success/1 active */
+
+    color: #CA9027;
+    background: #FEF7EA;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.table-state-yello-bell {
+    width: 6px;
+    height: 6px;
+    background: #E4A32C;
+    border-radius: 999px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
 .table-checkbox {
     background: #FFFFFF;
     /* Neutral Colors/5 LightGrey */
