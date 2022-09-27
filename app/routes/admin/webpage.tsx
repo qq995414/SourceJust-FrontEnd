@@ -305,51 +305,6 @@ h-12 rounded-lg ml-3  font-semibold "
             <div className="flex-grow"></div>
             
           </div>
-
-          {isShowLink &&
-            <div className="fixed top-0 bottom-0 left-0 right-0">
-              <div
-                className="w-screen h-screen bg-gray-500
-              opacity-40 z-10"></div>
-              <div
-                className="w-5/12 h-96 bg-white z-20
-          fixed top-0 left-0 bottom-0 right-0 m-auto
-          rounded-xl shadow-xl flex flex-col pt-12">
-                <p className="font-semibold text-xl self-center">建立專案類型</p>
-                <div className="flex self-center items-center w-1/2 mt-12">
-                  <input
-                    className="appearance-none h-4 w-4 border bg-primary-gray
-               rounded-full checked:bg-primary-red  mr-4"
-                    type="radio"
-                    name="web" />
-                  <div>空白專案</div>
-                </div>
-                <div className="flex self-center items-center w-1/2 mt-10">
-                  <input
-                    className="appearance-none h-4 w-4 border bg-primary-gray
-               rounded-full checked:bg-primary-red mr-4"
-                    type="radio"
-                    name="web" />
-                  <div>從現有專案複製</div>
-                </div>
-                <div className="w-1/2 h-12 self-center mt-5">
-                  <Select<number>
-                    className="bg-white text-black h-12 relative"
-                    value={target}
-                    onChange={setTarget}
-                    options={[
-                      {
-                        value: 1,
-                        label: '專案名稱Ａ'
-                      },
-                    ]} />
-                </div>
-                <Button
-                  onClick={() => navigate('./../create/basic')}
-                  className="w-32 text-sm font-medium h-12 mt-8 self-center"
-                >建立</Button>
-              </div>
-            </div>}
         </div>
         <div className="flex flex-col mt-10 pb-5">
           <div className="flex flex-col items-center w-full pl-5 px-10">
