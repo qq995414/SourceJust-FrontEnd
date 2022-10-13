@@ -72,7 +72,7 @@ export default function Index() {
   const [smallImgState, setSmallImgState] = useState(false);
   const [coverImgName, setCoverImgName] = useState('');
   const [smallImgName, setSmallImgName] = useState('');
-  const insrnt = async ({ request }) => {
+  const insert = async ({ request }) => {
     //alert(classId+','+title+','+des+','+key+','+state)
     OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
@@ -91,7 +91,7 @@ export default function Index() {
       isDisable: isDisable,
     };
     console.log(articleRequest);
-    
+
     const pages = await apiClient.api.createArticle(articleRequest);
     window.location.href = "/admin/webpage";
     return json(pages);
@@ -106,7 +106,7 @@ export default function Index() {
     const apiClient = new ApiClient(OpenAPI);
     const fileupload = await apiClient.api.uploadFile('BLOG', imgrequest);
     console.log(fileupload);
-    
+
     setSmallImg(fileupload.data?.url)
     setSmallImgId(fileupload.data?.id)
     setSmallImgState(true)
@@ -163,6 +163,40 @@ export default function Index() {
       }
     );
   }
+
+
+  const preview = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "coverImg": coverImg,
+      "smallImg": smallImg,
+      "title": title,
+      "content": context,
+      "subTitle": subTitle,
+      "metaDes": des,
+      "metaKeyword": key,
+      "Date": "2021-09-04 19:33:50"
+    });
+ 
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://souls.huskyking.com/articlepreview", requestOptions)
+      .then(response => response.text())
+      .then((result) => {
+        var previewWindow = window.open("", "");
+        previewWindow.document.write(result);
+      })
+      .catch(error => console.log('error', error));
+
+
+  }
   return (
     <div className="grid w-full" >
       <Nav titleGray='' title="部落格管理" titleBlack=""></Nav>
@@ -181,12 +215,13 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-clear-btn"
             <button
               className="border-2  w-20 text-white
 h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-view-btn"
+              onClick={preview}
             >
               預覽</button>
             <button
               className="border-2  w-20 text-white
 h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
-              onClick={insrnt} >
+              onClick={insert} >
               新增</button>
           </div>
 
@@ -194,7 +229,7 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
         <div className="flex flex-col mt-8">
           <div className="flex flex-col   pl-5 w-full px-10 ">
             <a className="blog-class-text">類別 <a className='functional-Error-3-text'>*</a></a>
-            <select value={classId} onChange={classIdchange} className={classId == 0 ? 'neutral-colors-4-grey-text mt-1 blog-class-input' :' mt-1 blog-class-input-black'} name='classId'  >
+            <select value={classId} onChange={classIdchange} className={classId == 0 ? 'neutral-colors-4-grey-text mt-1 blog-class-input' : ' mt-1 blog-class-input-black'} name='classId'  >
               <option style={{ display: "none" }} >請選擇類別</option>
               {blogClassSelect.map((blogClassSelect: { name: any; id: any; }) => {
                 const {
@@ -202,7 +237,6 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
                 } = blogClassSelect;
                 return <option className='text-black' value={id}>{name}</option>
               })}
-
             </select>
           </div>
           <div className="flex flex-col   pl-5 w-full px-10 mt-5 ">
@@ -225,7 +259,7 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
           </div>
           <div className="flex flex-col   pl-5 w-full px-10 mt-5 ">
             <a className="blog-class-text">狀態 <a className='functional-Error-3-text'>*</a></a>
-            <select value={isDisable} onChange={isDisablechange} className={isDisable == '' ? 'neutral-colors-4-grey-text mt-1 blog-class-input' :' mt-1 blog-class-input-black'} name="state">
+            <select value={isDisable} onChange={isDisablechange} className={isDisable == '' ? 'neutral-colors-4-grey-text mt-1 blog-class-input' : ' mt-1 blog-class-input-black'} name="state">
               <option style={{ display: "none" }} >請選擇狀態(已發布、草稿)</option>
               <option className='text-black' value="true">已發布</option>
               <option className='text-black' value="false">草稿</option>
