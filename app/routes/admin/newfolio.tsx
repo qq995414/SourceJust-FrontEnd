@@ -178,6 +178,40 @@ export default function Index() {
       }
     );
   }
+  const preview = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var raw = JSON.stringify({
+      "coverImg":coverImg ,
+      "smallImg": smallImg,
+      "title": title,
+      "content": context,
+      "metaKeyword":tags,
+      "Date": "2021-09-04 19:33:50",
+      "client":client,
+      "url": url,
+      "service": service,
+      "tech": tech
+    
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("https://souls.huskyking.com/workpreview", requestOptions)
+      .then(response => response.text())
+      .then((result) => {
+        var previewWindow = window.open("", "");
+        previewWindow.document.write(result);
+      })
+      .catch(error => console.log('error', error));
+
+
+  }
   return (
     <div className="grid w-full" >
       <Nav titleGray='作品集管理' title="" titleBlack="編輯資料"></Nav>
@@ -196,6 +230,7 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-clear-btn"
             <button
               className="border-2  w-20 text-white
 h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-view-btn"
+              onClick={preview}
             >
               預覽</button>
             <button
