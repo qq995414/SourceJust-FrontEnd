@@ -1,5 +1,6 @@
 
-import { useLoaderData } from 'remix';
+
+import { useLoaderData, MetaFunction } from 'remix';
 import { PropsWithChildren, useCallback, useState } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import cx from 'classnames';
@@ -109,6 +110,9 @@ const renderActiveShape = (props: any) => {
   );
 };
 
+export const meta: MetaFunction = () => {
+  return { title: '總後台 ｜ 索爾斯科技', };
+};
 const COLORS = ['#EB6870', '#FACB8E', '#B47873', '#DCAB99', '#F9CDAF'];
 export default function Index() {
   const [CardList, setCardList] = useState([
@@ -153,18 +157,21 @@ export default function Index() {
   const data = useLoaderData();
   console.log(data.data?.profile?.name);
 
-  return (
-    <div className="grid w-screen">
-      <Nav titleGray='' title="總覽" titleBlack="" ></Nav>
-      <div className="h-screen w-full  login-background  pt-4">
-        <div className="flex flex-col mt-20">
-          <div className="flex flex-col w-full px-10 dashboard-title">
-            <a className='dashboard-title'>歡迎回來, {data.data?.profile?.name}</a>
-            <a className='dashboard-subTitle'>這邊的資訊是您的網站分析</a>
-          </div>
-          <div className="h-full w-full flex flex-col">
 
-            {/* Card */}
+  return (
+    <div className="grid w-full">
+
+
+      <Nav titleGray='' title="部落格管理" titleBlack=""></Nav>
+      <div className="flex flex-col mt-12 pb-5">
+        <div className="flex flex-col items-center w-full pl-5 px-8">
+          <div className='w-full pt-12 pb-2 pl-5 flex  '>
+            <div className="flex flex-col w-full px-10 dashboard-title">
+              <a className='dashboard-title'>歡迎回來, {data.data?.profile?.name}</a>
+              <a className='dashboard-subTitle'>這邊的資訊是您的網站分析</a>
+            </div>
+          </div>
+          <div className='w-full pt-2 pb-5 pl-5 flex  '>
             <div className="w-full my-12 flex px-8">
               <AdminCard value="當日訪客數" number="8,123" icons="visitor" BKColor="#E1F5FF" increase="2,550" increaseP="14.67%" growingUp="true">
               </AdminCard>
@@ -175,60 +182,59 @@ export default function Index() {
               <AdminCard value="當日訪客數" number="5 分 20 秒" icons="time" BKColor="##FDEBEE" increase="2,550" increaseP="14.67%" growingUp="true">
               </AdminCard>
             </div>
-            <div className="w-full my-12 flex px-8">
-              <div className='w-8/12  shadow-md px-5 mx-5 py-5 rounded-md dashboardCard'>
-                <div className="h-auto w-full mt-5">
-                  <div className="justify-between w-full mb-8">
-                    <div className='flex'>
-                      <p className="ml-10 font-bold p-2 text-center text-lg">用戶活動時間的變化趨勢</p>
-                      <div className="flex-grow"></div>
-                      <button className='dashboard-AChart-Button w-16 h-8 font-bold mx-2'>今年</button>
-                      <button className='dashboard-AChart-Button w-16 h-8 font-bold mx-2'>當週</button>
-                      <button className='dashboard-AChart-Button w-16 h-8 font-bold mx-2'>當月</button>
-                      <button className='dashboard-AChart-Button w-16 h-8 font-bold mx-2'>當日</button>
-                    </div>
-                    <div>
-                      <p className="ml-10 font-bold p-2 text-lg">變化柱狀圖</p>
+          </div>
 
-                    </div>
+          <div className='w-full pt-5 pb-5 pl-5 flex  '>
+            <div className='w-8/12  shadow-md px-3 mx-3 py-3 rounded-md dashboardCard'>
+              <div className="h-auto w-full mt-5">
+                <div className="justify-between w-full mb-8">
+                  <div className='flex'>
+                    <p className="ml-10 font-bold p-2 text-center text-lg">用戶活動時間的變化趨勢</p>
+                    <div className="flex-grow"></div>
+                    <button className='dashboard-AChart-Button w-16 h-8 font-bold mx-2'>今年</button>
+                    <button className='dashboard-AChart-Button w-16 h-8 font-bold mx-2'>當週</button>
+                    <button className='dashboard-AChart-Button w-16 h-8 font-bold mx-2'>當月</button>
+                    <button className='dashboard-AChart-Button w-16 h-8 font-bold mx-2'>當日</button>
+                  </div>
+                  <div>
+                    <p className="ml-10 font-bold p-2 text-lg">變化柱狀圖</p>
 
                   </div>
-                  <div className=" w-full flex px-16">
-                    <AChart></AChart>
-                  </div>
+
                 </div>
-              </div>
-              <div className='w-4/12  shadow-md px-5 mx-5 py-5 rounded-md dashboardCard'>
-                <div className="h-auto w-full mt-5">
-                  <div className="flex justify-between w-full mb-4">
-                    <p className="ml-10 font-bold p-2 text-center text-lg">裝置使用分析</p>
-                  </div>
-                  <div className=" w-full flex justify-center">
-                    <PChart></PChart>
-                  </div>
-                  <div className='flex px-10'>
-                    <span className='mt-2' style={{ background: "#EE415D", borderRadius: "100px", width: "8px", height: "8px" }}></span>
-                    <a className=' ml-3 font-Blod'>平板</a>
-                    <div className="flex-grow"></div>
-                    <div className='cool-gray-09-text '>20%</div>
-                  </div>
-                  <div className='flex px-10 pt-2'>
-                    <span className='mt-2' style={{ background: "#70D6FF", borderRadius: "100px", width: "8px", height: "8px" }}></span>
-                    <a className=' ml-3 font-Blod'>Desktop</a>
-                    <div className="flex-grow"></div>
-                    <div className='cool-gray-09-text '>52%</div>
-                  </div>
-                  <div className='flex px-10 pt-2'>
-                    <span className='mt-2' style={{ background: "#FDB531", borderRadius: "100px", width: "8px", height: "8px" }}></span>
-                    <a className=' ml-3 font-Blod'>Mobile</a>
-                    <div className="flex-grow"></div>
-                    <div className='cool-gray-09-text '>19.73%</div>
-                  </div>
+                <div className=" w-full flex px-16">
+                  <AChart></AChart>
                 </div>
               </div>
             </div>
-            {/* Content Area Chart*/}
-         
+            <div className='w-3/12  shadow-md px-3 mx-3 py-3 rounded-md dashboardCard'>
+              <div className="h-auto w-full mt-5">
+                <div className="flex justify-between w-full mb-4">
+                  <p className="ml-10 font-bold p-2 text-center text-lg">裝置使用分析</p>
+                </div>
+                <div className=" w-full flex justify-center">
+                  <PChart></PChart>
+                </div>
+                <div className='flex px-10'>
+                  <span className='mt-2' style={{ background: "#EE415D", borderRadius: "100px", width: "8px", height: "8px" }}></span>
+                  <a className=' ml-3 font-Blod'>平板</a>
+                  <div className="flex-grow"></div>
+                  <div className='cool-gray-09-text '>20%</div>
+                </div>
+                <div className='flex px-10 pt-2'>
+                  <span className='mt-2' style={{ background: "#70D6FF", borderRadius: "100px", width: "8px", height: "8px" }}></span>
+                  <a className=' ml-3 font-Blod'>Desktop</a>
+                  <div className="flex-grow"></div>
+                  <div className='cool-gray-09-text '>52%</div>
+                </div>
+                <div className='flex px-10 pt-2'>
+                  <span className='mt-2' style={{ background: "#FDB531", borderRadius: "100px", width: "8px", height: "8px" }}></span>
+                  <a className=' ml-3 font-Blod'>Mobile</a>
+                  <div className="flex-grow"></div>
+                  <div className='cool-gray-09-text '>19.73%</div>
+                </div>
+              </div>
+            </div>
 
           </div>
         </div>
@@ -245,7 +251,7 @@ function AdminCard(props: PropsWithChildren<Props>) {
         <div className='dashboard-iconBox text-center ' style={{ backgroundColor: props.BKColor }}>
           <img className='mx-auto pt-2' src={iconUrl} alt="" />
         </div>
-        <p className="w-1/4 mt-2 mx-3 text-center h-1/4 pt-1 dashboardCard-title">{props.value}</p>
+        <p className="w-2/4 mt-2 mx-3 text-center h-1/4 pt-1 dashboardCard-title">{props.value}</p>
       </div>
       <p className="w-full text-2xl h-1/3 my-1 pt-2 dashboardCard-value">{props.number}</p>
       <div className="w-full  h-1/4 flex pt-3"><a className='cool-gray-09-text '>每月平均分析</a>
@@ -259,27 +265,35 @@ function AdminCard(props: PropsWithChildren<Props>) {
     </div>
   </div >);
 }
-
 const toPercent = (fixed = 0) => `$${(fixed)}`;
 
+
 function AChart() {
-  return (<AreaChart
-    width={1000}
-    height={400}
-    data={data}
-    margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-    <defs>
-      <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="5%" stopColor="#B6212254" stopOpacity={0.8} />
-        <stop offset="95%" stopColor="#B6212254" stopOpacity={0} />
-      </linearGradient>
-    </defs>
-    <XAxis dataKey="name" />
-    <YAxis axisLine={false} orientation="right" tickFormatter={toPercent} />
-    <CartesianGrid vertical={false} strokeDasharray="3 3" />
-    <Tooltip />
-    <Area type="monotone" dataKey="pv" stroke="#B6212254" fillOpacity={1} fill="url(#colorPv)" />
-  </AreaChart>);
+  return (<div style={{ width: '100%', height: 300 }}>
+    <ResponsiveContainer>
+      <AreaChart
+        data={data}
+        margin={{
+          top: 10,
+          right: 30,
+          left: 0,
+          bottom: 0,
+        }}
+      >
+        <defs>
+          <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#B6212254" stopOpacity={0.8} />
+            <stop offset="95%" stopColor="#B6212254" stopOpacity={0} />
+          </linearGradient>
+        </defs>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Area type="monotone" dataKey="pv" stroke="#B6212254" fillOpacity={1} fill="url(#colorPv)" />
+      </AreaChart>
+    </ResponsiveContainer>
+  </div>);
 }
 
 function PChart() {
@@ -290,26 +304,28 @@ function PChart() {
     },
     [setActiveIndex]
   );
-  return (<PieChart width={500} height={300}>
-    <Pie
-      activeIndex={activeIndex}
-      activeShape={renderActiveShape}
-      data={data01}
-      dataKey="value"
-      nameKey="name"
-      cx="50%"
-      cy="50%"
-      innerRadius={40}
-      outerRadius={100}
-      onMouseEnter={onPieEnter}
-      fill="#B6212254" >
-      {data.map((entry, index) => (
-        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-      ))}
-    </Pie>
-  </PieChart>);
+  return (<div style={{ width: '100%', height: 300 }}>
+    <ResponsiveContainer>
+      <PieChart>
+        <Pie activeIndex={activeIndex}
+          activeShape={renderActiveShape}
+          data={data01}
+          dataKey="value"
+          nameKey="name"
+          cx="50%"
+          cy="50%"
+          innerRadius={40}
+          outerRadius={100}
+          onMouseEnter={onPieEnter}
+        >
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+      </PieChart>
+    </ResponsiveContainer>
+  </div >);
 }
-
 function BChart() {
   return (<BarChart
     width={1100}
