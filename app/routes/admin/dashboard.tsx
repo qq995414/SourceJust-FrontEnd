@@ -162,7 +162,7 @@ export default function Index() {
     <div className="grid w-full">
 
 
-      <Nav titleGray='' title="部落格管理" titleBlack=""></Nav>
+      <Nav titleGray='' title="總覽" titleBlack=""></Nav>
       <div className="flex flex-col mt-12 pb-5">
         <div className="flex flex-col items-center w-full pl-5 px-8">
           <div className='w-full pt-12 pb-2 pl-5 flex  '>

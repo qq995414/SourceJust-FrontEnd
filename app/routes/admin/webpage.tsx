@@ -388,9 +388,8 @@ h-12 rounded-lg ml-3  font-semibold "
 
                           </div>
                         }
-
                         <div className='w-2/12 pl-2 pr-2 pt-3 '>
-                          {title},
+                          {title}
                         </div>
                         <div className='w-3/12 pl-2 pr-2 pt-3'>
                           {subTitle}

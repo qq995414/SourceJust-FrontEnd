@@ -271,7 +271,7 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
                 </div>
 
               </div>
-              <div className="flex flex-col pl-5 w-full px-10 mt-5 ">
+              <div className="flex flex-col pl-5 w-full px-10 mt-5 pb-5">
 
                 <ClientOnly>
                   {() => <Editor
