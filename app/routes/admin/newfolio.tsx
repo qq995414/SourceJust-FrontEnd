@@ -10,6 +10,7 @@ import authenticator from "~/services/auth.server";
 import { ApiClient, ArticleRequest, OpenAPI, PortfolioRequest } from 'app/ApiClient';
 import { FileUploader } from "react-drag-drop-files";
 import draftToHtml from "draftjs-to-html";
+import { OfficalAPI } from 'app/officalAPI';
 
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -179,6 +180,7 @@ export default function Index() {
     );
   }
   const preview = () => {
+    var previewUrl=OfficalAPI.BASE+"workpreview"
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     var raw = JSON.stringify({
@@ -202,15 +204,14 @@ export default function Index() {
       redirect: 'follow'
     };
 
-    fetch("https://souls.huskyking.com/workpreview", requestOptions)
+    fetch(previewUrl, requestOptions)
       .then(response => response.text())
       .then((result) => {
+        result = result.replaceAll('defer', 'async')
         var previewWindow = window.open("", "");
         previewWindow.document.write(result);
       })
       .catch(error => console.log('error', error));
-
-
   }
   return (
     <div className="grid w-full" >

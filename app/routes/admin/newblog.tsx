@@ -10,6 +10,7 @@ import authenticator from "~/services/auth.server";
 import { ApiClient, ArticleRequest, OpenAPI } from 'app/ApiClient';
 import { FileUploader } from "react-drag-drop-files";
 import draftToHtml from "draftjs-to-html";
+import { OfficalAPI } from 'app/officalAPI';
 
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -166,9 +167,39 @@ export default function Index() {
 
 
   const preview = () => {
+    /* var previewUrl=OfficalAPI.BASE+"articlepreview"
+    var myHeaders = new Headers();
+     myHeaders.append("Content-Type", "application/json");
+ 
+     var raw = JSON.stringify({
+       "coverImg": coverImg,
+       "smallImg": smallImg,
+       "title": title,
+       "content": context,
+       "subTitle": subTitle,
+       "metaDes": des,
+       "metaKeyword": key,
+       "Date": "2021-09-04 19:33:50"
+     });
+     var requestOptions = {
+       method: 'POST',
+       headers: myHeaders,
+       body: raw,
+       redirect: 'follow'
+     };
+ 
+     fetch(previewUrl, requestOptions)
+       .then(response => response.text())
+       .then((result) => {
+         var previewWindow = window.open("", "");
+         previewWindow.document.write(result);
+       })
+       .catch(error => console.log('error', error));
+ 
+ */
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-
+      
     var raw = JSON.stringify({
       "coverImg": coverImg,
       "smallImg": smallImg,
@@ -179,23 +210,21 @@ export default function Index() {
       "metaKeyword": key,
       "Date": "2021-09-04 19:33:50"
     });
- 
+    
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: raw,
       redirect: 'follow'
     };
-
     fetch("https://souls.huskyking.com/articlepreview", requestOptions)
       .then(response => response.text())
-      .then((result) => {
+      .then(result => {
+        result = result.replaceAll('defer', 'async')
         var previewWindow = window.open("", "");
         previewWindow.document.write(result);
       })
       .catch(error => console.log('error', error));
-
-
   }
   return (
     <div className="grid w-full" >
@@ -290,7 +319,7 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
             </div>
 
           </div>
-          <div className="flex flex-col   pl-5 w-full px-10 mt-5 ">
+          <div className="flex flex-col   pl-5 w-full px-10 mt-5 pb-5">
 
             <ClientOnly>
               {() => <Editor
