@@ -941,7 +941,7 @@ id: number,
      * @throws ApiError
      */
     public uploadFile(
-fileType: 'UI' | 'DATA' | 'CONTRACT' | 'DEV_TEST' | 'PROD_TEST' | 'BLOG' | 'PORTFOLIO',
+fileType: 'UI' | 'DATA' | 'CONTRACT' | 'DEV_TEST' | 'PROD_TEST' | 'BLOG' | 'PORTFOLIO' | 'TEMPLATE',
 formData?: {
 file: Blob;
 },
@@ -1701,7 +1701,7 @@ roleId: number,
      * @throws ApiError
      */
     public listFileInfo(
-fileType?: 'UI' | 'DATA' | 'CONTRACT' | 'DEV_TEST' | 'PROD_TEST' | 'BLOG' | 'PORTFOLIO',
+fileType?: 'UI' | 'DATA' | 'CONTRACT' | 'DEV_TEST' | 'PROD_TEST' | 'BLOG' | 'PORTFOLIO' | 'TEMPLATE',
 ): CancelablePromise<ResponsePaginationResponseFileInfoResponse> {
         return this.httpRequest.request({
             method: 'GET',
