@@ -490,6 +490,7 @@ body {
     order: 0;
     flex-grow: 0;
 }
+
 .table-state-yello {
     font-weight: 600;
     font-size: 14px;
@@ -521,6 +522,7 @@ body {
     order: 0;
     flex-grow: 0;
 }
+
 .table-checkbox {
     background: #FFFFFF;
     /* Neutral Colors/5 LightGrey */
@@ -932,9 +934,26 @@ body {
     font-size: 20px;
     line-height: 29px;
     /* identical to box height */
-
     letter-spacing: 1px;
-
     color: #000000;
+}
 
+.negotiate-button {
+    padding: 5px 8px;
+    gap: 4px;
+    width: 132px;
+    height: 28px;
+    background: #FFFFFF;
+    border: 1px solid #D3D3D3;
+    border-radius: 4px;
+}
+
+.Template-Fileupload {
+    width: 160px;
+    height: 40px;
+    background: #FFFFFF;
+    border: 1px solid #E7142D;
+    border-radius: 4px;
+    color: #E7142D;
+    font-weight: 600;
 }
