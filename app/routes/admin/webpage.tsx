@@ -2,7 +2,7 @@
 import Button from '~/components/common/Button';
 import Select from '~/components/Select';
 import { MetaFunction, useNavigate, Link, useLoaderData } from 'remix';
-import {  useState } from 'react';
+import { useState } from 'react';
 import cx from 'classnames';
 import Nav from '~/components/Nav';
 import { LoaderFunction } from 'remix';
@@ -18,7 +18,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const pages = await apiClient.api.listArticle('', '', '', '', 1, 99, 'asc');
   //for (var i = 0; i <= pages.length; i++)
-    const lodervalue = { pages: pages, key: user }
+  const lodervalue = { pages: pages, key: user }
   return lodervalue;
 };
 
@@ -41,7 +41,7 @@ export default function Index() {
   let length = blog.length
   const shownumber = number * page
 
-  const lengthpage = Math.floor(((length-1) / number)) + 1
+  const lengthpage = Math.floor(((length - 1) / number)) + 1
 
   const [names, setNames] = useState(['n']);
 
@@ -162,7 +162,7 @@ export default function Index() {
     setPage(1)
   };
   const removeapi = async () => {
-    
+
     OpenAPI.HEADERS = { "Authorization": blogRequest?.key?.data?.token };
     const apiClient = new ApiClient(OpenAPI);
     for (var i = 1; i < names.length; i++) {
@@ -303,7 +303,7 @@ h-12 rounded-lg ml-3  font-semibold "
               </p>
             </div>
             <div className="flex-grow"></div>
-            
+
           </div>
         </div>
         <div className="flex flex-col mt-10 pb-5">
@@ -354,7 +354,7 @@ h-12 rounded-lg ml-3  font-semibold "
                     id, isDisable, title, createTime, smallImg, subTitle,
                     select } = blog;
                   let i = false
-                  const editUrl="/admin/editblog?blog="+id
+                  const editUrl = "/admin/editblog?blog=" + id
                   names.map(names => {
                     const checkid = names;
                     if (checkid == id) {
@@ -367,7 +367,7 @@ h-12 rounded-lg ml-3  font-semibold "
                         <div className='w-1/12 pl-2 pr-2 pt-3 text-center pl-2 pr-2'>
                           <input name={id} type="checkbox" className={select === true ? 'table-checkbox Primary-Primary' : 'table-checkbox '} value={id} onChange={handleChange} checked="checked" />
                         </div>
-                        <div className='w-2/12 pl-2 pr-2 pt-3'>
+                        <div className='w-2/12 pr-2 pt-3'>
                           {createTime}
                         </div>
                         {isDisable === true &&
@@ -380,7 +380,7 @@ h-12 rounded-lg ml-3  font-semibold "
                           </div>
                         }
                         {isDisable === false &&
-                          <div className='w-1/12 pl-1 pt-3 pr-2 '>
+                          <div className='w-1/12 pt-3 pr-2 '>
                             <div className=' table-state-red flex w-8/12  pl-2'>
                               <div className='table-state-red-bell mr-2'></div>
                               草稿
@@ -388,35 +388,37 @@ h-12 rounded-lg ml-3  font-semibold "
 
                           </div>
                         }
-                        <div className='w-2/12 pl-2 pr-2 pt-3 '>
+                        <div className='w-2/12 pr-2 pt-3 '>
                           {title}
                         </div>
-                        <div className='w-3/12 pl-2 pr-2 pt-3'>
+                        <div className='w-3/12 pr-2 pt-3'>
                           {subTitle}
                         </div>
-                        <div className='w-2/12 pl-2 pr-2  '>
+                        <div className='w-2/12 pr-2  '>
                           <img
                             src={smallImg}
                             className="cursor-pointer  table-img py-2"
                           />
                         </div>
-                        <div className='w-1/12 pl-2 pr-2 pt-3 flex'>
-                          <Link
-                            className='w-4/12 mx-1 mt-4'
-                            to={editUrl}
-                            prefetch="intent"
-                          >
-                            <img
+                        <div className='w-1/12 pr-2 grid'>
+                          <div className='flex items-center'>
+                            <Link
+                              className='w-4/12 mx-1'
+                              to={editUrl}
+                              prefetch="intent"
+                            >
+                              <img
+                                className='w-full '
+                                src="/icons/webpage-table-pan.svg"
+                                alt=""
+                              /></Link>
+                            <a className='w-4/12 mx-1'>  <img
                               className='w-full'
-                              src="/icons/webpage-table-pan.svg"
+                              src="/icons/webpage-table-remove.svg"
                               alt=""
-                            /></Link>
-                          <a className='w-4/12 mx-1 mt-4'>  <img
-                            className='w-full'
-                            src="/icons/webpage-table-remove.svg"
-                            alt=""
-                            onClick={() => setRemovePage(true)}
-                          /></a>
+                              onClick={() => setRemovePage(true)}
+                            /></a>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -425,7 +427,7 @@ h-12 rounded-lg ml-3  font-semibold "
                       <div className={select === true ? 'flex  table-list-checked table-list w-full pt-2' : 'table-list flex w-full pt-2'}>
                         <div className='w-1/12 pl-2 pr-2 pt-3 text-center pl-2 pr-2'> <input name={id} type="checkbox" className={select === true ? 'table-checkbox Primary-Primary' : 'table-checkbox '} value={id} onChange={handleChange} />
                         </div>
-                        <div className='w-2/12 pl-2 pr-2 pt-3'>
+                        <div className='w-2/12 pr-2 pt-3'>
                           {createTime}
                         </div>
                         {isDisable === true &&
@@ -438,7 +440,7 @@ h-12 rounded-lg ml-3  font-semibold "
                           </div>
                         }
                         {isDisable === false &&
-                          <div className='w-1/12 pl-1 pt-3 pr-2 '>
+                          <div className='w-1/12 pt-3 pr-2 '>
                             <div className=' table-state-red flex w-8/12  pl-2'>
                               <div className='table-state-red-bell mr-2'></div>
                               草稿
@@ -447,36 +449,37 @@ h-12 rounded-lg ml-3  font-semibold "
                           </div>
                         }
 
-                        <div className='w-2/12 pl-2 pr-2 pt-3 '>
+                        <div className='w-2/12 pr-2 pt-3 '>
                           {title}
                         </div>
-                        <div className='w-3/12 pl-2 pr-2 pt-3'>
+                        <div className='w-3/12 pr-2 pt-3'>
                           {subTitle}
                         </div>
-                        <div className='w-2/12 pl-2 pr-2  '>
+                        <div className='w-2/12 pr-2  '>
                           <img
                             src={smallImg}
                             className="cursor-pointer  table-img py-2"
                           />
                         </div>
-                        <div className='w-1/12 pl-2 pr-2 pt-3  flex'>
-                          <Link
-                            className='w-4/12 mx-1 mt-4'
-                            to={editUrl}
-                            prefetch="intent"
-                          >
-                            <img
-                              className='w-full '
-                              src="/icons/webpage-table-pan.svg"
+                        <div className='w-1/12 pr-2   grid'>
+                          <div className='flex items-center'>
+                            <Link
+                              className='w-4/12 mx-1 '
+                              to={editUrl}
+                              prefetch="intent"
+                            >
+                              <img
+                                className='w-full '
+                                src="/icons/webpage-table-pan.svg"
+                                alt=""
+                              /></Link>
+                            <a className='w-4/12 mx-1 '>  <img
+                              className='w-full'
+                              src="/icons/webpage-table-remove.svg"
                               alt=""
-                            /></Link>
-                          <a className='w-4/12 mx-1 mt-4'>  <img
-                            className='w-full'
-                            src="/icons/webpage-table-remove.svg"
-                            alt=""
-                            onClick={() => setRemovePage(true)}
-                          /></a>
-
+                              onClick={() => setRemovePage(true)}
+                            /></a>
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -316,22 +316,22 @@ h-12 rounded-lg ml-3  font-semibold "
                     }
                   });
                   if (i == true) {
-                    return <div className='flex  table-list-checked table-list w-full'>
-                      <div className={select === true ? 'flex  table-list-checked table-list w-full pt-2' : 'table-list flex w-full pt-2'}>
+                    return <div className='flex  table-list-checked table-list w-full' style={{minHeight:"80px"}}>
+                      <div className={select === true ? 'flex  table-list-checked table-list w-full pt-2' : 'table-list flex w-full pt-2'} >
                         <div className='w-1/12 pl-2 pr-2 pt-3 text-center pl-2 pr-2'>
                           <input name={id} type="checkbox" className={select === true ? 'table-checkbox Primary-Primary' : 'table-checkbox '} value={id} onChange={handleChange} checked="checked" />
                         </div>
-                        <div className='w-2/12 pl-2 pr-2 pt-3'>
+                        <div className='w-2/12 pt-3'>
                           {createTime}
                         </div>
-                        <div className='w-1/12 pl-2 pr-2 pt-3'>
+                        <div className='w-1/12 pt-3'>
                           {company}
                         </div>
-                        <div className='w-1/12 pl-2 pr-2 pt-3'>
+                        <div className='w-1/12 pt-3'>
                           {name}
                         </div>
                         {status == "DONE" &&
-                          <div className='w-1/12 pl-1 pt-3 pr-2 '>
+                          <div className='w-1/12 pt-3 '>
                             <div className='table-state-green flex w-8/12 pl-2'>
                               <div className='table-state-green-bell mr-2'></div>
                               已回覆
@@ -340,7 +340,7 @@ h-12 rounded-lg ml-3  font-semibold "
                           </div>
                         }
                         {status === "READ" &&
-                          <div className='w-1/12 pl-1 pt-3 pr-2 '>
+                          <div className='w-1/12 pt-3'>
                             <div className=' table-state-red flex w-8/12  pl-2'>
                               <div className='table-state-red-bell mr-2'></div>
                               待回覆
@@ -348,61 +348,63 @@ h-12 rounded-lg ml-3  font-semibold "
                           </div>
                         }
                         {status === "INIT" &&
-                          <div className='w-1/12 pl-1 pt-3 pr-2 '>
+                          <div className='w-1/12 pt-3 '>
                             <div className=' table-state-yello flex w-8/12  pl-2'>
                               <div className='table-state-yello-bell mr-2'></div>
                               待處理
                             </div>
                           </div>
                         }
-                        <div className='w-1/12 pl-2 pr-2 pt-3 '>
+                        <div className='w-1/12 pt-3 '>
                           {mobile},
                         </div>
-                        <div className='w-1/12 pl-2 pr-2 pt-3'>
+                        <div className='w-1/12 pt-3'>
                           {service}
                         </div>
-                        <div className='w-1/12 pl-2 pr-2 pt-3 '>
+                        <div className='w-1/12 pt-3 '>
                           {email}
                         </div>
-                        <div className='w-2/12 pl-2 pr-2 pt-3 '>
+                        <div className='w-2/12 pt-3 '>
                           {remark}
                         </div>
-                        <div className='w-1/12 pl-2 pr-2 pt-3 flex'>
-                          <Link
-                            className='w-4/12 mx-1 mt-1'
-                            to={editUrl}
-                            prefetch="intent"
-                          >
-                            <img
+                        <div className='w-1/12 grid'>
+                          <div className='flex items-center'>
+                            <Link
+                              className='w-4/12 mx-1'
+                              to={editUrl}
+                              prefetch="intent"
+                            >
+                              <img
+                                className='w-full'
+                                src="/icons/webpage-table-pan.svg"
+                                alt=""
+                              /></Link>
+                            <a className='w-4/12 mx-1'>  <img
                               className='w-full'
-                              src="/icons/webpage-table-pan.svg"
+                              src="/icons/webpage-table-remove.svg"
                               alt=""
-                            /></Link>
-                          <a className='w-4/12 mx-1 mt-1'>  <img
-                            className='w-full'
-                            src="/icons/webpage-table-remove.svg"
-                            alt=""
-                            onClick={() => setRemovePage(true)}
-                          /></a>
+                              onClick={() => setRemovePage(true)}
+                            /></a>
+                          </div>
                         </div>
                       </div>
                     </div>
                   } else {
-                    return <div className='table-list flex w-full'>
+                    return <div className='table-list flex w-full' style={{minHeight:"80px"}}>
                       <div className={select === true ? 'flex  table-list-checked table-list w-full pt-2' : 'table-list flex w-full pt-2'}>
-                        <div className='w-1/12 pl-2 pr-2 pt-3 text-center pl-2 pr-2'> <input name={id} type="checkbox" className={select === true ? 'table-checkbox Primary-Primary' : 'table-checkbox '} value={id} onChange={handleChange} />
+                        <div className='w-1/12 pt-3 text-center pl-2 pr-2'> <input name={id} type="checkbox" className={select === true ? 'table-checkbox Primary-Primary' : 'table-checkbox '} value={id} onChange={handleChange} />
                         </div>
-                        <div className='w-2/12 pl-2 pr-2 pt-3'>
+                        <div className='w-2/12 pt-3'>
                           {createTime}
                         </div>
-                        <div className='w-1/12 pl-2 pr-2 pt-3'>
+                        <div className='w-1/12 pt-3'>
                           {company}
                         </div>
-                        <div className='w-1/12 pl-2 pr-2 pt-3'>
+                        <div className='w-1/12 pt-3'>
                           {name}
                         </div>
                         {status == "DONE" &&
-                          <div className='w-1/12 pl-1 pt-3 pr-2 '>
+                          <div className='w-1/12 pt-3'>
                             <div className='table-state-green flex w-8/12 pl-2'>
                               <div className='table-state-green-bell mr-2'></div>
                               已回覆
@@ -411,7 +413,7 @@ h-12 rounded-lg ml-3  font-semibold "
                           </div>
                         }
                         {status === "READ" &&
-                          <div className='w-1/12 pl-1 pt-3 pr-2 '>
+                          <div className='w-1/12 pt-3'>
                             <div className=' table-state-red flex w-8/12  pl-2'>
                               <div className='table-state-red-bell mr-2'></div>
                               待回覆
@@ -419,7 +421,7 @@ h-12 rounded-lg ml-3  font-semibold "
                           </div>
                         }
                         {status === "INIT" &&
-                          <div className='w-1/12 pl-1 pt-3 pr-2 '>
+                          <div className='w-1/12 pt-3 '>
                             <div className=' table-state-yello flex w-8/12  pl-2'>
                               <div className='table-state-yello-bell mr-2'></div>
                               待處理
@@ -427,35 +429,37 @@ h-12 rounded-lg ml-3  font-semibold "
                           </div>
                         }
 
-                        <div className='w-1/12 pl-2 pr-2 pt-3 '>
+                        <div className='w-1/12 pt-3 '>
                           {mobile},
                         </div>
-                        <div className='w-1/12 pl-2 pr-2 pt-3'>
+                        <div className='w-1/12 pt-3'>
                           {service}
                         </div>
-                        <div className='w-1/12 pl-2 pr-2 pt-3 '>
+                        <div className='w-1/12 pt-3 '>
                           {email}
                         </div>
-                        <div className='w-2/12 pl-2 pr-2 pt-3 '>
+                        <div className='w-2/12 pt-3 '>
                           {remark}
                         </div>
-                        <div className='w-1/12 pl-2 pr-2 pt-3 flex'>
-                          <Link
-                            className='w-4/12 mx-1 mt-1'
-                            to={editUrl}
-                            prefetch="intent"
-                          >
-                            <img
+                        <div className='w-1/12 grid'>
+                          <div className='flex items-center'>
+                            <Link
+                              className='w-4/12 mx-1 '
+                              to={editUrl}
+                              prefetch="intent"
+                            >
+                              <img
+                                className='w-full'
+                                src="/icons/webpage-table-pan.svg"
+                                alt=""
+                              /></Link>
+                            <a className='w-4/12 mx-1 '>  <img
                               className='w-full'
-                              src="/icons/webpage-table-pan.svg"
+                              src="/icons/webpage-table-remove.svg"
                               alt=""
-                            /></Link>
-                          <a className='w-4/12 mx-1 mt-1'>  <img
-                            className='w-full'
-                            src="/icons/webpage-table-remove.svg"
-                            alt=""
-                            onClick={() => setRemovePage(true)}
-                          /></a>
+                              onClick={() => setRemovePage(true)}
+                            /></a>
+                          </div>
                         </div>
                       </div>
                     </div>
