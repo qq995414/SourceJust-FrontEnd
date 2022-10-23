@@ -1,16 +1,11 @@
-import { MetaFunction, useNavigate, Link, Form, useLoaderData } from 'remix';
-import { SetStateAction, useState, Component, useRef } from 'react';
+import { MetaFunction, useLoaderData } from 'remix';
+import { useState, useRef } from 'react';
 import Nav from '~/components/Nav';
-import { Editor } from './components/react-draft-wysiwyg.client';
-import { EditorState, convertToRaw, ContentState, } from 'draft-js';
-import { ClientOnly } from "remix-utils";
 import styles from "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { ActionFunction, LoaderFunction, json } from 'remix';
+import { LoaderFunction, json } from 'remix';
 import authenticator from "~/services/auth.server";
 import { ApiClient, TemplateRequest, OpenAPI } from 'app/ApiClient';
 import { FileUploader } from "react-drag-drop-files";
-import draftToHtml from "draftjs-to-html";
-
 
 export const loader: LoaderFunction = async ({ request }) => {
   let user = await authenticator.isAuthenticated(request, {
@@ -42,6 +37,7 @@ export default function Index() {
     setUrl(event.target.value);
   };
 
+  const inputFile = useRef(null);
 
   const templateApi = useLoaderData();
   const [coverImg, setCoverImg] = useState('');
@@ -54,8 +50,13 @@ export default function Index() {
   const [smallImgName, setSmallImgName] = useState('');
   const [tagsArray, setTagsArray] = useState([]);
   const insrnt = async ({ request }) => {
-    //alert(classId+','+title+','+des+','+key+','+state)
-
+    var urlAry = url.split(':');
+    if (urlAry[0] != "http" && urlAry[0] != "https") {
+      setUrl("http://" + url)
+      var newUrl = "http://" + url
+    } else {
+      var newUrl = url
+    }
     OpenAPI.HEADERS = { "Authorization": templateApi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
     let TemplateRequest: TemplateRequest = {
@@ -63,7 +64,7 @@ export default function Index() {
       mainImg: coverImg,
       smallImg: smallImg,
       category: classId,
-      url: url,
+      url: newUrl,
       header: '',
       footer: '',
       fileId: 0,
@@ -96,11 +97,30 @@ export default function Index() {
     setCoverImgName(file.name)
     OpenAPI.HEADERS = { "Authorization": templateApi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
-    const fileupload = await apiClient.api.uploadFile('PORTFOLIO', imgrequest);
+    const fileupload = await apiClient.api.uploadFile('TEMPLATE', imgrequest);
     setCoverImg(fileupload.data?.url)
     setCoverImgId(fileupload.data?.id)
     setCoverImgState(true)
   };
+  const [fileZip, setFileZip] = useState(0);
+  const [fileZipName, setFileZipName] = useState('');
+
+  const fileUpload = async (file) => {
+
+    if (file.target.files[0].type == "application/x-zip-compressed") {
+      setFileZip(1)
+      setFileZipName(file.target.files[0].name)
+      let imgrequest = {
+        file: file.target.files[0],
+      };
+      setCoverImgName(file.name)
+      OpenAPI.HEADERS = { "Authorization": templateApi?.key?.data.token };
+      const apiClient = new ApiClient(OpenAPI);
+      const fileupload = await apiClient.api.uploadFile('PORTFOLIO', imgrequest);
+      console.log(fileupload);
+
+    }
+  }
 
   return (
     <div className="grid w-full" >
@@ -117,11 +137,7 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-clear-btn"
                 window.location.href = "/admin/webpage";
               }}>
               取消</button>
-            <button
-              className="border-2  w-20 text-white
-h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-view-btn"
-            >
-              預覽</button>
+
             <button
               className="border-2  w-20 text-white
 h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
@@ -157,25 +173,31 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
               <a className="blog-class-text">案例縮圖 <a className='functional-Error-3-text'>*</a></a>
               <FileUploader handleChange={coverImgChange} name="file" types={fileTypes} />
               {coverImgState == false && <p className='file-upload-drop-text pt-3'>已成功上傳檔案 ( 0 / 1 )</p>}
-              {coverImgState == true &&
-                <div className='w-full'><p className='file-upload-drop-text-red pt-3'>已成功上傳檔案 ( 1 / 1 )</p>
-                  <div className='file-upload-drop-state w-10/12 flex items-center'>
-                    <img className='h-full w-auto' src={coverImg}></img> <a>{coverImgName}</a>
-                  </div>
-                </div>}
+              {coverImgState == true && <div className='w-full'><p className='file-upload-drop-text-red pt-3'>已成功上傳檔案 ( 1 / 1 )</p>
+                <div className='file-upload-drop-state w-10/12 flex items-center'>
+                  <img className='h-full w-auto' src={coverImg}></img> <a>{coverImgName}</a>
+                </div>
+              </div>}
             </div>
             <div className='w-1/2 imgUpload'>
               <a className="blog-class-text">封面縮圖 <a className='functional-Error-3-text'>*</a></a>
               <FileUploader handleChange={smallImgChange} name="file" types={fileTypes} />
               {smallImgState == false && <p className='file-upload-drop-text pt-3'>已成功上傳檔案 ( 0 / 1 )</p>}
-              {smallImgState == true &&
-                <div className='w-full'><p className='file-upload-drop-text-red pt-3'>已成功上傳檔案 ( 1 / 1 )</p>
-                  <div className='file-upload-drop-state w-10/12 flex items-center'>
-                    <img className='h-full w-auto' src={smallImg}></img> <a>{smallImgName}</a>
-                  </div>
-                </div>}
+              {smallImgState == true && <div className='w-full'><p className='file-upload-drop-text-red pt-3'>已成功上傳檔案 ( 1 / 1 )</p>
+                <div className='file-upload-drop-state w-10/12 flex items-center'>
+                  <img className='h-full w-auto' src={smallImg}></img> <a>{smallImgName}</a>
+                </div>
+              </div>}
             </div>
 
+          </div>
+          <div className="flex flex-col   pl-5 w-full px-10 mt-5 ">
+            <a className="blog-class-text">模板檔案 <a className='functional-Error-3-text'>*</a></a>
+            <p className='file-upload-drop-text pt-3'>檔案限制：zip 檔案</p>
+            <div className='flex'>
+              <button type="button" onClick={() => inputFile.current.click()} className='Template-Fileupload mt-3'>上傳模板檔案</button>
+              <input id="file" onChange={fileUpload} ref={inputFile} type="file" style={{ display: "none" }} accept="aplication/zip" /><a className='file-upload-drop-text pt-6 ml-4'>({fileZip}/1)</a>
+            </div>
           </div>
         </div>
       </div >

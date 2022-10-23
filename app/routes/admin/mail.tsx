@@ -85,7 +85,6 @@ export default function Index() {
 
     OpenAPI.HEADERS = { "Authorization": mailRequest?.key?.data?.token };
     const apiClient = new ApiClient(OpenAPI);
-    alert(e)
     const mailChange = await apiClient.api.listContact('', '', e, '', '', 1, 99, 'asc');
     let newblog = mailChange?.data?.records;
     setMail(newblog)

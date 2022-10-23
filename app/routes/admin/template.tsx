@@ -123,10 +123,7 @@ export default function Index() {
               })}
             </div>
             <div className="flex-grow"></div>
-
           </div>
-
-
         </div>
         <div className="flex flex-col mt-10">
           {/**<div
@@ -138,7 +135,7 @@ export default function Index() {
               <p className='web-add-text'>建立文章
               </p></Link>
                   </div>**/}
-          <div className="flex flex-col items-center w-full pl-5 px-10">
+          <div className="flex flex-col items-center w-full pl-5 px-10 pb-5">
 
             <div className='DataTable-title w-full pt-5 pb-5 pl-5  flex' >
               <div className='pt-2'>
