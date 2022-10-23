@@ -1,13 +1,13 @@
-import { MetaFunction, useNavigate, Link, Form, useLoaderData } from 'remix';
-import { SetStateAction, useState, Component, useRef } from 'react';
+import { MetaFunction, useLoaderData } from 'remix';
+import { useState} from 'react';
 import Nav from '~/components/Nav';
 import { Editor } from './components/react-draft-wysiwyg.client';
 import { EditorState, convertToRaw, ContentState, } from 'draft-js';
 import { ClientOnly } from "remix-utils";
 import styles from "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { ActionFunction, LoaderFunction, json } from 'remix';
+import { LoaderFunction, json } from 'remix';
 import authenticator from "~/services/auth.server";
-import { ApiClient, ArticleRequest, OpenAPI, PortfolioRequest } from 'app/ApiClient';
+import { ApiClient,  OpenAPI, PortfolioRequest } from 'app/ApiClient';
 import { FileUploader } from "react-drag-drop-files";
 import draftToHtml from "draftjs-to-html";
 import { OfficalAPI } from 'app/officalAPI';

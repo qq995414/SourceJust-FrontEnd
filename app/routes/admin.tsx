@@ -13,15 +13,6 @@ export const action: ActionFunction = async ({ request }) => {
     failureRedirect: "/admin/login",
   });
 
-  const resp = await authenticator.authenticate("updataUser", request, {
-    successRedirect: "/admin/",
-    failureRedirect: "/admin/",
-    throwOnError: true,
-    context: user,
-
-  });
-  console.log('resp:' + resp);
-  return resp;
 };
 export let loader: LoaderFunction = async ({ request }) => {
 

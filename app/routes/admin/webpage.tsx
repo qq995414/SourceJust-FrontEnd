@@ -1,6 +1,3 @@
-
-import Button from '~/components/common/Button';
-import Select from '~/components/Select';
 import { MetaFunction, useNavigate, Link, useLoaderData } from 'remix';
 import { useState } from 'react';
 import cx from 'classnames';
@@ -364,7 +361,7 @@ h-12 rounded-lg ml-3  font-semibold "
                   if (i == true) {
                     return <div className='flex  table-list-checked table-list w-full'>
                       <div className={select === true ? 'flex  table-list-checked table-list w-full pt-2' : 'table-list flex w-full pt-2'}>
-                        <div className='w-1/12 pl-2 pr-2 pt-3 text-center pl-2 pr-2'>
+                        <div className='w-1/12 pl-2 pr-2 pt-3 text-center '>
                           <input name={id} type="checkbox" className={select === true ? 'table-checkbox Primary-Primary' : 'table-checkbox '} value={id} onChange={handleChange} checked="checked" />
                         </div>
                         <div className='w-2/12 pr-2 pt-3'>
@@ -425,7 +422,7 @@ h-12 rounded-lg ml-3  font-semibold "
                   } else {
                     return <div className='table-list flex w-full'>
                       <div className={select === true ? 'flex  table-list-checked table-list w-full pt-2' : 'table-list flex w-full pt-2'}>
-                        <div className='w-1/12 pl-2 pr-2 pt-3 text-center pl-2 pr-2'> <input name={id} type="checkbox" className={select === true ? 'table-checkbox Primary-Primary' : 'table-checkbox '} value={id} onChange={handleChange} />
+                        <div className='w-1/12 pl-2 pr-2 pt-3 text-center '> <input name={id} type="checkbox" className={select === true ? 'table-checkbox Primary-Primary' : 'table-checkbox '} value={id} onChange={handleChange} />
                         </div>
                         <div className='w-2/12 pr-2 pt-3'>
                           {createTime}

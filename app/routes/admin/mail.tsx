@@ -1,11 +1,8 @@
 
-import Button from '~/components/common/Button';
-import Select from '~/components/Select';
-import { MetaFunction, useNavigate, Link, Form, json, useLoaderData } from 'remix';
+import { MetaFunction,  Link, useLoaderData } from 'remix';
 import { useState } from 'react';
 import cx from 'classnames';
 import Nav from '~/components/Nav';
-import { className } from '~/mocks/mail';
 import { LoaderFunction } from 'remix';
 import { ApiClient, OpenAPI } from 'app/ApiClient';
 import authenticator from "~/services/auth.server";
@@ -318,7 +315,7 @@ h-12 rounded-lg ml-3  font-semibold "
                   if (i == true) {
                     return <div className='flex  table-list-checked table-list w-full' style={{minHeight:"80px"}}>
                       <div className={select === true ? 'flex  table-list-checked table-list w-full pt-2' : 'table-list flex w-full pt-2'} >
-                        <div className='w-1/12 pl-2 pr-2 pt-3 text-center pl-2 pr-2'>
+                        <div className='w-1/12 pl-2 pr-2 pt-3 text-center'>
                           <input name={id} type="checkbox" className={select === true ? 'table-checkbox Primary-Primary' : 'table-checkbox '} value={id} onChange={handleChange} checked="checked" />
                         </div>
                         <div className='w-2/12 pt-3'>
