@@ -90,6 +90,13 @@ export default function Index() {
     for (var i = 0; i <= TagsSplit.length; i++) {
       tagsArray.push(TagsSplit[i])
     }
+    var urlAry = url.split(':');
+    if (urlAry[0] != "http" && urlAry[0] != "https") {
+      setUrl("http://" + url)
+      var newUrl = "http://" + url
+    } else {
+      var newUrl = url
+    }
     OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
     let portfolioRequest: PortfolioRequest = {
@@ -101,7 +108,7 @@ export default function Index() {
       client: client,
       finishDate: date,
       mainImg: coverImg,
-      url: url,
+      url: newUrl,
       service: service,
       tech: tech,
       onlineDate: '',
@@ -180,21 +187,29 @@ export default function Index() {
     );
   }
   const preview = () => {
-    var previewUrl=OfficalAPI.BASE+"workpreview"
+    var urlAry = url.split(':');
+    if (urlAry[0] != "http" && urlAry[0] != "https") {
+      setUrl("http://" + url)
+      var newUrl = "http://" + url
+    } else {
+      var newUrl = url
+    }
+
+    var previewUrl = OfficalAPI.BASE + "workpreview"
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     var raw = JSON.stringify({
-      "coverImg":coverImg ,
+      "coverImg": coverImg,
       "smallImg": smallImg,
       "title": title,
       "content": context,
-      "metaKeyword":tags,
+      "metaKeyword": tags,
       "Date": "2021-09-04 19:33:50",
-      "client":client,
-      "url": url,
+      "client": client,
+      "url": newUrl,
       "service": service,
       "tech": tech
-    
+
     });
 
     var requestOptions = {
