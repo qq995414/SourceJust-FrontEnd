@@ -22,6 +22,7 @@ export namespace FileInfoResponse {
         PROD_TEST = 'PROD_TEST',
         BLOG = 'BLOG',
         PORTFOLIO = 'PORTFOLIO',
+        TEMPLATE = 'TEMPLATE',
     }
 
 

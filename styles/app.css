@@ -957,3 +957,13 @@ body {
     color: #E7142D;
     font-weight: 600;
 }
+.Negotiate-Fileupload {
+    width: 360px;
+    height: 32px;
+    font-size: 14px;
+    background: #FFFFFF;
+    border: 1px solid #D3D3D3;
+    border-radius: 4px;
+    color: #7C7C7C;
+    font-weight: 500;
+}
