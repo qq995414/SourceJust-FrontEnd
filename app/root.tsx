@@ -71,31 +71,34 @@ export default function App() {
         <meta name="theme-color" content="#983333" />
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com"  />
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet" />
         <Meta />
         <Links />
         <title>索爾斯科技</title>
       </head>
-      <body style={{backgroundColor:"#F7F8FA"}}>
+      <body style={{ backgroundColor: "#F7F8FA" }}>
         {isScreenTooSmall &&
-        <div
-          className="bg-white w-screen h-screen fixed top-0 z-50 flex flex-col items-center justify-center">
-          <div className="flex flex-col items-center">
-            <img className="w-12" src="/images/logo.svg" alt="" />
-            <div className="flex">
+          <div
+            className="bg-white w-screen h-screen fixed top-0 z-50 flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center">
+              <img className="w-12" src="/images/logo.svg" alt="" />
+              <div className="flex">
+                <p
+                  style={{ letterSpacing: '20px' }}
+                  className="h-6 mt-4">
+                  索爾斯科
+                </p>
+                <p className="h-6 mt-4">技</p>
+              </div>
               <p
-                style={{ letterSpacing: '20px' }}
-                className="h-6 mt-4">
-                索爾斯科
-              </p>
-              <p className="h-6 mt-4">技</p>
+                style={{ color: '#717274' }}
+                className="h-12 text-xs">Source Solution</p>
             </div>
-            <p
-              style={{ color: '#717274' }}
-              className="h-12 text-xs">Source Solution</p>
-          </div>
-          <p>本網站目前不支持手機或小螢幕設備</p>
-          <p>請改用電腦開啟，或調整瀏覽器視窗大小</p>
-        </div>}
+            <p>本網站目前不支持手機或小螢幕設備</p>
+            <p>請改用電腦開啟，或調整瀏覽器視窗大小</p>
+          </div>}
         <Outlet />
         <ScrollRestoration />
         <Scripts />

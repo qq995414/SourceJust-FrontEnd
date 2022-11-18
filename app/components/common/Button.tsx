@@ -2,7 +2,7 @@ import cx from 'classnames';
 import { PropsWithChildren } from 'react';
 
 interface Props {
-  type?: 'circle' | 'square' | 'deactivated' | 'cancel';
+  type?: 'circle' | 'square' | 'deactivated' | 'cancel' | 'login';
   color?: string;
   className?: string;
   isLoading?: boolean;
@@ -36,6 +36,9 @@ export default function (props: PropsWithChildren<Props>) {
       break;
     case 'cancel':
       style = 'rounded-full text-gray-700 border-2 border-gary-200 bg-white';
+      break;
+    case 'login':
+      style = 'rounded-lg w-full primary-3-Primary-bk text-white';
       break;
     default:
       style = 'bg-primary-red rounded-full text-white';

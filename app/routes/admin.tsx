@@ -27,9 +27,9 @@ export let loader: LoaderFunction = async ({ request }) => {
 export default function Index() {
   const data = useLoaderData();
   console.log(data.data?.profile?.name);
-  const allName=data.data?.profile?.name
-  const fristName=allName.substring(0,1)
-  const lastName=allName.substring(1,allName.length)
+  const allName = data.data?.profile?.name
+  const fristName = allName.substring(0, 1)
+  const lastName = allName.substring(1, allName.length)
   return (
     <>
       <div className='fixed navName'>
@@ -96,6 +96,16 @@ export default function Index() {
               link: '/admin/template',
               targettext: "模板管理",
               match: /^\/admin\/template/,
+            }, {
+              activeIconUrl: '/icons/navi.svg',
+              inactiveIconUrl: '/icons/navi-gray.svg',
+              activeIconColor: '#E7142D',
+              inactiveIconColor: '#BBBBBB',
+              activeBgColor: '#FFF1F3',
+              inactiveBgColor: '#FFFFFF',
+              link: '/admin/news',
+              targettext: "最新消息",
+              match: /^\/admin\/news/,
             }
           ]} />
 

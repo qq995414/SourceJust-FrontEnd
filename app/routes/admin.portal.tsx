@@ -90,10 +90,10 @@ export default function Index() {
         <div className="w-full flex flex-col justify-center h-64 items-center portal-link px-10">
           <img className="mb-5" src={'/icons/portal-company.svg'} alt="" />
           <p
-            style={{ fontWeight: 800 }}
+            style={{ fontWeight: 500 }}
             className="text-center tracking-widest text-2xl ">專案系統</p>
           <p
-            style={{ fontWeight: 800 }}
+            style={{ fontWeight: 400 }}
             className="text-center tracking-widest pt-4 portal-context ">客戶專案、進度與資料查詢</p>
         </div>
       </a>
@@ -101,10 +101,10 @@ export default function Index() {
         <div className="w-full flex flex-col justify-center h-64 items-center portal-link  px-10">
           <img className="mb-5" src={'/icons/portal-company.svg'} alt="" />
           <p
-            style={{ fontWeight: 800 }}
+            style={{ fontWeight: 500 }}
             className="text-center tracking-widest text-2xl ">公司系統</p>
           <p
-            style={{ fontWeight: 800 }}
+            style={{ fontWeight: 400 }}
             className="text-center tracking-widest pt-4 portal-context ">公司內部系統管理、薪資、請假單</p>
 
         </div>
@@ -113,10 +113,10 @@ export default function Index() {
         <div className="w-full flex flex-col justify-center h-64 items-center portal-link  px-10">
           <img className="mb-5" src={'/icons/portal-project.svg'} alt="" />
           <p
-            style={{ fontWeight: 800 }}
+            style={{ fontWeight: 500 }}
             className="text-center tracking-widest text-2xl ">檔案系統</p>
           <p
-            style={{ fontWeight: 800 }}
+            style={{ fontWeight: 400 }}
             className="text-center tracking-widest pt-4 portal-context ">系統詳細描述</p>
         </div>
       </a>
@@ -126,10 +126,10 @@ export default function Index() {
         <div className="w-full flex flex-col justify-center h-64 items-center portal-link  px-10">
           <img className="mb-5" src={'/icons/portal-business.svg'} alt="" />
           <p
-            style={{ fontWeight: 800 }}
+            style={{ fontWeight: 500 }}
             className="text-center tracking-widest text-2xl ">業務系統</p>
           <p
-            style={{ fontWeight: 800 }}
+            style={{ fontWeight: 400 }}
             className="text-center tracking-widest pt-4 portal-context ">查看業務業績、排行等</p>
         </div>
       </a>
@@ -137,10 +137,10 @@ export default function Index() {
         <div className="w-full flex flex-col justify-center h-64 items-center portal-link  px-10">
           <img className="mb-5" src={'/icons/portal-web.svg'} alt="" />
           <p
-            style={{ fontWeight: 800 }}
+            style={{ fontWeight: 500 }}
             className="text-center tracking-widest text-2xl ">網頁系統</p>
           <p
-            style={{ fontWeight: 800 }}
+            style={{ fontWeight: 400 }}
             className="text-center tracking-widest pt-4 portal-context ">部落格、作品集、Ｑ&A</p>
         </div>
       </a>
@@ -148,10 +148,10 @@ export default function Index() {
         <div className="w-full flex flex-col justify-center h-64 items-center portal-link  px-10">
           <img className="mb-5" src={'/icons/portal-manufacturer.svg'} alt="" />
           <p
-            style={{ fontWeight: 800 }}
+            style={{ fontWeight: 500 }}
             className="text-center tracking-widest text-2xl ">廠商系統</p>
           <p
-            style={{ fontWeight: 800 }}
+            style={{ fontWeight: 400 }}
             className="text-center tracking-widest pt-4 portal-context ">合作人員、客戶相關資料</p>
         </div>
       </a>

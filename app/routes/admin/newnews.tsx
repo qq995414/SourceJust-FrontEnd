@@ -57,10 +57,7 @@ export default function Index() {
     setIsDisable(event.target.value);
 
   };
-  const [classId, setClassId] = useState(0);
-  const classIdchange = event => {
-    setClassId(event.target.value);
-  };
+
 
 
   const blogapi = useLoaderData();
@@ -78,7 +75,7 @@ export default function Index() {
     OpenAPI.HEADERS = { "Authorization": blogapi?.key?.data.token };
     const apiClient = new ApiClient(OpenAPI);
     let articleRequest: ArticleRequest = {
-      channelId: classId,//
+      channelId: "13",//
       coverImg: coverImg,
       caseImg: '',
       smallImg: smallImg,
@@ -94,7 +91,7 @@ export default function Index() {
     console.log(articleRequest);
 
     const pages = await apiClient.api.createArticle(articleRequest);
-    window.location.href = "/admin/webpage";
+    window.location.href = "/admin/news";
     return json(pages);
   }
   const fileTypes = ["JPG", "PNG", "GIF"];
@@ -199,7 +196,7 @@ export default function Index() {
  */
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-      
+
     var raw = JSON.stringify({
       "coverImg": coverImg,
       "smallImg": smallImg,
@@ -210,7 +207,7 @@ export default function Index() {
       "metaKeyword": key,
       "Date": "2021-09-04 19:33:50"
     });
-    
+
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
@@ -228,7 +225,7 @@ export default function Index() {
   }
   return (
     <div className="grid w-full" >
-      <Nav titleGray='部落格管理' title="" titleBlack="編輯資料"></Nav>
+      <Nav titleGray='最新消息' title="" titleBlack="新增資料"></Nav>
       <div className="h-screen w-full  login-background  pt-4 w-full"  >
 
         <div className="flex items-center mt-10 webpage-title pt-5  w-full pb-3" style={{ zIndex: "1" }} >
@@ -238,7 +235,7 @@ export default function Index() {
               className="border-2   w-20 text-white
 h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary blog-clear-btn"
               onClick={() => {
-                window.location.href = "/admin/webpage";
+                window.location.href = "/admin/news";
               }}>
               取消</button>
             <button
@@ -256,18 +253,6 @@ h-8 rounded-lg ml-3  font-semibold bg-Primary-3-Primary"
 
         </div>
         <div className="flex flex-col mt-8">
-          <div className="flex flex-col   pl-5 w-full px-10 ">
-            <a className="blog-class-text">類別 <a className='functional-Error-3-text'>*</a></a>
-            <select value={classId} onChange={classIdchange} className={classId == 0 ? 'neutral-colors-4-grey-text mt-1 blog-class-input' : ' mt-1 blog-class-input-black'} name='classId'  >
-              <option style={{ display: "none" }} >請選擇類別</option>
-              {blogClassSelect.map((blogClassSelect: { name: any; id: any; }) => {
-                const {
-                  name, id
-                } = blogClassSelect;
-                return <option className='text-black' value={id}>{name}</option>
-              })}
-            </select>
-          </div>
           <div className="flex flex-col   pl-5 w-full px-10 mt-5 ">
             <a className="blog-class-text">標題 <a className='functional-Error-3-text'>*</a></a>
             <input value={title} onChange={titlechange} name='title' className="blog-class-input mt-1  pl-3" placeholder="請輸入標題"></input>

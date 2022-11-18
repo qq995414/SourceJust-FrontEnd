@@ -71,14 +71,14 @@ export default function Index() {
       <div className="pt-36 flex flex-row w-full h-full  justify-center align-center">
         <div className="p-4 flex flex-col justify-center h-128 items-center login-box">
           <p
-            style={{ fontWeight: 800 }}
-            className="text-center tracking-widest text-2xl ">登入</p>
+            style={{ fontWeight: 500 }}
+            className="text-center tracking-widest font-24">登入</p>
           <div
             className=' pt-5 w-96'
           >
             <Form className="w-full" method="post" name='form'>
-              <p className='pt-1 Neutral-Colors-DarkGrey text-sm' style={{ fontWeight: 800 }}>帳號</p>
-              <p className='text-xs' style={{ color: '#7c7c7c' }}>請出入 ID 或 Email</p>
+              <p className='pt-1 Neutral-Colors-DarkGrey font-14' style={{ fontWeight: 500 }}>帳號</p>
+              <p className='font-12 pt-2' style={{ color: '#7c7c7c' }}>請出入 ID 或 Email</p>
               <TextInput
                 className="mt-2 mx-auto w-full neutral-colors-5-LightGrey-border"
                 type="sign"
@@ -87,10 +87,10 @@ export default function Index() {
               />
               <div
                 className='pt-5 w-screen'>
-                <a className=' Neutral-Colors-DarkGrey text-sm' style={{ fontWeight: 800 }}>密碼</a>
+                <a className=' Neutral-Colors-DarkGrey font-14' style={{ fontWeight: 500 }}>密碼</a>
                 <Link
-                  style={{ fontWeight: 800 }}
-                  className="text-sm ml-96 Primary-Primary"
+                  style={{ fontWeight: 500 }}
+                  className="font-14 ml-96 Primary-3-Primary-text"
                   to="/designer/forgot">忘記密碼？</Link>
               </div>
               <div className="pass-wrapper w-screen">
